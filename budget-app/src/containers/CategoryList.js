@@ -1,33 +1,29 @@
 import React,{Component} from 'react'
-import PropTypes from 'prop-types'
 import Category from '../components/Category'
 import {connect} from 'react-redux'
-import {deleteCategory} from '../actions/category'
+import {deleteCategory,getCategories} from '../actions/category'
 
 class CategoryList extends React.Component {
 
+    componentDidMount(){
+        this.props.getCategories();
+    }
     render() {
         return (
             <ul>
                 {this.props.categories.map(category =>
                     <Category
-                        key={category.id}
-                        {...category}
-                        onClick={() => { this.props.onCategroyClick(category.id) }}
+                        key ={category.id}
+                        category ={category}
+                        onClick={()=>this.props.onCategoryClick(category.id)}
+                        //onClick={()=>this.props.onCategoryClick(category.id)}
                     />)
                 }
             </ul>)
     }
 }
 
-CategoryList.PropTypes={
-    categories:PropTypes.arrayOf(PropTypes.shape({
-        id:PropTypes.number.isRequired,
-        deleted:PropTypes.bool.isRequired,
-        text:PropTypes.string.isRequired
-    }).isRequired).isRequired,
-    onCategroyClick:PropTypes.func.isRequired
-}
+
 
 const mapStateToProps = state =>{
     return {
@@ -37,8 +33,11 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispatch=>{
     return {
-        onCategroyClick: id=>{
+        onCategoryClick: id=>{
             dispatch(deleteCategory(id))
+        },
+        getCategories:()=>{
+            dispatch(getCategories())
         }
     }
 }

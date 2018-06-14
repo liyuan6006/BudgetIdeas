@@ -1,13 +1,35 @@
-import {ADD_CATEGORY,DELETE_CATEGORY} from './categoryActionType'
+import { GET_CATEGORIES, DELETE_CATEGORY } from './categoryActionType'
+import { categoriesRef } from '../firebase/firebaseApi'
 
-let nextCategoryId=0;
-  export const addCategory = (text)=>({
-    type: ADD_CATEGORY,
-    id: nextCategoryId++,
-    text
-  });
+export const addCategory = (newCategory) => {
+  return async (dispatch) => {
+    categoriesRef.push(newCategory)
+  }
+}
 
-  export const deleteCategory = (id)=>({
-      type:DELETE_CATEGORY,
-      id
-  });
+export const deleteCategory = (id) => {
+  return async (dispatch) => {
+    categoriesRef.child(id).remove()
+  }
+}
+
+export const getCategories = () => {
+  return async (dispatch) => {
+    try {
+      categoriesRef.on('value', function (snapshot) {
+        var categories = [];
+        snapshot.forEach(childSnapshot => {
+          var childData = childSnapshot.val();
+          categories.push({ id: childSnapshot.key, name: childData.name, budget: childData.budget })
+        })
+        dispatch({
+          type: GET_CATEGORIES,
+          categories: categories
+        })
+      });
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+};

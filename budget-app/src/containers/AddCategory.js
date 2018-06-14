@@ -1,32 +1,35 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {addCategory} from '../actions/category'
+import { connect } from 'react-redux'
+import { addCategory } from '../actions/category'
 
-let AddCategroy =({dispatch})=>{
-    let input
+let AddCategroy = ({ dispatch }) => {
+    let textInput = React.createRef();
     return (
         <div>
-            <form onSubmit={e=>{
+            <form onSubmit={e => {
                 e.preventDefault()
-                if(!input.value.trim()){
+                if (!textInput.current.value.trim()) {
                     return
                 }
-                dispatch(addCategory(input.value))
-                input.value=''
+                var newCategory = {
+                    name: textInput.current.value,
+                    budget: '100'
+
+                }
+                dispatch(addCategory(newCategory))
+                textInput.current.value = ''
             }}
             >
-            <input
-            ref={node=>{
-                input =node
-            }}
-            />    
-            <button type="submit">
-            Add category
+                <input
+                    ref={textInput}
+                />
+                <button type="submit">
+                    Add category
             </button>
             </form>
         </div>
     )
-    
+
 }
 
 AddCategroy = connect()(AddCategroy)

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import categories from './category'
 
-const budgetApp = combineReducers({
+const rootReducer = combineReducers({
     categories
 })
 
-export default budgetApp
+export default rootReducer

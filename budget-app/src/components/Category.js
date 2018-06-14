@@ -1,19 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Category = ({ onClick, deleted, text }) => (
-    <li
-        onClick={onClick}
-        style={{ textDecoration: deleted ? 'line-through' : 'none' }}
-    >
-        {text}
+const Category = ({ category,onClick}) => (
+    <li>
+        Name:{category.name}    |   Budget:{category.budget}     
+        <a href="" onClick={onClick}>--X</a>
     </li>
 )
 
-Category.propTypes = {
-    onClick: PropTypes.func.isRequired,
-    deleted: PropTypes.bool.isRequired,
-    text: PropTypes.string.isRequired
+Category.prototype = {
+    onClick: PropTypes.func.isRequired
   }
 
   export default Category;

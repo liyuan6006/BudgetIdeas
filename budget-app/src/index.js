@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import {createStore} from 'redux';
-import budgetApp from './reducers/index';
-import {Provider} from 'react-redux'
-const store = createStore(budgetApp);
+import {createStore,applyMiddleware} from 'redux';
+import rootReducer from './reducers/index';
+import {Provider} from 'react-redux';
+import ReduxThunk from 'redux-thunk'
+const store = createStore(rootReducer,applyMiddleware(ReduxThunk));
 // // Log the initial state
 // console.log(store.getState());
 // // Every time the state changes, log it
