@@ -3,25 +3,29 @@ import { connect } from 'react-redux'
 import { addCategory } from '../actions/category'
 
 let AddCategroy = ({ dispatch }) => {
-    let textInput = React.createRef();
+    let textCategoryName = React.createRef();
+    let textBudget = React.createRef();
     return (
         <div>
             <form onSubmit={e => {
                 e.preventDefault()
-                if (!textInput.current.value.trim()) {
+                if (!textCategoryName.current.value.trim()) {
                     return
                 }
                 var newCategory = {
-                    name: textInput.current.value,
-                    budget: '100'
-
+                    name: textCategoryName.current.value,
+                    budget: textBudget.current.value
                 }
                 dispatch(addCategory(newCategory))
-                textInput.current.value = ''
+                textCategoryName.current.value = ''
+                textBudget.current.value = ''
             }}
             >
                 <input
-                    ref={textInput}
+                    ref={textCategoryName}
+                />
+                 <input
+                    ref={textBudget}
                 />
                 <button type="submit">
                     Add category

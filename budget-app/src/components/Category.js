@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 const Category = ({ category,onClick}) => (
     <li>
-        Name:{category.name}    |   Budget:{category.budget}     
-        <a href="" onClick={onClick}>--X</a>
+        Name:{category.name}    |   Budget:{category.budget} 
+        <button onClick={onClick}>X</button>
     </li>
 )
 
