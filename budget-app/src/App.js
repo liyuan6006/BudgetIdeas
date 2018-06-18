@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import AddCategory from './containers/AddCategory'
 import CategoryList from './containers/CategoryList'
+import Home from './components/Home'
 // class App extends Component {
 //   render() {
 //     return (
@@ -27,6 +28,7 @@ const App =()=>(
           <h1 className="App-title">Welcome to BudgetIdeas</h1>
         </header>
       <br/>
+      <Home/>
         <AddCategory/>
         <CategoryList/>
       </div>

@@ -1,7 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addCategory } from '../actions/category'
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
+const styles = theme => ({
+    button: {
+      margin: theme.spacing.unit,
+    },
+  });
+
+  
 let AddCategroy = ({ dispatch }) => {
     let textCategoryName = React.createRef();
     let textBudget = React.createRef();
@@ -27,9 +36,9 @@ let AddCategroy = ({ dispatch }) => {
                  <input
                     ref={textBudget}
                 />
-                <button type="submit">
-                    Add category
-            </button>
+                <Button type="submit" variant="fab" color="primary" aria-label="add"s>
+                <AddIcon />
+                </Button>
             </form>
         </div>
     )
