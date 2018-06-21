@@ -1,4 +1,4 @@
-import { GET_CATEGORIES, DELETE_CATEGORY } from './categoryActionType'
+import { GET_CATEGORIES } from './categoryActionType'
 import { categoriesRef } from '../firebase/firebaseApi'
 
 export const addCategory = (newCategory) => {

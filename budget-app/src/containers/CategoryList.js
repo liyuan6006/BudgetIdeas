@@ -1,8 +1,8 @@
-import React,{Component} from 'react'
+import React from 'react'
 import Category from '../components/Category'
 import {connect} from 'react-redux'
 import {deleteCategory,getCategories} from '../actions/category'
-
+import AddCategory from './AddCategory'
 class CategoryList extends React.Component {
 
     componentDidMount(){
@@ -10,7 +10,9 @@ class CategoryList extends React.Component {
     }
     render() {
         return (
+            
             <ul>
+                <AddCategory/>
                 {this.props.categories.map(category =>
                     <Category
                         key ={category.id}

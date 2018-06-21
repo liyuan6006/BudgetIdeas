@@ -1,8 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import AddCategory from './containers/AddCategory'
-import CategoryList from './containers/CategoryList'
 import Home from './components/Home'
 // class App extends Component {
 //   render() {
@@ -29,8 +27,6 @@ const App =()=>(
         </header>
       <br/>
       <Home/>
-        <AddCategory/>
-        <CategoryList/>
       </div>
 )
 export default App;

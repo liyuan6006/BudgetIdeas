@@ -13,6 +13,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { mailFolderListItems, otherMailFolderListItems } from './HomeMenueItems';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import CategoryList from '../containers/CategoryList';
+import AddCategory from '../containers/AddCategory';
 
 const drawerWidth = 240;
 
@@ -134,8 +137,23 @@ class Home extends React.Component {
           <Divider />
           <List>{otherMailFolderListItems}</List>
         </Drawer>
+       
         <main className={classes.content}>
+        
+            
           <div className={classes.toolbar} />
+
+          <BrowserRouter>
+          <Switch>
+            <Route path='/' exact component={CategoryList}/>
+            <Route path='/categories' component={CategoryList}/>
+            <Route path='/addcategory' component={AddCategory}/>
+            
+          </Switch>
+          </BrowserRouter>
+          
+ 
+
           <Typography noWrap>{'You think you are good at budget? You should try this.'}</Typography>
         </main>
       </div>
