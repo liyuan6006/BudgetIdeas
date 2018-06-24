@@ -36,7 +36,7 @@ let AddCategroy = ({ dispatch }) => {
                  <input
                     ref={textBudget}
                 />
-                <Button type="submit" variant="fab" color="primary" aria-label="add"s>
+                <Button type="submit" variant="fab" color="primary" aria-label="add">
                 <AddIcon />
                 </Button>
             </form>
