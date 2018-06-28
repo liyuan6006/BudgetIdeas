@@ -6,8 +6,8 @@ const Category = ({ category,onClick}) => (
     <li>
         Name:{category.name}    |   Budget:{category.budget} 
       
-        <Button variant="fab"  aria-label="delete" >
-        <DeleteIcon   onClick={onClick}/>
+        <Button variant="fab"  aria-label="delete" onClick={onClick} >
+        <DeleteIcon   />
       </Button>
     </li>
 )
