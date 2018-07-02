@@ -5,10 +5,10 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import Save from '@material-ui/icons/Save';
+import OpenCategoryDialog from '../components/OpenCategoryDialog'
 
 
-
-class AddCategroy extends React.Component {
+class AddBudget extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -54,6 +54,9 @@ class AddCategroy extends React.Component {
                     onChange={this.handleChange('budget')}
                 />
                 <br />
+                
+                <OpenCategoryDialog/>
+                <br/>
                 <Button variant="contained" size="small" onClick={() => this.handleSave()} >
                     <Save />
                     Save
@@ -71,5 +74,5 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-AddCategroy = connect(null, mapDispatchToProps)(AddCategroy)
-export default AddCategroy
+AddBudget = connect(null, mapDispatchToProps)(AddBudget)
+export default AddBudget

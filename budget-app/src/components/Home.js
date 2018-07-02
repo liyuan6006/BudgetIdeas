@@ -15,16 +15,16 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { mailFolderListItems, otherMailFolderListItems } from './HomeMenueItems';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CategoryList from '../containers/CategoryList';
-import AddCategory from '../containers/AddCategory';
+import AddBudget from '../containers/AddBudget';
 
 const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 430,
+    //height: 430,
     zIndex: 1,
-    overflow: 'hidden',
+   // overflow: 'hidden',
     position: 'relative',
     display: 'flex',
   },
@@ -147,7 +147,7 @@ class Home extends React.Component {
           <Switch>
             <Route path='/' exact component={CategoryList}/>
             <Route path='/categories' component={CategoryList}/>
-            <Route path='/addcategory' component={AddCategory}/>
+            <Route path='/addBudget' component={AddBudget}/>
             
           </Switch>
           </BrowserRouter>

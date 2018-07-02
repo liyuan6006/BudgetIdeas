@@ -23,11 +23,11 @@ export const mailFolderListItems = (
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-      <a href='/transaction'>
+      <a href='/addBudget'>
         <AttachMoney />
         </a>
       </ListItemIcon>
-      <ListItemText primary="Transaction" />
+      <ListItemText primary="Budget" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>

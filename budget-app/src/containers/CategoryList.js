@@ -2,7 +2,7 @@ import React from 'react'
 import Category from '../components/Category'
 import {connect} from 'react-redux'
 import {deleteCategory,getCategories} from '../actions/category'
-import AddCategory from './AddCategory'
+import AddBudget from './AddBudget'
 class CategoryList extends React.Component {
 
     componentDidMount(){
@@ -12,7 +12,7 @@ class CategoryList extends React.Component {
         return (
             
             <ul>
-                <AddCategory/>
+                <AddBudget/>
                 {this.props.categories.map(category =>
                     <Category
                         key ={category.id}
