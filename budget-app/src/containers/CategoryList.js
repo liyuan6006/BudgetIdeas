@@ -10,8 +10,7 @@ class CategoryList extends React.Component {
     }
     render() {
         return (
-            
-            <ul>
+            <div>
                 <AddBudget/>
                 {this.props.categories.map(category =>
                     <Category
@@ -21,11 +20,9 @@ class CategoryList extends React.Component {
                         //onClick={()=>this.props.onCategoryClick(category.id)}
                     />)
                 }
-            </ul>)
+            </div>)
     }
 }
-
-
 
 const mapStateToProps = state =>{
     return {

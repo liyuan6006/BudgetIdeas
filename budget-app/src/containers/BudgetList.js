@@ -2,23 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+
 import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
+
+
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import {connect} from 'react-redux';
-import {getCategories} from '../actions/category'
-
-
+import { connect } from 'react-redux';
+import { getBudgets, deleteBudget } from '../actions/budget';
+import Budget from '../components/Budget';
+import BudgetRightClickMunu from '../components/BudgetRightClickMunu'
 const styles = theme => ({
     root: {
         width: '100%',
-        maxWidth: 360,
+        //maxWidth: 360,
         backgroundColor: theme.palette.background.paper,
     },
 });
@@ -26,19 +23,22 @@ const styles = theme => ({
 
 
 class BudgetList extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    componentDidMount(){
+
+    componentDidMount() {
         this.props.getBudgets();
     }
-    
-    handleOnClick = () => {
+
+    handleAdd = () => {
         this.props.history.push('/addbudget')
     }
 
+    handleDelete = (id) => {
+        this.props.deleteBudget(id)
+    };
+    handleEdit = () => {
+        //  this.setState({ anchorEl: null });
+    };
 
-    
     render() {
         const { classes } = this.props;
         return (
@@ -46,14 +46,9 @@ class BudgetList extends React.Component {
                 <List component="nav">
                     {
                         this.props.budgets.map(budget => (
-                            <div>
-                                <ListItem button>
-                                    <ListItemIcon>
-                                        <InboxIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={`Name is ${budget.name} Amount is ${budget.budget}`} />
-                                </ListItem>
-                                <MoreVertIcon />
+                            <div key={`item-${budget.id}}`}>
+                                <Budget budget={budget} />
+                               <BudgetRightClickMunu onDelete={this.handleDelete} id={budget.id}/>
                                 <Divider />
                             </div>
                         )
@@ -61,7 +56,7 @@ class BudgetList extends React.Component {
                     }
                 </List>
                 <Button variant="fab" color="primary" aria-label="add" className={classes.button}>
-                    <AddIcon onClick={() => this.handleOnClick()}/>
+                    <AddIcon onClick={() => this.handleAdd()} />
                 </Button>
             </div>
         )
@@ -69,16 +64,19 @@ class BudgetList extends React.Component {
     };
 }
 
-const mapStateToProps = state =>{
+const mapStateToProps = state => {
     return {
-        budgets: state.categories
+        budgets: state.budgets
     }
 }
-const mapDispatchToProps = dispatch=>{
+const mapDispatchToProps = dispatch => {
     return {
-        getBudgets:()=>{
-            dispatch(getCategories())
-        }
+        getBudgets: () => {
+            dispatch(getBudgets())
+        },
+        deleteBudget: id => {
+            dispatch(deleteBudget(id))
+        },
     }
 }
 
@@ -86,4 +84,4 @@ BudgetList.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(connect(mapStateToProps,mapDispatchToProps)(BudgetList));
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(BudgetList));

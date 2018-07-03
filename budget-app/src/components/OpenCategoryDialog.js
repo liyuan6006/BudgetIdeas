@@ -1,12 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -57,7 +52,7 @@ class OpenCategoryDialog extends React.Component {
         const { classes } = this.props;
         return (
             <form className={classes.root} autoComplete="off">
-                <div>
+     
                    
                     <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="age-simple">Category</InputLabel>
@@ -89,7 +84,7 @@ class OpenCategoryDialog extends React.Component {
 
                         </Select>
                     </FormControl>
-                </div>
+         
             </form>
         );
     }

@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addCategory } from '../actions/category'
+import { addBudget } from '../actions/budget'
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import Save from '@material-ui/icons/Save';
 import OpenCategoryDialog from '../components/OpenCategoryDialog'
@@ -23,11 +22,11 @@ class AddBudget extends React.Component {
         });
     };
     handleSave = () => {
-        var newCategory = {
+        var newBudget = {
             name: this.state.name,
             budget: this.state.budget
         }
-        this.props.addCategory(newCategory);
+        this.props.addBudget(newBudget);
         this.props.history.push('/budgets')
     };
 
@@ -69,8 +68,8 @@ class AddBudget extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addCategory: newCategory => {
-            dispatch(addCategory(newCategory))
+        addBudget: newBudget => {
+            dispatch(addBudget(newBudget))
         }
     }
 }
