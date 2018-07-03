@@ -16,6 +16,7 @@ import { mailFolderListItems, otherMailFolderListItems } from './HomeMenueItems'
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CategoryList from '../containers/CategoryList';
 import AddBudget from '../containers/AddBudget';
+import BudgetList from '../containers/BudgetList';
 
 const drawerWidth = 240;
 
@@ -148,6 +149,7 @@ class Home extends React.Component {
             <Route path='/' exact component={CategoryList}/>
             <Route path='/categories' component={CategoryList}/>
             <Route path='/addBudget' component={AddBudget}/>
+            <Route path='/budgets' component={BudgetList}/>
             
           </Switch>
           </BrowserRouter>

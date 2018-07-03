@@ -28,6 +28,7 @@ class AddBudget extends React.Component {
             budget: this.state.budget
         }
         this.props.addCategory(newCategory);
+        this.props.history.push('/budgets')
     };
 
     render() {

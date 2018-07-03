@@ -23,7 +23,7 @@ export const mailFolderListItems = (
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-      <a href='/addBudget'>
+      <a href='/budgets'>
         <AttachMoney />
         </a>
       </ListItemIcon>
