@@ -11,7 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
 import { getBudgets, deleteBudget } from '../actions/budget';
 import Budget from '../components/Budget';
-import BudgetRightClickMunu from '../components/BudgetRightClickMunu'
+import BudgetMoreMenu from '../components/BudgetMoreMenu'
 const styles = theme => ({
     root: {
         width: '100%',
@@ -48,7 +48,7 @@ class BudgetList extends React.Component {
                         this.props.budgets.map(budget => (
                             <div key={`item-${budget.id}}`}>
                                 <Budget budget={budget} />
-                               <BudgetRightClickMunu onDelete={this.handleDelete} id={budget.id}/>
+                               <BudgetMoreMenu onDelete={this.handleDelete} id={budget.id}/>
                                 <Divider />
                             </div>
                         )

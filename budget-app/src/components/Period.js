@@ -23,9 +23,9 @@ const styles = theme => ({
 });
 
 const names = [
-    'Food&Drink', 'Bills', 'Home', 'Entertainment'
+    'Month', 'Year', 'Week', 'Day'
 ];
-class OpenCategoryDialog extends React.Component {
+class Period extends React.Component {
 
     state = {
         open: false,
@@ -51,11 +51,11 @@ class OpenCategoryDialog extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <form className={classes.root} autoComplete="off">
+            <div className={classes.root} autoComplete="off">
      
                    
                     <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="age-simple">Category</InputLabel>
+                        <InputLabel htmlFor="age-simple">Period</InputLabel>
                         <Select
                             value={this.state.age}
                             onChange={this.handleChange}
@@ -69,25 +69,19 @@ class OpenCategoryDialog extends React.Component {
                             </MenuItem>
                             {names.map(name => (
                                 <MenuItem key={name} value={name}>
-                                    <Avatar className={classes.avatar}>
-                                        <PersonIcon />
-                                    </Avatar>
                                     <ListItemText primary={name} />
                                 </MenuItem>
                             ))}
                             <MenuItem value={10}>
-                                <Avatar>
-                                    <AddIcon />
-                                </Avatar>
-                                <ListItemText primary="add categorys" />
+                                <ListItemText primary="add period" />
                             </MenuItem>
 
                         </Select>
                     </FormControl>
          
-            </form>
+            </div>
         );
     }
 }
 
-export default withStyles(styles)(OpenCategoryDialog);
+export default withStyles(styles)(Period);
