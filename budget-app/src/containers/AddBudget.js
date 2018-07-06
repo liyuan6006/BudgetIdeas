@@ -22,11 +22,22 @@ const styles = theme => ({
 class AddBudget extends React.Component {
     constructor(props) {
         super(props);
+        var today = new Date();
+       
         this.state = {
             name: 'New Budget',
-            budget: 100
+            budget: 100,
+            startDate:  today.getFullYear()+"-" +today.getMonth()+"-"+today.getDay(),
+            category:'Car',
+            period:'month'
         };
     }
+
+    handleSelect = name=>value => {
+        this.setState({
+            [name]: value
+        });
+    };
 
     handleChange = name => event => {
         this.setState({
@@ -36,7 +47,10 @@ class AddBudget extends React.Component {
     handleSave = () => {
         var newBudget = {
             name: this.state.name,
-            budget: this.state.budget
+            budget: this.state.budget,
+            startDate: this.state.startDate,
+            period: this.state.period,
+            category:this.state.category
         }
         this.props.addBudget(newBudget);
         this.props.history.push('/budgets')
@@ -51,7 +65,6 @@ class AddBudget extends React.Component {
                     label="Name"
                     defaultValue="new Budget"
                     margin="normal"
-
                     onChange={this.handleChange('name')}
                 />
                 <br />
@@ -67,8 +80,8 @@ class AddBudget extends React.Component {
                     onChange={this.handleChange('budget')}
                 />
                 <br />
-                <CategoryDialog />
-                <Period />
+                <CategoryDialog onSelect={this.handleSelect('category')}/>
+                <Period onSelect={this.handleSelect('period')}/>
 
                 <TextField
                     id="date"
@@ -79,6 +92,7 @@ class AddBudget extends React.Component {
                     InputLabelProps={{
                         shrink: true,
                     }}
+                    onChange={this.handleChange('startDate')}
                 />
                 <br />
                 <Button variant="contained" size="small" onClick={() => this.handleSave()} >

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,7 +10,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
-import Typography from '@material-ui/core/Typography';
 import blue from '@material-ui/core/colors/blue';
 import TextField from '@material-ui/core/TextField';
 const emails = ['Food & Drink', 'Bills', 'Entertainment', 'Car', 'Utilities'];
@@ -86,7 +84,10 @@ class CategoryDialog extends React.Component {
 
   handleClose = value => {
     this.setState({ selectedValue: value, open: false });
+    this.props.onSelect(value)
   };
+
+
 
   render() {
     return (
@@ -94,14 +95,14 @@ class CategoryDialog extends React.Component {
            <TextField
                     id="category"
                     label="Categories"
-                    value={this.state.selectedValue}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
+                  
+                 
                     margin="normal"
-                    defaultValue=""
-                    onClick={this.handleClickOpen}
+                    value={this.state.selectedValue}
+                   onClick={this.handleClickOpen}
                 />
+
+               
         <SimpleDialogWrapped
           selectedValue={this.state.selectedValue}
           open={this.state.open}

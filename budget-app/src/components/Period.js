@@ -5,9 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import AddIcon from '@material-ui/icons/Add';
-import PersonIcon from '@material-ui/icons/Person';
+
 
 const styles = theme => ({
     root: {
@@ -28,25 +26,14 @@ const names = [
 class Period extends React.Component {
 
     state = {
-        open: false,
-        selectedValue: '',
-        age: '',
-        name: 'hai',
+        period: 'Month',
     };
 
     handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+        this.setState({ period: event.target.value });
+        this.props.onSelect(event.target.value);
     };
 
-    handleClickOpen = () => {
-        this.setState({
-            open: true,
-        });
-    };
-
-    handleClose = value => {
-        this.setState({ selectedValue: value, open: false });
-    };
 
     render() {
         const { classes } = this.props;
@@ -55,13 +42,13 @@ class Period extends React.Component {
      
                    
                     <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="age-simple">Period</InputLabel>
+                        <InputLabel htmlFor="period-simple">How often</InputLabel>
                         <Select
-                            value={this.state.age}
+                            value={this.state.period}
                             onChange={this.handleChange}
                             inputProps={{
-                                name: 'age',
-                                id: 'age-simple',
+                                name: 'period',
+                                id: 'period-simple',
                             }}
                         >
                             <MenuItem value="">
