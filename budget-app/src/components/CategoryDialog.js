@@ -96,7 +96,7 @@ class CategoryDialog extends React.Component {
                     id="category"
                     label="Categories"
                   
-                 
+                 defaultValue="Bills"
                     margin="normal"
                     value={this.state.selectedValue}
                    onClick={this.handleClickOpen}

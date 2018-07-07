@@ -28,7 +28,7 @@ class AddBudget extends React.Component {
             name: 'New Budget',
             budget: 100,
             startDate:  today.getFullYear()+"-" +today.getMonth()+"-"+today.getDay(),
-            category:'Car',
+            category:'Bills',
             period:'month'
         };
     }

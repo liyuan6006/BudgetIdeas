@@ -47,9 +47,8 @@ class BudgetList extends React.Component {
                     {
                         this.props.budgets.map(budget => (
                             <div key={`item-${budget.id}}`}>
-                                <Budget budget={budget} />
-                               <BudgetMoreMenu onDelete={this.handleDelete} id={budget.id}/>
-                                <Divider />
+                                <Budget budget={budget} onDelete={this.handleDelete}/>
+                              <Divider/>
                             </div>
                         )
                         )

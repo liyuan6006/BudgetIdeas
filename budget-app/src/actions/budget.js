@@ -1,4 +1,4 @@
-import {GET_BUDGETS} from './budgetActionType'
+import { GET_BUDGETS } from './budgetActionType'
 
 import { budgetsRef } from '../firebase/firebaseApi'
 
@@ -20,7 +20,13 @@ export const getBudgets = () => {
         var budgets = [];
         snapshot.forEach(childSnapshot => {
           var childData = childSnapshot.val();
-          budgets.push({ id: childSnapshot.key, name: childData.name, budget: childData.budget })
+          budgets.push({
+            id: childSnapshot.key,
+            name: childData.name,
+            budget: childData.budget,
+            category: childData.category,
+            period: childData.period
+          })
         })
         dispatch({
           type: GET_BUDGETS,

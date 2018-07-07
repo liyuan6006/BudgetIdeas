@@ -59,10 +59,7 @@ class Period extends React.Component {
                                     <ListItemText primary={name} />
                                 </MenuItem>
                             ))}
-                            <MenuItem value={10}>
-                                <ListItemText primary="add period" />
-                            </MenuItem>
-
+                            
                         </Select>
                     </FormControl>
          
