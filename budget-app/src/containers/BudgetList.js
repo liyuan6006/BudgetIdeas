@@ -11,7 +11,8 @@ import AddIcon from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
 import { getBudgets, deleteBudget } from '../actions/budget';
 import Budget from '../components/Budget';
-import BudgetMoreMenu from '../components/BudgetMoreMenu'
+import BudgetMoreMenu from '../components/BudgetMoreMenu';
+
 const styles = theme => ({
     root: {
         width: '100%',

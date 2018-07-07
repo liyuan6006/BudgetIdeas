@@ -7,6 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import BudgetMoreMenu from './BudgetMoreMenu';
+import { Line, Circle } from 'rc-progress';
+import Tooltip from '@material-ui/core/Tooltip';
 const styles = {
     card: {
         minWidth: 275,
@@ -40,15 +42,16 @@ class Budget extends React.Component {
             <div>
                 <Card className={classes.card}>
                     <CardContent>
+
                         <Typography variant="headline" component="h2">
                             {this.props.budget.name}
                         </Typography>
                         <Typography className={classes.title} color="textSecondary">
                             {this.props.budget.category}
                         </Typography>
-                        <Typography className={classes.title} color="textSecondary">
-                            $0 from {this.props.budget.budget}
-                        </Typography>
+                        <Tooltip id="tooltip-fab" title={"$20 from " + this.props.budget.budget} placement="top-start">
+                            <Line percent="20" strokeWidth="1" strokeColor="green" trailWidth="1" trailColor="#D9D9D9" strokeLinecap="square" />
+                        </Tooltip>
                     </CardContent>
                     <CardActions>
                         <BudgetMoreMenu onDelete={this.handleDelete} id={this.props.budget.id} />
