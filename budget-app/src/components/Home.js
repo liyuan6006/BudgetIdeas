@@ -27,7 +27,7 @@ const styles = theme => ({
     flexGrow: 1,
     //height: 430,
     zIndex: 1,
-   // overflow: 'hidden',
+    overflow: 'hidden',
     position: 'relative',
     display: 'flex',
   },
@@ -83,7 +83,8 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
+    padding: `0 ${theme.spacing.unit * 1}px`,
+
   },
 });
 
@@ -159,7 +160,7 @@ class Home extends React.Component {
           
  
 
-          <Typography noWrap>{'You think you are good at budget? You should try this.'}</Typography>
+          <Typography >{'You think you are good at budget? You should try this.'}</Typography>
         </main>
       </div>
     );

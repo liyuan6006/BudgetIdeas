@@ -50,7 +50,7 @@ class Budget extends React.Component {
                             {this.props.budget.category}
                         </Typography>
                         <Tooltip id="tooltip-fab" title={"$20 from " + this.props.budget.budget} placement="top-start">
-                            <Line percent="20" strokeWidth="1" strokeColor="green" trailWidth="1" trailColor="#D9D9D9" strokeLinecap="square" />
+                            <Line percent="20" strokeWidth="2" strokeColor="green" trailWidth="2" trailColor="#D9D9D9" strokeLinecap="square" />
                         </Tooltip>
                     </CardContent>
                     <CardActions>
