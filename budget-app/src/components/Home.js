@@ -17,6 +17,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CategoryList from '../containers/CategoryList';
 import AddBudget from '../containers/AddBudget';
 import BudgetList from '../containers/BudgetList';
+import TransactionList from '../containers/TransactionList';
+import AddTransaction from '../containers/AddTransaction';
 
 const drawerWidth = 240;
 
@@ -146,11 +148,12 @@ class Home extends React.Component {
 
           <BrowserRouter>
           <Switch>
-            <Route path='/' exact component={CategoryList}/>
-            <Route path='/categories' component={CategoryList}/>
-            <Route path='/addBudget' component={AddBudget}/>
+            <Route path='/' exact component={BudgetList}/>
             <Route path='/budgets' component={BudgetList}/>
-            
+            <Route path='/addBudget' component={AddBudget}/>
+            <Route path='/transactions' component={TransactionList}/>
+            <Route path='/addTransaction' component={AddTransaction}/>
+            <Route path='/categories' component={CategoryList}/>
           </Switch>
           </BrowserRouter>
           

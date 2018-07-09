@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import categories from './category';
 import budgets from './budget';
+import transactions from './transaction';
 
 const rootReducer = combineReducers({
     categories,
-    budgets
+    budgets,
+    transactions
 })
 
 export default rootReducer

@@ -13,14 +13,7 @@ import Timeline from '@material-ui/icons/Timeline';
 
 export const mailFolderListItems = (
   <div>
-    <ListItem button >
-      <ListItemIcon>
-        <a href='/categories'>
-        <LocalGroceryStore/>
-        </a>
-      </ListItemIcon>
-      <ListItemText primary="Category" />
-    </ListItem>
+  
     <ListItem button>
       <ListItemIcon>
       <a href='/budgets'>
@@ -28,6 +21,22 @@ export const mailFolderListItems = (
         </a>
       </ListItemIcon>
       <ListItemText primary="Budget" />
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+      <a href='/transactions'>
+        <AttachMoney />
+        </a>
+      </ListItemIcon>
+      <ListItemText primary="Transaction" />
+    </ListItem>
+    <ListItem button >
+      <ListItemIcon>
+        <a href='/categories'>
+        <LocalGroceryStore/>
+        </a>
+      </ListItemIcon>
+      <ListItemText primary="Category" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
