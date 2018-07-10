@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addTransaction } from '../actions/transaction'
+import { addTransaction } from '../actions/transaction';
+import {getCategories} from '../actions/category';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Save from '@material-ui/icons/Save';
@@ -31,6 +32,10 @@ class AddTransaction extends React.Component {
             category: 'Bills',
             note: ''
         };
+    }
+
+    componentDidMount(){
+        this.props.getCategories();
     }
 
     handleSelect = name => value => {
@@ -80,7 +85,7 @@ class AddTransaction extends React.Component {
                     onChange={this.handleChange('amount')}
                 />
                 <br />
-                <CategoryDialog onSelect={this.handleSelect('category')} />
+                <CategoryDialog categories={this.props.categories} onSelect={this.handleSelect('category')} />
 
                 <TextField
                     id="date"
@@ -118,9 +123,18 @@ const mapDispatchToProps = dispatch => {
     return {
         addTransaction: newTransaction => {
             dispatch(addTransaction(newTransaction))
+        },
+        getCategories: () => {
+            dispatch(getCategories())
         }
     }
 }
 
-AddTransaction = withStyles(styles)(connect(null, mapDispatchToProps)(AddTransaction))
+const mapStateToProps = state =>{
+    return {
+        categories: state.categories
+    }
+}
+
+AddTransaction = withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(AddTransaction))
 export default AddTransaction

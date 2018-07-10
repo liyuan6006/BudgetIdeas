@@ -51,30 +51,39 @@ export const mailFolderListItems = (
 
 export const otherMailFolderListItems = (
   <div>
-    <ListItem button>
+     <ListItem button>
       <ListItemIcon>
-      <a href='/notifictions'>
-        <Notifications />
-        </a>
-      </ListItemIcon>
-      <ListItemText primary="Notifications" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-      <a href='/report'>
-        <Timeline />
-        </a>
-      </ListItemIcon>
-      <ListItemText primary="Report" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-      <a href='/Settings'>
+      <a href='/settings'>
         <Settings />
         </a>
       </ListItemIcon>
    
       <ListItemText primary="Settings" />
     </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+      <a href='/categories'>
+        <Notifications />
+        </a>
+      </ListItemIcon>
+      <ListItemText primary="Category" />
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+      <a href='/setIncome'>
+        <Timeline />
+        </a>
+      </ListItemIcon>
+      <ListItemText primary="Income" />
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+      <a href='/setPercentage'>
+        <Timeline />
+        </a>
+      </ListItemIcon>
+      <ListItemText primary="Percentage" />
+    </ListItem>
+   
   </div>
 );

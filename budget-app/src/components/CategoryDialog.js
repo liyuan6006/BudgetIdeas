@@ -12,7 +12,11 @@ import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import blue from '@material-ui/core/colors/blue';
 import TextField from '@material-ui/core/TextField';
-const emails = ['Food & Drink', 'Bills', 'Entertainment', 'Car', 'Utilities'];
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import categories from '../reducers/category';
+import Checkbox from '@material-ui/core/Checkbox';
+
+
 const styles = {
   avatar: {
     backgroundColor: blue[100],
@@ -21,6 +25,10 @@ const styles = {
 };
 
 class SimpleDialog extends React.Component {
+
+    state = {
+        gilad: true
+      };
   handleClose = () => {
     this.props.onClose(this.props.selectedValue);
   };
@@ -37,15 +45,17 @@ class SimpleDialog extends React.Component {
         <DialogTitle id="simple-dialog-title">Categories</DialogTitle>
         <div>
           <List>
-            {emails.map(email => (
-              <ListItem button onClick={() => this.handleListItemClick(email)} key={email}>
+            {this.props.categories&&this.props.categories.map(category => (
+              <ListItem button onClick={() => this.handleListItemClick(category.name)} key={category}>
                 <ListItemAvatar>
                   <Avatar className={classes.avatar}>
                     <PersonIcon />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={email} />
+                <ListItemText primary={category.name} />
+            
               </ListItem>
+              
             ))}
             <ListItem button onClick={() => this.handleListItemClick('addAccount')}>
               <ListItemAvatar>
@@ -73,7 +83,7 @@ const SimpleDialogWrapped = withStyles(styles)(SimpleDialog);
 class CategoryDialog extends React.Component {
   state = {
     open: false,
-    selectedValue: emails[1],
+    selectedValue: categories[1],
   };
 
   handleClickOpen = () => {
@@ -104,6 +114,7 @@ class CategoryDialog extends React.Component {
 
                
         <SimpleDialogWrapped
+          categories ={this.props.categories}
           selectedValue={this.state.selectedValue}
           open={this.state.open}
           onClose={this.handleClose}

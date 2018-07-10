@@ -20,7 +20,7 @@ export const getCategories = () => {
         var categories = [];
         snapshot.forEach(childSnapshot => {
           var childData = childSnapshot.val();
-          categories.push({ id: childSnapshot.key, name: childData.name, budget: childData.budget })
+          categories.push({ id: childSnapshot.key, name: childData.name, belongsTo: childData.belongsTo })
         })
         dispatch({
           type: GET_CATEGORIES,

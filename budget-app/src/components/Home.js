@@ -19,6 +19,10 @@ import AddBudget from '../containers/AddBudget';
 import BudgetList from '../containers/BudgetList';
 import TransactionList from '../containers/TransactionList';
 import AddTransaction from '../containers/AddTransaction';
+import settings from './Settings';
+import SetIncome from '../containers/SetIncome';
+import SetPercentage from '../containers/SetPercentage';
+import AddCategory from '../containers/AddCategory';
 
 const drawerWidth = 240;
 
@@ -143,18 +147,20 @@ class Home extends React.Component {
         </Drawer>
        
         <main className={classes.content}>
-        
-            
           <div className={classes.toolbar} />
 
           <BrowserRouter>
           <Switch>
-            <Route path='/' exact component={BudgetList}/>
+            <Route path='/' exact component={BudgetList} />
             <Route path='/budgets' component={BudgetList}/>
             <Route path='/addBudget' component={AddBudget}/>
             <Route path='/transactions' component={TransactionList}/>
             <Route path='/addTransaction' component={AddTransaction}/>
             <Route path='/categories' component={CategoryList}/>
+            <Route path='/addCategory' component={AddCategory}/>
+            <Route path='/settings' component={settings}/>
+            <Route path='/setIncome' component={SetIncome}/>
+            <Route path='/setPercentage' component={SetPercentage}/>
           </Switch>
           </BrowserRouter>
           
