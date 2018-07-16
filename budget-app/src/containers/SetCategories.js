@@ -1,111 +1,92 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import {connect} from 'react-redux';
-import {deleteCategory,getCategories} from '../actions/category';
+import { connect } from 'react-redux';
+import { deleteCategory, getCategories } from '../actions/category';
+import CategoryRadioButtons from '../components/CategoryRadioButtons';
 
 const styles = theme => ({
   root: {
-    display: 'flex',
+    width: '100%',
+
   },
-  formControl: {
-    margin: theme.spacing.unit * 3,
-  },
-  group: {
-    margin: `${theme.spacing.unit}px 0`,
+  table: {
+    minWidth: 500,
   },
 });
 
-const categoryBelongs = ["Needs","Wants","Saving"];
-class SetCategories extends React.Component {
-  state = {
-    value: 'female',
-  };
 
-  handleChange = event => {
-    this.setState({ value: event.target.value });
-  };
+
+class SetCategories extends React.Component {
+
+  componentDidMount() {
+    this.props.getCategories();
+  }
+
+
+
 
   render() {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        <FormControl component="fieldset"  className={classes.formControl}>
-          <FormLabel component="legend">Needs</FormLabel>
-          <RadioGroup
-            aria-label="gender"
-            name="gender1"
-            className={classes.group}
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-          
-            <FormControlLabel value="female" control={<Radio />} label="Female" />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="other" control={<Radio />} label="Other" />
-            
-          </RadioGroup>
-        </FormControl>
-        <FormControl component="fieldset"  error className={classes.formControl}>
-          <FormLabel component="legend">Wants</FormLabel>
-          <RadioGroup
-            aria-label="gender"
-            name="gender2"
-            className={classes.group}
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-            <FormControlLabel value="female" control={<Radio color="primary" />} label="Female" />
-            <FormControlLabel value="male" control={<Radio color="primary" />} label="Male" />
-            <FormControlLabel value="other" control={<Radio color="primary" />} label="Other" />
-           
-          </RadioGroup>
-       
-        </FormControl>
-        <FormControl component="fieldset"  error className={classes.formControl}>
-          <FormLabel component="legend">Saving</FormLabel>
-          <RadioGroup
-            aria-label="gender"
-            name="gender2"
-            className={classes.group}
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-            <FormControlLabel value="female" control={<Radio color="primary" />} label="Female" />
-            <FormControlLabel value="male" control={<Radio color="primary" />} label="Male" />
-            <FormControlLabel value="other" control={<Radio color="primary" />} label="Other" />
-          
-          </RadioGroup>
-         
-        </FormControl>
-      </div>
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>categories</TableCell>
+              <TableCell>Needs-Wants-Saving</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {
+              this.props.categories.map(category => (
+                <TableRow key={category.id}>
+                  <TableCell component="th" scope="row">
+                    {category.name}
+                  </TableCell>
+                  <TableCell>
+                  <CategoryRadioButtons/>
+                  </TableCell>
+                </TableRow>
+              )
+              )
+            }
+          </TableBody>
+        </Table>
+      </Paper>
+
+
     );
   }
 }
 
 
 
-const mapStateToProps = state =>{
-    return {
-        categories: state.categories
-    }
+const mapStateToProps = state => {
+  return {
+    categories: state.categories
+  }
 }
 
-const mapDispatchToProps = dispatch=>{
-    return {
-        getCategories:()=>{
-            dispatch(getCategories())
-        }
+const mapDispatchToProps = dispatch => {
+  return {
+    getCategories: () => {
+      dispatch(getCategories())
     }
+  }
 }
 
+SetCategories.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 
-export default withStyles(styles)(connect(mapStateToProps,mapDispatchToProps)(SetCategories));
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(SetCategories));

@@ -18,7 +18,7 @@ import SetCategories from '../containers/SetCategories';
 const styles = theme => ({
   root: {
     margin: 'auto',
-    maxWidth: 400,
+    maxWidth: 500,
     flexGrow: 1,
   },
   header: {

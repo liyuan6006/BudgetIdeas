@@ -5,9 +5,12 @@
   "dependencies": {
     "@material-ui/core": "^1.2.1",
     "@material-ui/icons": "^1.1.0",
+    "@material-ui/lab": "^1.0.0-alpha.6",
     "eslint": "^4.19.1",
     "firebase": "^5.0.4",
+    "material-ui": "^0.20.1",
     "rc-progress": "^2.2.5",
+    "rc-slider": "^8.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-redux": "^5.0.7",
