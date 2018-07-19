@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Radio from '@material-ui/core/Radio';
+import Save from '@material-ui/icons/Save';
+import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { deleteCategory, getCategories } from '../actions/category';
 import CategoryRadioButtons from '../components/CategoryRadioButtons';
@@ -23,13 +25,19 @@ const styles = theme => ({
 });
 
 
-
+var oldCategory=null;
 class SetCategories extends React.Component {
 
   componentDidMount() {
     this.props.getCategories();
   }
+ 
+  handleChange(category) {
+   
+    var newCategory = Object.assign({}, oldCategory,category);
 
+console.log(newCategory);
+  }
 
 
 
@@ -53,7 +61,7 @@ class SetCategories extends React.Component {
                     {category.name}
                   </TableCell>
                   <TableCell>
-                  <CategoryRadioButtons/>
+                  <CategoryRadioButtons category={category} onChange={this.handleChange}/>
                   </TableCell>
                 </TableRow>
               )
@@ -61,6 +69,11 @@ class SetCategories extends React.Component {
             }
           </TableBody>
         </Table>
+        <br />
+                <Button variant="contained" size="small" onClick={() => this.handleSave()} >
+                    <Save />
+                    Save
+                </Button>
       </Paper>
 
 

@@ -13,18 +13,25 @@ const styles = {
     flexWrap: 'wrap',
     minWidth: 300,
     width: '100%',
-   
+
   }
 };
 
 class CategoryRadioButtons extends React.Component {
   state = {
-    selectedValue: 'a',
+    selectedValue: 'needs',
   };
 
-  handleChange = event => {
-    this.setState({ selectedValue: event.target.value });
+  handleChange = id => event => {
+    this.setState({
+        selectedValue: event.target.value,
+        id: event.target.value
+      });
+      var category = {id:id,type:event.target.value}
+    this.props.onChange(category)
   };
+
+
 
   render() {
     const { classes } = this.props;
@@ -32,23 +39,23 @@ class CategoryRadioButtons extends React.Component {
     return (
       <div className={classes.root}>
         <Radio
-          checked={this.state.selectedValue === 'a'}
-          onChange={this.handleChange}
-          value="a"
+          checked={this.state.selectedValue === 'needs'}
+          onChange={this.handleChange(this.props.category.id)}
+          value="needs"
           name="radio-button-demo"
           aria-label="A"
         />
         <Radio
-          checked={this.state.selectedValue === 'b'}
-          onChange={this.handleChange}
-          value="b"
+          checked={this.state.selectedValue === 'wants'}
+          onChange={this.handleChange(this.props.category.id)}
+          value="wants"
           name="radio-button-demo"
           aria-label="B"
         />
         <Radio
-          checked={this.state.selectedValue === 'c'}
-          onChange={this.handleChange}
-          value="c"
+          checked={this.state.selectedValue === 'saving'}
+          onChange={this.handleChange(this.props.category.id)}
+          value="saving"
           name="radio-button-demo"
           aria-label="C"
         />

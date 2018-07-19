@@ -19,8 +19,9 @@ import AddBudget from '../containers/AddBudget';
 import BudgetList from '../containers/BudgetList';
 import TransactionList from '../containers/TransactionList';
 import AddTransaction from '../containers/AddTransaction';
-import settings from './Settings';
+//import settings from './Settings';
 import SetIncome from '../containers/SetIncome';
+import SetUpStepper from './SetUpStepper';
 import SetPercentage from '../containers/SetPercentage';
 import AddCategory from '../containers/AddCategory';
 
@@ -158,7 +159,7 @@ class Home extends React.Component {
             <Route path='/addTransaction' component={AddTransaction}/>
             <Route path='/categories' component={CategoryList}/>
             <Route path='/addCategory' component={AddCategory}/>
-            <Route path='/settings' component={settings}/>
+            <Route path='/settings' component={SetUpStepper}/>
             <Route path='/setIncome' component={SetIncome}/>
             <Route path='/setPercentage' component={SetPercentage}/>
           </Switch>

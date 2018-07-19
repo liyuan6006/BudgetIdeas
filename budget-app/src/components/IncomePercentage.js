@@ -6,6 +6,11 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Save from '@material-ui/icons/Save';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Slider, { Range } from 'rc-slider';
+import 'rc-slider/assets/index.css';
+
+
+
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -21,19 +26,40 @@ const styles = theme => ({
   },
 });
 
+const marks = {
 
+  0: <strong>0</strong>,
+  100: {
+    style: {
+      color: 'red',
+    },
+    label: <strong>100</strong>,
+  },
+};
 
 class IncomePercentage extends React.Component {
   state = {
     needs: '50',
     wants: '30',
-    saving: '20'
+    saving: '20',
+    min: 0,
+      max: 100,
   };
-  handleSave = () => {
-  this.props.handleSave()
-    
-};
 
+  onSliderChange = (value) => {
+    console.log(value);
+  }
+
+  handleSave = () => {
+    this.props.handleSave()
+
+  };
+  onSliderChange = (value) => {
+   
+    this.setState({
+      value,
+    });
+  }
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
@@ -45,7 +71,12 @@ class IncomePercentage extends React.Component {
 
     return (
       <form >
-   
+          <Range count={3} defaultValue={[50, 80,100]} pushable={1} marks={marks}
+        trackStyle={[{ backgroundColor: 'blue' }, { backgroundColor: 'green' }]}
+        handleStyle={[{ backgroundColor: 'gray' }, { backgroundColor: 'gray' },{ backgroundColor: 'gray' }]}
+        railStyle={{ backgroundColor: 'red' }}
+        onChange={this.onSliderChange}
+        value={this.state.value} />
         <TextField
           id="needs"
           label="Needs"
@@ -61,7 +92,8 @@ class IncomePercentage extends React.Component {
             endAdornment: <InputAdornment position="end">%</InputAdornment>,
           }}
         />
-          <TextField
+            <br />
+        <TextField
           id="wants"
           label="Wants"
           value={this.state.wants}
@@ -76,7 +108,8 @@ class IncomePercentage extends React.Component {
             endAdornment: <InputAdornment position="end">%</InputAdornment>,
           }}
         />
-         <TextField
+          <br />
+        <TextField
           id="saving"
           label="Saving"
           value={this.state.saving}
@@ -92,9 +125,9 @@ class IncomePercentage extends React.Component {
           }}
         />
         <br />
-                <Button variant="contained" size="small" onClick={() => this.handleSave()} >
-                    <Save />
-                    Save
+        <Button variant="contained" size="small" onClick={() => this.handleSave()} >
+          <Save />
+          Save
                 </Button>
       </form>
     );
