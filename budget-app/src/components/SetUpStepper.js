@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import SetIncome from '../containers/SetIncome';
 import SetPercentage from '../containers/SetPercentage';
 import SetCategories from '../containers/SetCategories';
+import SetupSummary from '../containers/SetupSummary';
 /**
  * Horizontal steppers are ideal when the contents of one step depend on an earlier step.
  * Avoid using long step names in horizontal steppers.
@@ -40,13 +41,13 @@ class SetUpStepper extends React.Component {
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return <SetIncome history={this.props.history}/>;
+        return <div> Set up your income and how offen<br/> <SetIncome history={this.props.history}/></div>;
       case 1:
-        return <SetPercentage history={this.props.history}/>;
+        return <div> Split your into <br/> <SetPercentage history={this.props.history}/></div>;
       case 2:
-        return <SetCategories history={this.props.history}/>;
+        return <div> Set up your Category<br/> <SetCategories history={this.props.history}/></div>;
       default:
-        return <SetIncome history={this.props.history}/>;
+        return <div> Set up your income and how offen<br/>  <SetIncome history={this.props.history}/></div>;
     }
   }
 
@@ -65,21 +66,19 @@ class SetUpStepper extends React.Component {
             <StepLabel>Split Income</StepLabel>
           </Step>
           <Step>
-            <StepLabel>Sort Category</StepLabel>
+            <StepLabel>Set up Category</StepLabel>
           </Step>
         </Stepper>
         <div style={contentStyle}>
           {finished ? (
             <p>
-              <a
-                href="#"
-                onClick={(event) => {
+              <SetupSummary/>
+              <br/>
+              <RaisedButton label="Reset" primary={true}  
+              onClick={(event) => {
                   event.preventDefault();
                   this.setState({stepIndex: 0, finished: false});
-                }}
-              >
-                Click here
-              </a> to reset.
+                }}/>
             </p>
           ) : (
             <div>
