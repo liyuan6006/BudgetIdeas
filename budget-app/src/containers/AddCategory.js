@@ -4,12 +4,10 @@ import { addCategory } from '../actions/category'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Save from '@material-ui/icons/Save';
-import Period from '../components/Period'
-import CategoryDialog from '../components/CategoryDialog';
-import Input from '@material-ui/core/Input';
+
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
+
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
@@ -29,7 +27,7 @@ const styles = theme => ({
 class AddCategory extends React.Component {
     constructor(props) {
         super(props);
-        var today = new Date();
+
        
         this.state = {
             name: 'New Category',

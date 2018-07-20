@@ -1,16 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addIncome, getIncome, update } from '../actions/income';
-import Button from '@material-ui/core/Button';
+
 import TextField from 'material-ui/TextField';
-import Save from '@material-ui/icons/Save';
-import Period from '../components/Period';
+
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-import CategoryDialog from '../components/CategoryDialog';
-import { withStyles } from '@material-ui/core/styles';
+
 
 const styles = {
     customWidth: {
@@ -19,9 +17,6 @@ const styles = {
   };
 
 class SetIncome extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         this.props.getIncome();
@@ -40,7 +35,7 @@ class SetIncome extends React.Component {
     };
 
     render() {
-        const { classes } = this.props;
+
         return (
             <div >
                 <TextField

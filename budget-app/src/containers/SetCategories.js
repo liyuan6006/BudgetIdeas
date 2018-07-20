@@ -1,42 +1,16 @@
 import React from 'react';
-
-
-import Paper from '@material-ui/core/Paper';
-import Radio from '@material-ui/core/Radio';
-import Save from '@material-ui/icons/Save';
-import Button from '@material-ui/core/Button';
-
 import { List, ListItem } from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
+
 import Divider from 'material-ui/Divider';
-import Checkbox from 'material-ui/Checkbox';
-import Toggle from 'material-ui/Toggle';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+
+
+
 import { connect } from 'react-redux';
-import { deleteCategory, getCategories,update } from '../actions/category';
-import CategoryRadioButtons from '../components/CategoryRadioButtons';
+import {  getCategories,update } from '../actions/category';
+
 import CategoryMoreMenu from '../components/CategoryMoreMenu';
-const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-};
 
 
-var oldCategory = null;
 class SetCategories extends React.Component {
 
   componentDidMount() {

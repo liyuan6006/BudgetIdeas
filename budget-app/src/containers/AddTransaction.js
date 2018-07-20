@@ -5,7 +5,6 @@ import {getCategories} from '../actions/category';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Save from '@material-ui/icons/Save';
-import Period from '../components/Period'
 import CategoryDialog from '../components/CategoryDialog';
 import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({

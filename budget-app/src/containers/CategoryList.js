@@ -2,10 +2,8 @@ import React from 'react'
 import Category from '../components/Category'
 import {connect} from 'react-redux';
 import {deleteCategory,getCategories} from '../actions/category';
-import AddBudget from './AddBudget';
+
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Save from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
 
 class CategoryList extends React.Component {
@@ -19,7 +17,7 @@ class CategoryList extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+
         return (
             <div>
                 {this.props.categories.map(category =>

@@ -12,9 +12,9 @@ import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import blue from '@material-ui/core/colors/blue';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 import categories from '../reducers/category';
-import Checkbox from '@material-ui/core/Checkbox';
+
 
 
 const styles = {

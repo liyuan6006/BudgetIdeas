@@ -1,12 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addIncome, getIncome, update } from '../actions/income';
-import Button from '@material-ui/core/Button';
+import {  getIncome, update } from '../actions/income';
 import TextField from 'material-ui/TextField';
-import Save from '@material-ui/icons/Save';
-import Period from '../components/Period';
-import CategoryDialog from '../components/CategoryDialog';
-import { withStyles } from '@material-ui/core/styles';
+
 const styles = theme => ({
     container: {
         display: 'flex',
@@ -20,9 +16,7 @@ const styles = theme => ({
 });
 
 class SetPercentage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+ 
 
     componentDidMount() {
         if(!this.props.income){
@@ -49,7 +43,7 @@ class SetPercentage extends React.Component {
 };
 
     render() {
-        const { classes } = this.props;
+
         return (
             <div>
                 <TextField

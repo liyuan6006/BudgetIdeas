@@ -1,8 +1,8 @@
 
 import { GET_INCOMES } from './incomeActionType'
-import { incomeRef,updateIncome } from '../firebase/firebaseApi'
+import { incomeRef } from '../firebase/firebaseApi'
 
-import firebase from '../firebase/firebaseConfig'
+
 
 export const addIncome = (newIncome) => {
   return async (dispatch) => {
