@@ -1,82 +1,69 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+
+
 import Paper from '@material-ui/core/Paper';
 import Radio from '@material-ui/core/Radio';
 import Save from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
+
+import { List, ListItem } from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
+import Checkbox from 'material-ui/Checkbox';
+import Toggle from 'material-ui/Toggle';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import { connect } from 'react-redux';
-import { deleteCategory, getCategories } from '../actions/category';
+import { deleteCategory, getCategories,update } from '../actions/category';
 import CategoryRadioButtons from '../components/CategoryRadioButtons';
-
-const styles = theme => ({
+import CategoryMoreMenu from '../components/CategoryMoreMenu';
+const styles = {
   root: {
-    width: '100%',
-
+    display: 'flex',
+    flexWrap: 'wrap',
   },
-  table: {
-    minWidth: 500,
-  },
-});
+};
 
 
-var oldCategory=null;
+var oldCategory = null;
 class SetCategories extends React.Component {
 
   componentDidMount() {
     this.props.getCategories();
   }
- 
-  handleChange(category) {
-   
-    var newCategory = Object.assign({}, oldCategory,category);
 
-console.log(newCategory);
+  handleChange=id=>event=> {
+    var type = event.target.innerText;
+    var path =id+"/type";
+    this.props.updateCategory(path,type);
   }
 
 
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <Paper className={classes.root}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell>categories</TableCell>
-              <TableCell>Needs-Wants-Saving</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {
-              this.props.categories.map(category => (
-                <TableRow key={category.id}>
-                  <TableCell component="th" scope="row">
-                    {category.name}
-                  </TableCell>
-                  <TableCell>
-                  <CategoryRadioButtons category={category} onChange={this.handleChange}/>
-                  </TableCell>
-                </TableRow>
-              )
-              )
-            }
-          </TableBody>
-        </Table>
-        <br />
-                <Button variant="contained" size="small" onClick={() => this.handleSave()} >
-                    <Save />
-                    Save
-                </Button>
-      </Paper>
-
-
+        <List>
+          {
+            this.props.categories.map(category => (
+              <div>
+              <ListItem primaryText={category.name} secondaryText={category.type}   />
+              <CategoryMoreMenu onChange={this.handleChange(category.id)}/>
+              <Divider />
+              </div>
+            ))
+          }
+        </List>
     );
   }
 }
@@ -93,13 +80,13 @@ const mapDispatchToProps = dispatch => {
   return {
     getCategories: () => {
       dispatch(getCategories())
-    }
+    },
+    updateCategory: (nodePath, value) => {
+      dispatch(update(nodePath,value))
+  }
   }
 }
 
-SetCategories.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(SetCategories));
+export default connect(mapStateToProps, mapDispatchToProps)(SetCategories);

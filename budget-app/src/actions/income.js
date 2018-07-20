@@ -1,31 +1,34 @@
 
 import { GET_INCOMES } from './incomeActionType'
-import { incomesRef,updateIncome } from '../firebase/firebaseApi'
+import { incomeRef,updateIncome } from '../firebase/firebaseApi'
 
 import firebase from '../firebase/firebaseConfig'
 
 export const addIncome = (newIncome) => {
   return async (dispatch) => {
-    incomesRef.push(newIncome)
+    incomeRef.push(newIncome)
   }
 }
 
-export const getIncomes = () => {
+export const getIncome = () => {
   return async (dispatch) => {
     try {
-      incomesRef.on('value', function (snapshot) {
-       var incomes=null;
+      incomeRef.on('value', function (snapshot) {
+       var income=null;
         snapshot.forEach(childSnapshot => {
           var childData = childSnapshot.val();
-          incomes ={
+          income ={
             id: childSnapshot.key,
             amount: childData.amount,
-            period: childData.period
+            frequency: childData.frequency,
+            needs:childData.needs,
+            wants:childData.wants,
+            saving:childData.saving,
           }
-        })
-        dispatch({
+        });
+       dispatch({
           type: GET_INCOMES,
-          incomes: incomes
+          income: income
         })
       });
     }
@@ -35,8 +38,11 @@ export const getIncomes = () => {
   }
 };
 
-export const update = (incomeId,newIncome) => {
-  return async (dispatch) => {
-    updateIncome(incomeId,newIncome);
+export const update = (nodePath,newValue) => {
+  return async (dispatch) =>{
+    var updates = {};
+    updates[nodePath] = newValue;
+    incomeRef.update(updates);
+  console.log(nodePath);
   }
 };

@@ -4,12 +4,12 @@ const databaseRef = firebase.database().ref();
 export const categoriesRef = databaseRef.child("categories/");
 export const budgetsRef = databaseRef.child("budgets/");
 export const transactionsRef = databaseRef.child("transactions/");
-export const incomesRef = databaseRef.child("incomes/");
+export const incomeRef = databaseRef.child("income/");
 
 export const getCategories = databaseRef.child("categories/");
 export const getBudgets = databaseRef.child("budgets/");
 export const getTransactions = databaseRef.child("transactions/");
-export const getIncomes = databaseRef.child("incomes/");
+export const getIncome = databaseRef.child("income/");
 
-export const updateIncome = (id,object)=> firebase.database().ref('incomes/'+id).set(object);
+export const updateIncome = (id,object)=> firebase.database().ref('income/'+id).set(object);
  

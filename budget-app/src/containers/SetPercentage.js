@@ -1,62 +1,105 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addIncome,getIncomes, update } from '../actions/income';
+import { addIncome, getIncome, update } from '../actions/income';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import TextField from 'material-ui/TextField';
 import Save from '@material-ui/icons/Save';
 import Period from '../components/Period';
 import CategoryDialog from '../components/CategoryDialog';
 import { withStyles } from '@material-ui/core/styles';
-import IncomePercentage from '../components/IncomePercentage';
 const styles = theme => ({
     container: {
-      display: 'flex',
-      flexWrap: 'wrap',
+        display: 'flex',
+        flexWrap: 'wrap',
     },
     textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-      width: 200,
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
     },
-  });
-  
-class SetPercentage extends React.Component {
+});
 
+class SetPercentage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            amount: '1000',
-            period:'month'
-        };
-      
     }
 
+    componentDidMount() {
+        if(!this.props.income){
+            this.props.getIncome();
+        }
+    }
 
+    handleNeedsChange = id => event => {
+        var  amount = event.target.value;
+        var nodePath =id+"/needs";
+      this.props.updateIncome(nodePath,amount);
+  };
 
-    handleSave = () => {
-        // var newIncome = {
-        //     amount: this.state.amount,
-        //     period: this.state.period,
-        // }
-        // var incomeId = this.props.incomes&&this.props.incomes.id;
-        // if  (incomeId){
-        //     this.props.update(incomeId,newIncome);
-        // }else{
-        //     this.props.addIncome(newIncome);
-        // }
-       console.log('save')
-        
-    };
+  handleWantsChange = id => event => {
+      var frequency = event.target.value;
+      var path =id+"/wants";
+      this.props.updateIncome(path,frequency);
+  };
+
+  handleSavingChange = id => event => {
+    var frequency = event.target.value;
+    var path =id+"/saving";
+    this.props.updateIncome(path,frequency);
+};
 
     render() {
         const { classes } = this.props;
         return (
-
-                <IncomePercentage handleSave = {()=>this.handleSave()}/>
-           
+            <div>
+                <TextField
+                    value={this.props.income.needs}
+                    type="number"
+                    floatingLabelText="Needs"
+                    errorText=""
+                    style={styles.customWidth}
+                    onChange={this.handleNeedsChange(this.props.income.id)}
+                />%
+                <br />
+                <TextField
+                    value={this.props.income.wants}
+                    type="number"
+                    floatingLabelText="Wants"
+                    errorText=""
+                    style={styles.customWidth}
+                    onChange={this.handleWantsChange(this.props.income.id)}
+                />%
+                <br />
+                <TextField
+                    value={this.props.income.saving}
+                    type="number"
+                    floatingLabelText="Saving"
+                    errorText=""
+                    style={styles.customWidth}
+                    onChange={this.handleSavingChange(this.props.income.id)}
+                />%
+            </div>
         )
     }
 }
 
-SetPercentage = withStyles(styles)(SetPercentage)
-export default SetPercentage
+const mapStateToProps = state => {
+    return {
+        income: state.income
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getIncome: () => {
+            dispatch(getIncome())
+        },
+        updateIncome: (nodePath, value) => {
+            dispatch(update(nodePath,value))
+        }
+    }
+}
+
+
+//SetPercentage = withStyles(styles)(connect(SetPercentage)
+export default connect(mapStateToProps, mapDispatchToProps)(SetPercentage)

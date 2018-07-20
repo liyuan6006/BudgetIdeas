@@ -20,7 +20,7 @@ export const getCategories = () => {
         var categories = [];
         snapshot.forEach(childSnapshot => {
           var childData = childSnapshot.val();
-          categories.push({ id: childSnapshot.key, name: childData.name, belongsTo: childData.belongsTo })
+          categories.push({ id: childSnapshot.key, name: childData.name, type: childData.type })
         })
         dispatch({
           type: GET_CATEGORIES,
@@ -31,5 +31,15 @@ export const getCategories = () => {
     catch (error) {
       console.error(error)
     }
+  }
+};
+
+
+export const update = (nodePath,newValue) => {
+  return async (dispatch) =>{
+    var updates = {};
+    updates[nodePath] = newValue;
+    categoriesRef.update(updates);
+  console.log(nodePath);
   }
 };

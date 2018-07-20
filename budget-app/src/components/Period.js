@@ -44,16 +44,15 @@ class Period extends React.Component {
                     <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="period-simple">How often</InputLabel>
                         <Select
-                            value={this.state.period}
+                        
+                            value={this.props.period}
                             onChange={this.handleChange}
                             inputProps={{
                                 name: 'period',
                                 id: 'period-simple',
                             }}
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
+                           
                             {names.map(name => (
                                 <MenuItem key={name} value={name}>
                                     <ListItemText primary={name} />

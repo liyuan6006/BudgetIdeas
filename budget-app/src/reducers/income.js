@@ -1,13 +1,13 @@
 import { GET_INCOMES } from '../actions/incomeActionType'
 
-const incomes = (state = [], action) => {
+const income = (state = [], action) => {
     switch (action.type) {
         case GET_INCOMES:
-            return action.incomes
+            return action.income
         default:
             return state
     }
 
 }
 
-export default incomes;
+export default income;

@@ -1,71 +1,96 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
-import Radio from '@material-ui/core/Radio';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
-
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import ActionFavorite from 'material-ui/svg-icons/action/favorite';
+import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
 const styles = {
-  root: {
-    color: green[600],
+  root:{
     display: 'flex',
-    flexWrap: 'wrap',
-    minWidth: 300,
-    width: '100%',
 
-  }
+  },
+  block: {
+    maxWidth: 250,
+  },
+  radioButton: {
+    marginBottom: 16,
+  },
 };
 
 class CategoryRadioButtons extends React.Component {
-  state = {
-    selectedValue: 'needs',
-  };
 
   handleChange = id => event => {
     this.setState({
-        selectedValue: event.target.value,
-        id: event.target.value
-      });
-      var category = {id:id,type:event.target.value}
+      selectedValue: event.target.value,
+      id: event.target.value
+    });
+    var category = { id: id, type: event.target.value }
     this.props.onChange(category)
   };
 
 
 
   render() {
-    const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        <Radio
-          checked={this.state.selectedValue === 'needs'}
-          onChange={this.handleChange(this.props.category.id)}
-          value="needs"
-          name="radio-button-demo"
-          aria-label="A"
-        />
-        <Radio
-          checked={this.state.selectedValue === 'wants'}
-          onChange={this.handleChange(this.props.category.id)}
-          value="wants"
-          name="radio-button-demo"
-          aria-label="B"
-        />
-        <Radio
-          checked={this.state.selectedValue === 'saving'}
-          onChange={this.handleChange(this.props.category.id)}
-          value="saving"
-          name="radio-button-demo"
-          aria-label="C"
-        />
+      <div style={styles.root}>
+        <RadioButtonGroup name="shipSpeed" defaultSelected="needs">
+          <RadioButton
+            value="needs"
+            label="needs"
+            style={styles.radioButton}
+          />
+          <RadioButton
+            value="wants"
+            label="wants"
+            style={styles.radioButton}
+          />
+          <RadioButton
+            value="saving"
+            label="saving"
+
+
+            style={styles.radioButton}
+          />
+        </RadioButtonGroup>
       </div>
+
+
+
+
+      // <div >
+      //   <RadioButton
+      //     checked={this.state.selectedValue === 'needs'}
+      //     onChange={this.handleChange(this.props.category.id)}
+      //     value="needs"
+      //     name="radio-button-demo"
+      //     aria-label="A"
+      //   />
+      //   <RadioButton
+      //     checked={this.state.selectedValue === 'wants'}
+      //     onChange={this.handleChange(this.props.category.id)}
+      //     value="wants"
+      //     name="radio-button-demo"
+      //     aria-label="B"
+      //   />
+      //   <RadioButton
+      //     checked={this.state.selectedValue === 'saving'}
+      //     onChange={this.handleChange(this.props.category.id)}
+      //     value="saving"
+      //     name="radio-button-demo"
+      //     aria-label="C"
+      //   />
+      // </div>
     );
   }
 }
 
-CategoryRadioButtons.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(CategoryRadioButtons);
+
+export default CategoryRadioButtons;

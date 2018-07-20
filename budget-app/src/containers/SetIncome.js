@@ -1,65 +1,42 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addIncome,getIncomes, update } from '../actions/income';
+import { addIncome, getIncome, update } from '../actions/income';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import TextField from 'material-ui/TextField';
 import Save from '@material-ui/icons/Save';
 import Period from '../components/Period';
+
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
 import CategoryDialog from '../components/CategoryDialog';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
+const styles = {
+    customWidth: {
+      width: 150,
     },
-    textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-      width: 300,
-    },
-  });
-  
-class SetIncome extends React.Component {
+  };
 
+class SetIncome extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            amount: '1000',
-            period:'month'
-        };
-      
     }
 
-    componentDidMount(){
-        this.props.getIncomes();
+    componentDidMount() {
+        this.props.getIncome();
     }
 
-    handleSelect = name=>value => {
-        this.setState({
-            [name]: value
-        });
+    handleAmountChange = id => event => {
+          var  amount = event.target.value;
+          var nodePath =id+"/amount";
+        this.props.updateIncome(nodePath,amount);
     };
 
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
-    };
-
-    handleSave = () => {
-        var newIncome = {
-            amount: this.state.amount,
-            period: this.state.period,
-        }
-        var incomeId = this.props.incomes&&this.props.incomes.id;
-        if  (incomeId){
-            this.props.update(incomeId,newIncome);
-        }else{
-            this.props.addIncome(newIncome);
-        }
-       
-        
+    handleFrequencyChange = id => event => {
+        var frequency = event.target.innerText;
+        var path =id+"/frequency";
+        this.props.updateIncome(path,frequency);
     };
 
     render() {
@@ -67,33 +44,32 @@ class SetIncome extends React.Component {
         return (
             <div >
                 <TextField
-                    required
-                    id="amount"
-                    label="Amount"
-                   
-                    defaultValue={this.state.amount}
+                    value={this.props.income.amount}
                     type="number"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    margin="normal"
-                    onChange={this.handleChange('amount')}
+                    floatingLabelText="Amount"
+                    errorText=""
+                    onChange={this.handleAmountChange(this.props.income.id)}
+                    style={styles.customWidth}
                 />
                 <br />
-                <Period onSelect={this.handleSelect('period')}/>
-                <br />
-                <Button variant="contained" size="small" onClick={() => this.handleSave()} >
-                    <Save />
-                    Save
-                </Button>
+                <SelectField
+                    floatingLabelText="Frequency"
+                    value={this.props.income.frequency}
+                    onChange={this.handleFrequencyChange(this.props.income.id)}
+                    style={styles.customWidth}
+                >
+                    <MenuItem value="Yearly" primaryText="Yearly" />
+                    <MenuItem value="Monthly" primaryText="Monthly" />
+                    <MenuItem value="Weekly" primaryText="Weekly" />
+                </SelectField>
             </div>
         )
     }
 }
 
-const mapStateToProps = state =>{
+const mapStateToProps = state => {
     return {
-        incomes: state.incomes
+        income: state.income
     }
 }
 
@@ -102,14 +78,14 @@ const mapDispatchToProps = dispatch => {
         addIncome: newIncome => {
             dispatch(addIncome(newIncome))
         },
-        getIncomes:()=>{
-            dispatch(getIncomes())
+        getIncome: () => {
+            dispatch(getIncome())
         },
-        update:(id,newIncome)=>{
-            dispatch(update(id,newIncome))
+        updateIncome: (nodePath, value) => {
+            dispatch(update(nodePath,value))
         }
     }
 }
 
-SetIncome = withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(SetIncome))
+SetIncome = connect(mapStateToProps, mapDispatchToProps)(SetIncome)
 export default SetIncome
