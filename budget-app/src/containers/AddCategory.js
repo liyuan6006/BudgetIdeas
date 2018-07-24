@@ -14,29 +14,29 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     container: {
-      display: 'flex',
-      flexWrap: 'wrap',
+        display: 'flex',
+        flexWrap: 'wrap',
     },
     textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-      width: 200,
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
     },
-  });
-  
+});
+
 class AddCategory extends React.Component {
     constructor(props) {
         super(props);
 
-       
+
         this.state = {
             name: 'New Category',
             belongsTo: ''
-           
+
         };
     }
 
-    handleSelect = name=>value => {
+    handleSelect = name => value => {
         this.setState({
             [name]: value
         });
@@ -47,12 +47,50 @@ class AddCategory extends React.Component {
             [name]: event.target.value,
         });
     };
+
+
+
+
     handleSave = () => {
-        var newCategory = {
-            name: this.state.name,
-            belongsTo: this.state.belongsTo,
-         
-        }
+        var newCategory =[
+            {
+                expanded: true,
+                title: 'needs',
+                children: [
+                    {
+                        expanded: true,
+                        title: 'Food & Drink'
+                    },
+                    {
+                        expanded: true,
+                        title: 'Bills'
+                    }
+                ],
+            },
+            {
+                expanded: true,
+                title: 'wants',
+                children: [
+                    {
+                        expanded: true,
+                        title: 'Travel'
+                    },
+                    {
+                        expanded: true,
+                        title: 'Game'
+                    }
+                ],
+            },
+            {
+                expanded: true,
+                title: 'Saving',
+                children: [
+                    {
+                        expanded: true,
+                        title: 'Retire'
+                    }
+                ],
+            }]
         this.props.addCategory(newCategory);
         this.props.history.push('/categories')
     };
@@ -70,20 +108,20 @@ class AddCategory extends React.Component {
                 />
                 <br />
                 <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="age-simple">Age</InputLabel>
-          <Select
-            value={this.state.belongsTo}
-            onChange={this.handleChange('belongsTo')}
+                    <InputLabel htmlFor="age-simple">Age</InputLabel>
+                    <Select
+                        value={this.state.belongsTo}
+                        onChange={this.handleChange('belongsTo')}
 
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={"Needs"}>Needs</MenuItem>
-            <MenuItem value={"Wants"}>Wants</MenuItem>
-            <MenuItem value={"Saving"}>Saving</MenuItem>
-          </Select>
-        </FormControl>
+                    >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={"Needs"}>Needs</MenuItem>
+                        <MenuItem value={"Wants"}>Wants</MenuItem>
+                        <MenuItem value={"Saving"}>Saving</MenuItem>
+                    </Select>
+                </FormControl>
                 <br />
                 <Button variant="contained" size="small" onClick={() => this.handleSave()} >
                     <Save />

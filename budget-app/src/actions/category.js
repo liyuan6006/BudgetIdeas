@@ -17,10 +17,18 @@ export const getCategories = () => {
   return async (dispatch) => {
     try {
       categoriesRef.on('value', function (snapshot) {
-        var categories = [];
+        var categories={id:{},list:[]}
+        //var categories = [];
         snapshot.forEach(childSnapshot => {
-          var childData = childSnapshot.val();
-          categories.push({ id: childSnapshot.key, name: childData.name, type: childData.type })
+          var list = childSnapshot.val();
+         // categories = list;
+          //list.map(obj=>{
+            //categories.push({ id: childSnapshot.key,title: obj.title,expanded:obj.expanded,children:obj.children})
+          //})
+
+          categories.id=childSnapshot.key;
+          categories.list=list
+         
         })
         dispatch({
           type: GET_CATEGORIES,
@@ -34,12 +42,28 @@ export const getCategories = () => {
   }
 };
 
+export const getCategoriesByAttribute = (node, value) => {
+  return async (dispatch) => {
+    categoriesRef.orderByChild("type").equalTo("needs").on("value", function (snapshot) {
+      var categories = [];
+      snapshot.forEach(function (childSnapshot) {
+        var childData = childSnapshot.val();
+        categories.push({ id: childSnapshot.key, name: childData.name, type: childData.type })
+      })
+      dispatch({
+        type: GET_CATEGORIES,
+        categories: categories
+      })
+    });
+  }
+};
 
-export const update = (nodePath,newValue) => {
-  return async (dispatch) =>{
+
+export const update = (nodePath, newValue) => {
+  return async (dispatch) => {
     var updates = {};
     updates[nodePath] = newValue;
     categoriesRef.update(updates);
-  console.log(nodePath);
+    console.log(nodePath);
   }
 };

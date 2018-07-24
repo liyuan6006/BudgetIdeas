@@ -16,13 +16,13 @@ const styles = {
 
 class CategoryRadioButtons extends React.Component {
 
-  handleChange = id => event => {
-    this.setState({
-      selectedValue: event.target.value,
-      id: event.target.value
-    });
-    var category = { id: id, type: event.target.value }
-    this.props.onChange(category)
+  onChange = event => {
+    // this.setState({
+    //   selectedValue: event.target.value,
+    //   id: event.target.value
+    // });
+    // var category = { id: id, type: event.target.value }
+    this.props.onChange(event)
   };
 
 
@@ -31,14 +31,14 @@ class CategoryRadioButtons extends React.Component {
 
     return (
       <div style={styles.root}>
-        <RadioButtonGroup name="shipSpeed" defaultSelected="needs">
+        <RadioButtonGroup name="shipSpeed" valueSelected={this.props.type} onChange={this.onChange}>
           <RadioButton
             value="needs"
             label="needs"
             style={styles.radioButton}
           />
           <RadioButton
-            value="wants"
+             value="wants"
             label="wants"
             style={styles.radioButton}
           />

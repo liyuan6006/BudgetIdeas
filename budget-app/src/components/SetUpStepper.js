@@ -41,11 +41,11 @@ class SetUpStepper extends React.Component {
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return <div> Set up your income and how offen<br/> <SetIncome history={this.props.history}/></div>;
+      return <div> Set up your Category<br/> <SetCategories history={this.props.history}/></div>;
       case 1:
-        return <div> Split your into <br/> <SetPercentage history={this.props.history}/></div>;
+      return <div> Set up your income and how offen<br/> <SetIncome history={this.props.history}/></div>;
       case 2:
-        return <div> Set up your Category<br/> <SetCategories history={this.props.history}/></div>;
+      return <div> Split your into <br/> <SetPercentage history={this.props.history}/></div>;
       default:
         return <div> Set up your income and how offen<br/>  <SetIncome history={this.props.history}/></div>;
     }
@@ -60,13 +60,13 @@ class SetUpStepper extends React.Component {
       
         <Stepper activeStep={stepIndex}>
           <Step>
-            <StepLabel>Set up Income</StepLabel>
-          </Step>
-          <Step>
-            <StepLabel>Split Income</StepLabel>
-          </Step>
-          <Step>
             <StepLabel>Set up Category</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>Set up Income </StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>Split Income </StepLabel>
           </Step>
         </Stepper>
         <div style={contentStyle}>

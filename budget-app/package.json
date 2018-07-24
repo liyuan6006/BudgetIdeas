@@ -8,6 +8,7 @@
     "@material-ui/lab": "^1.0.0-alpha.6",
     "eslint": "^4.19.1",
     "firebase": "^5.0.4",
+    "material-design-icons": "^3.0.1",
     "material-ui": "^0.20.1",
     "rc-progress": "^2.2.5",
     "rc-slider": "^8.6.1",
@@ -16,7 +17,9 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
+    "react-sortable-tree": "^2.2.0",
     "react-swipeable-views": "^0.12.14",
+    "recharts": "^1.1.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
   },
