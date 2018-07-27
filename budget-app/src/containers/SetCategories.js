@@ -9,117 +9,75 @@ import { connect } from 'react-redux';
 import { getCategories, update } from '../actions/category';
 
 import CategoryRadioButtons from '../components/CategoryRadioButtons';
-
-import SortableTree from 'react-sortable-tree';
-import 'react-sortable-tree/style.css'; // This only needs to be imported once in your app
-
+import { blue100, red100 } from 'material-ui/styles/colors';
+import Tooltip from '@material-ui/core/Tooltip';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import CategoryCard from '../components/CategoryCard'
 const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
-  gridList: {
-    display: 'flex',
-    flexWrap: 'nowrap',
-    overflowX: 'auto',
-  },
-  titleStyle: {
-    color: 'rgb(0, 188, 212)',
-  },
   chip: {
     margin: 4,
   },
+  wrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  radioButton: {
+    marginBottom: 16,
+    '&$checked': {
+      color: red100
+    }
+  },
 };
-const maxDepth = 2;
+
+
+
 class SetCategories extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // treeData: [{
-      //   title: '`title`',
-      //   subtitle: '`subtitle`',
-      //   expanded: true,
-      //   children: [
-      //     {
-      //       title: 'Child Node',
-      //       subtitle: 'Defined in `children` array belonging to parent',
-      //     },
-      //     {
-      //       title: 'Nested structure is rendered virtually',
-      //       subtitle: (
-      //         <span>
-      //           The tree uses&nbsp;
-      //           <a href="https://github.com/bvaughn/react-virtualized">
-      //             react-virtualized
-      //           </a>
-      //           &nbsp;and the relationship lines are more of a visual trick.
-      //         </span>
-      //       ),
-      //     },
-      //   ],
-      // },
-      // {
-      //   expanded: true,
-      //   title: 'Any node can be the parent or child of any other node',
-      //   children: [
-      //     {
-      //       expanded: true,
-      //       title: 'Chicken',
-      //       children: [{ title: 'Egg' }],
-      //     },
-      //   ],
-      // },
-      // ]
-      treeData: []
-    };
   }
 
   componentDidMount() {
     this.props.getCategories()
-  
-     
+  }
+  state = {
+    open: false,
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleRequestDelete = () => {
+    alert('You clicked the delete button.');
   }
 
-  static getDerivedStateFromProps(props, state){
-    console.log(props)
-    console.log(state)
-  }
-
-  handleChange = (id, value) => {
-    
-    var path = id;
+  handleClick = (path, value) => {
     this.props.updateCategory(path, value);
   }
 
   render() {
     return (
-      <div style={{ height: 400 }}>
-        <SortableTree
-          treeData={this.props.categories.list}
-          onChange={
-            //treeData => this.setState({ treeData })
-            treeData => (this.handleChange(this.props.categories.id,treeData))
-          }
-          onMoveNode={({ node, treeIndex, path }) =>
-          console.log(
-            'node:',
-            node,
-            'treeIndex:',
-            treeIndex,
-            'path:',
-            path
-          )
-        }
-          maxDepth={maxDepth}
-        />
+      <div >
+        <CategoryCard categories={this.props.categories}
+          onDelete={this.handleRequestDelete}
+          onClick={this.handleClick} />
+        <div style={styles.wrapper}>
+          <Chip backgroundColor={red100}>Needs</Chip>
+          <Chip backgroundColor={blue100}>Wants</Chip>
+        </div>
       </div>
-    );
+    )
   }
 }
-
-
-
 
 const mapStateToProps = state => {
   return {
@@ -137,7 +95,5 @@ const mapDispatchToProps = dispatch => {
     }
   }
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetCategories);

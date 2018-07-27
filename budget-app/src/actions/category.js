@@ -17,18 +17,11 @@ export const getCategories = () => {
   return async (dispatch) => {
     try {
       categoriesRef.on('value', function (snapshot) {
-        var categories={id:{},list:[]}
-        //var categories = [];
+      
+        var categories = [];
         snapshot.forEach(childSnapshot => {
-          var list = childSnapshot.val();
-         // categories = list;
-          //list.map(obj=>{
-            //categories.push({ id: childSnapshot.key,title: obj.title,expanded:obj.expanded,children:obj.children})
-          //})
-
-          categories.id=childSnapshot.key;
-          categories.list=list
-         
+          var childData = childSnapshot.val();
+          categories.push({ id: childSnapshot.key, name: childData.name, type: childData.type })
         })
         dispatch({
           type: GET_CATEGORIES,

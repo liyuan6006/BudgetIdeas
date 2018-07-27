@@ -31,7 +31,7 @@ class AddCategory extends React.Component {
 
         this.state = {
             name: 'New Category',
-            belongsTo: ''
+            type: 'needs'
 
         };
     }
@@ -52,45 +52,12 @@ class AddCategory extends React.Component {
 
 
     handleSave = () => {
-        var newCategory =[
-            {
-                expanded: true,
-                title: 'needs',
-                children: [
-                    {
-                        expanded: true,
-                        title: 'Food & Drink'
-                    },
-                    {
-                        expanded: true,
-                        title: 'Bills'
-                    }
-                ],
-            },
-            {
-                expanded: true,
-                title: 'wants',
-                children: [
-                    {
-                        expanded: true,
-                        title: 'Travel'
-                    },
-                    {
-                        expanded: true,
-                        title: 'Game'
-                    }
-                ],
-            },
-            {
-                expanded: true,
-                title: 'Saving',
-                children: [
-                    {
-                        expanded: true,
-                        title: 'Retire'
-                    }
-                ],
-            }]
+        var newCategory = {
+            name: this.state.name,
+            type: this.state.type,
+         
+        }
+
         this.props.addCategory(newCategory);
         this.props.history.push('/categories')
     };
@@ -111,7 +78,7 @@ class AddCategory extends React.Component {
                     <InputLabel htmlFor="age-simple">Age</InputLabel>
                     <Select
                         value={this.state.belongsTo}
-                        onChange={this.handleChange('belongsTo')}
+                        onChange={this.handleChange('type')}
 
                     >
                         <MenuItem value="">
