@@ -1,23 +1,10 @@
 import React from 'react';
-import { List, ListItem } from 'material-ui/List';
-
-import Divider from 'material-ui/Divider';
-import Avatar from 'material-ui/Avatar';
-
 import Chip from 'material-ui/Chip';
 import { connect } from 'react-redux';
-import { getCategories, update } from '../actions/category';
-
-import CategoryRadioButtons from '../components/CategoryRadioButtons';
+import { getCategories, update, addCategory, deleteCategory } from '../actions/category';
 import { blue100, red100 } from 'material-ui/styles/colors';
-import Tooltip from '@material-ui/core/Tooltip';
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import CategoryCard from '../components/CategoryCard'
+import CategoryCard from '../components/CategoryCard';
+
 const styles = {
   chip: {
     margin: 4,
@@ -37,43 +24,32 @@ const styles = {
 
 
 class SetCategories extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.getCategories()
   }
-  state = {
-    open: false,
-  };
 
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
-  handleRequestDelete = () => {
-    alert('You clicked the delete button.');
+  handleItemRequestDelete = (id) => {
+    this.props.deleteCategory(id)
   }
 
-  handleClick = (path, value) => {
-    this.props.updateCategory(path, value);
+  handleItemClick = (path, value) => {
+    var newValue;
+    if (value === 'needs') newValue = 'wants'
+    if (value === 'wants') newValue = 'needs'
+    this.props.updateCategory(path, newValue);
+  }
+  handleAdd = (value) => {
+    this.props.addCategory(value);
   }
 
   render() {
     return (
       <div >
         <CategoryCard categories={this.props.categories}
-          onDelete={this.handleRequestDelete}
-          onClick={this.handleClick} />
-        <div style={styles.wrapper}>
-          <Chip backgroundColor={red100}>Needs</Chip>
-          <Chip backgroundColor={blue100}>Wants</Chip>
-        </div>
+          onItemDelete={this.handleItemRequestDelete}
+          onItemClick={this.handleItemClick}
+          onAdd={this.handleAdd} />
       </div>
     )
   }
@@ -92,6 +68,12 @@ const mapDispatchToProps = dispatch => {
     },
     updateCategory: (nodePath, value) => {
       dispatch(update(nodePath, value))
+    },
+    addCategory: newCategory => {
+      dispatch(addCategory(newCategory))
+    },
+    deleteCategory: id => {
+      dispatch(deleteCategory(id))
     }
   }
 }

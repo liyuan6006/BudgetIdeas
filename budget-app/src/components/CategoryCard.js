@@ -1,22 +1,11 @@
 import React from 'react';
-import { List, ListItem } from 'material-ui/List';
-
-import Divider from 'material-ui/Divider';
-import Avatar from 'material-ui/Avatar';
-
 import Chip from 'material-ui/Chip';
-import { connect } from 'react-redux';
-import { getCategories, update } from '../actions/category';
-
-import CategoryRadioButtons from '../components/CategoryRadioButtons';
 import { blue100, red100, green100 } from 'material-ui/styles/colors';
-import Tooltip from '@material-ui/core/Tooltip';
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import { Card, CardActions, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import AddCategoryDialog from './AddCategoryDialog';
+
 const styles = {
   chip: {
     margin: 4,
@@ -36,29 +25,32 @@ const styles = {
 class CategoryCard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      open: false,
+      selectedId: '',
+      dialogTitle: ''
+    };
   }
 
-  state = {
-    open: false,
-  };
-
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
+  handleDialogClose = () => {
     this.setState({ open: false });
   };
 
-   handleRequestDelete=()=> {
-    this.props.onDelete()
+  handleItemDelete = (id, dialogTitle) => {
+    //open dialog and set state for delete
+    this.setState({ open: true, selectedId: id, dialogTitle: dialogTitle });
   }
-  
-  handleClick = (path, oldValue) => {
-    var newValue;
-    if (oldValue === 'needs') newValue = 'wants';
-    if (oldValue === 'wants') newValue = 'needs'
-    this.props.onClick(path, newValue);
+  handleItemClick = (path, value) => {
+    this.props.onItemClick(path, value)
+  }
+
+  handleAddSubmit = (value) => {
+    this.props.onAdd(value);
+  }
+
+  handleDeleteSubmit = () => {
+    this.props.onItemDelete(this.state.selectedId);
+    this.setState({ open: false });
   }
 
   render() {
@@ -70,59 +62,44 @@ class CategoryCard extends React.Component {
               this.props.categories.map(obj => {
                 if (obj.type !== 'saving')
                   return (
-                    <Tooltip title={obj.type} placement="top-start">
-                      <Chip id={obj.id}
-                         backgroundColor={obj.type == 'needs' ? red100 : obj.type == 'saving'? green100 :blue100}
-                         onRequestDelete={this.handleRequestDelete}
-                         onClick={()=>this.handleClick(obj.id + '/type', obj.type)}
-                         style={styles.chip}
-                      >
-                        {obj.name}
-                      </Chip>
-                    </Tooltip>
+                    <Chip id={obj.id}
+                      backgroundColor={obj.type === 'needs' ? red100 : obj.type === 'saving' ? green100 : blue100}
+                      onRequestDelete={() => this.handleItemDelete(obj.id, obj.name)}
+                      onClick={() => this.handleItemClick(obj.id + '/type', obj.type)}
+                      style={styles.chip}
+                    >
+                      {obj.name}
+                    </Chip>
                   )
               }
               )
             }
           </CardText>
           <CardActions>
-            <RaisedButton label="Add" onClick={this.handleOpen} />
-            <Dialog
-              title="Add Category"
-              actions={[
-                <FlatButton
-                  label="Cancel"
-                  primary={true}
-                  onClick={this.handleClose}
-                />,
-                <FlatButton
-                  label="Submit"
-                  primary={true}
-                  onClick={this.handleClose}
-                />,
-              ]}
-              modal={false}
-              open={this.state.open}
-              onRequestClose={this.handleClose}
-            >
-              <TextField
-                hintText="Category name"
-              />
-              <RadioButtonGroup name="shipSpeed" defaultSelected="needs">
-              <RadioButton
-                value="needs"
-                label="Needs"
-                style={styles.radioButton}
-              />
-              <RadioButton
-                value="wants"
-                label="Wants"
-                style={styles.radioButton}
-              />
-               </RadioButtonGroup>
-            </Dialog>
+            <AddCategoryDialog onSubmit={this.handleAddSubmit} />
           </CardActions>
         </Card>
+
+        <Dialog
+          title="Delete Category"
+          onRequestClose={this.handleDialogClose}
+          actions={[<FlatButton
+            label="Cancel"
+            primary={true}
+            onClick={this.handleDialogClose}
+
+          />,
+          <FlatButton
+            label="Submit"
+            primary={true}
+            onClick={this.handleDeleteSubmit}
+          />]}
+          modal={false}
+          open={this.state.open}
+        >
+          Are you sure you want to delete <b>{this.state.dialogTitle}</b>?
+        </Dialog>
+
       </div>
     )
   }

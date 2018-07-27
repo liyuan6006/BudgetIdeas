@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getIncome } from '../actions/income';
 import { getCategories } from '../actions/category';
-import { Card, CardTitle, CardText } from 'material-ui/Card';
-import { PieChart, Pie, Legend, Tooltip ,Cell} from 'recharts';
+import { PieChart, Pie, Tooltip ,Cell} from 'recharts';
 
 
 

@@ -164,10 +164,6 @@ class Home extends React.Component {
             <Route path='/setPercentage' component={SetPercentage}/>
           </Switch>
           </BrowserRouter>
-          
- 
-
-          <Typography >{'You think you are good at budget? You should try this.'}</Typography>
         </main>
       </div>
     );
