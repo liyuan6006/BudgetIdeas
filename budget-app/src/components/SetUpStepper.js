@@ -26,7 +26,7 @@ class SetUpStepper extends React.Component {
   };
 
   handleNext = () => {
-    const {stepIndex} = this.state;
+    const { stepIndex } = this.state;
     this.setState({
       stepIndex: stepIndex + 1,
       finished: stepIndex >= 2,
@@ -34,24 +34,24 @@ class SetUpStepper extends React.Component {
   };
 
   handlePrev = () => {
-    const {stepIndex} = this.state;
+    const { stepIndex } = this.state;
     if (stepIndex > 0) {
-      this.setState({stepIndex: stepIndex - 1});
+      this.setState({ stepIndex: stepIndex - 1 });
     }
   };
 
   renderStepActions(step) {
-    const {stepIndex} = this.state;
+    const { stepIndex } = this.state;
 
     return (
-      <div style={{margin: '12px 0'}}>
+      <div style={{ margin: '12px 0' }}>
         <RaisedButton
           label={stepIndex === 2 ? 'Finish' : 'Next'}
           disableTouchRipple={true}
           disableFocusRipple={true}
           primary={true}
           onClick={this.handleNext}
-          style={{marginRight: 12}}
+          style={{ marginRight: 12 }}
         />
         {step > 0 && (
           <FlatButton
@@ -67,46 +67,55 @@ class SetUpStepper extends React.Component {
   }
 
   render() {
-    const {finished, stepIndex} = this.state;
+    const { finished, stepIndex } = this.state;
 
     return (
-      <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto'}}>
+      <div style={{ maxWidth: 380, maxHeight: 400, margin: 'auto' }}>
         <Stepper activeStep={stepIndex} orientation="vertical">
           <Step>
             <StepLabel>Set up Income</StepLabel>
             <StepContent>
-            <SetIncome/>
+              <SetIncome history={this.props.history}/>
               {this.renderStepActions(0)}
             </StepContent>
           </Step>
           <Step>
             <StepLabel>Set up Categories</StepLabel>
             <StepContent>
-             <SetCategories/>
+              <SetCategories history={this.props.history}/>
               {this.renderStepActions(1)}
             </StepContent>
           </Step>
           <Step>
             <StepLabel>Set up percentage</StepLabel>
             <StepContent>
-            <SetPercentage/>
+              <SetPercentage history={this.props.history}/>
               {this.renderStepActions(2)}
             </StepContent>
           </Step>
         </Stepper>
         {finished && (
-          <p style={{margin: '20px 0', textAlign: 'center'}}>
-            <a
-              href="#"
-              onClick={(event) => {
-                event.preventDefault();
-                this.setState({stepIndex: 0, finished: false});
-              }}
-            >
-              Click here
-            </a> to reset
-          </p>
-        )}
+          // <p style={{margin: '20px 0', textAlign: 'center'}}>
+          //   <a
+          //     href="#"
+          //     onClick={(event) => {
+          //       event.preventDefault();
+          //       this.setState({stepIndex: 0, finished: false});
+          //     }}
+          //   >
+          //     Click here
+          //   </a> to reset
+          // </p>
+          <FlatButton label="Reset" primary={true}
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ stepIndex: 0, finished: false });
+            }}
+          >
+
+          </FlatButton>
+        )
+        }
       </div>
     );
   }
