@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addTransaction } from '../actions/transaction';
-import {getCategories} from '../actions/category';
+import { getCategories } from '../actions/category';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import TextField from 'material-ui/TextField';
 import Save from '@material-ui/icons/Save';
 import CategoryDialog from '../components/CategoryDialog';
+import DatePicker from 'material-ui/DatePicker';
 import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
     container: {
@@ -33,7 +34,7 @@ class AddTransaction extends React.Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.getCategories();
     }
 
@@ -65,50 +66,23 @@ class AddTransaction extends React.Component {
         return (
             <form >
                 <TextField
-                    id="name"
-                    label="Name"
-                    defaultValue="new Transaction"
-                    margin="normal"
+                    floatingLabelText="Name"
                     onChange={this.handleChange('name')}
                 />
                 <br />
                 <TextField
-                    id="amount"
-                    label="Amount"
-                    defaultValue="100"
+                    floatingLabelText="Amount"
                     type="number"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    margin="normal"
                     onChange={this.handleChange('amount')}
                 />
                 <br />
                 <CategoryDialog categories={this.props.categories} onSelect={this.handleSelect('category')} />
-
-                <TextField
-                    id="date"
-                    label="Date"
-                    type="date"
-                    defaultValue="2018-07-05"
-                    className={classes.textField}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    onChange={this.handleChange('date')}
-                />
+                <DatePicker floatingLabelText="Date" />
                 <br />
                 <TextField
-                    id="note"
-                    label="Note"
-                    multiline
-                    rowsMax="4"
-                    value={this.state.multiline}
+                    floatingLabelText="Note"
                     onChange={this.handleChange('note')}
-                    className={classes.textField}
-                    margin="normal"
-                />
-                <br />
+                /><br />
                 <Button variant="contained" size="small" onClick={() => this.handleSave()} >
                     <Save />
                     Save
@@ -129,7 +103,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-const mapStateToProps = state =>{
+const mapStateToProps = state => {
     return {
         categories: state.categories
     }

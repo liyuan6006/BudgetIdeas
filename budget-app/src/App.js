@@ -4,14 +4,13 @@ import logo from './money_off.svg'
 import './App.css';
 import Home from './components/Home'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import CategoryList from './containers/CategoryList';
+
 import AddBudget from './containers/AddBudget';
 import BudgetList from './containers/BudgetList';
 import TransactionList from './containers/TransactionList';
 import AddTransaction from './containers/AddTransaction';
 import SetIncome from './containers/SetIncome';
 import SetUpStepper from './components/SetUpStepper';
-import SetPercentage from './containers/SetPercentage';
 import AddCategory from './containers/AddCategory';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 //Beginning with v0.15.0, Material-UI components require a theme to be provided. The quickest way to get up and running is by using the MuiThemeProvider to inject the theme into your application context. 
@@ -35,11 +34,11 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 const App = () => (
   <div className="App">
-    <MuiThemeProvider>
+
       <BrowserRouter>
         <Route render={ props => <Home  {...props} />}  />
       </BrowserRouter>
-    </MuiThemeProvider>
+
   </div>
 )
 export default App;

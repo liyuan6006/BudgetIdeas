@@ -10,7 +10,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import SetIncome from '../containers/SetIncome';
 import AddTransaction from '../containers/AddTransaction';
-import SetPercentage from '../containers/SetPercentage';
+
 import SetCategories from '../containers/SetCategories';
 
 
@@ -66,7 +66,7 @@ class Settings extends React.Component {
         },
         {
           label: '2. App suggestion',
-          component: <SetPercentage history={this.props.history}/>,
+         
         },
         {
           label: '3. Set category',

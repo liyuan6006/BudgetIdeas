@@ -76,14 +76,7 @@ export const otherMailFolderListItems = (
       </ListItemIcon>
       <ListItemText primary="Income" />
     </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-      <a href='/setPercentage'>
-        <Timeline />
-        </a>
-      </ListItemIcon>
-      <ListItemText primary="Percentage" />
-    </ListItem>
+   
    
   </div>
 );

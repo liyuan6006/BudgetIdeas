@@ -11,18 +11,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+
 
 const styles = theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
+    root: {
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
     },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: 200,
+    chip: {
+      margin: theme.spacing.unit,
     },
-});
+  });
 
 class AddCategory extends React.Component {
     constructor(props) {
@@ -107,5 +108,9 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
+
+AddCategory.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
 AddCategory = withStyles(styles)(connect(null, mapDispatchToProps)(AddCategory))
 export default AddCategory

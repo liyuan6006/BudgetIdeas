@@ -1,37 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import red from '@material-ui/core/colors/red';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import blue from '@material-ui/core/colors/blue';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-
-
-
-
-
-
-
-
-
-import {  red100 } from 'material-ui/styles/colors';
-
-
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 const styles = {
-    chip: {
-        margin: 4,
-    },
-    wrapper: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    radioButton: {
-        marginBottom: 16,
-        '&$checked': {
-            color: red100
-        }
+    avatar: {
+        backgroundColor: blue[100],
+        color: blue[600],
     },
 };
+
 
 class AddCategoryDialog extends React.Component {
     constructor(props) {
@@ -39,7 +28,7 @@ class AddCategoryDialog extends React.Component {
         this.state = {
             open: false,
             type: "needs",
-            name:""
+            name: ""
         };
     }
 
@@ -52,7 +41,7 @@ class AddCategoryDialog extends React.Component {
     };
     handleSubmit = () => {
         this.setState({ open: false });
-        var newCategory={name:this.state.name,type:this.state.type}
+        var newCategory = { name: this.state.name, type: this.props.type }
         this.props.onSubmit(newCategory)
     };
 
@@ -61,51 +50,53 @@ class AddCategoryDialog extends React.Component {
             "name": event.target.value,
         });
     };
-    handleTypeChange =  event => {
-        this.setState({
-            "type": event.target.value,
-        });
-    };
+    // handleTypeChange = event => {
+    //     this.setState({
+    //         "type": event.target.value,
+    //     });
+    // };
 
     render() {
+        const { classes } = this.props;
+
         return (
             <div >
-                <RaisedButton label="Add" onClick={this.handleOpen} />
+                <Button onClick={this.handleOpen} >Add</Button>
                 <Dialog
-                    title="Add Category"
-                    actions={[
-                        <FlatButton
-                            label="Cancel"
-                            primary={true}
-                            onClick={this.handleClose}
-                        />,
-                        <FlatButton
-                            label="Submit"
-                            primary={true}
-                            onClick={this.handleSubmit}
-                        />,
-                    ]}
-                    modal={false}
                     open={this.state.open}
-                    onRequestClose={this.handleClose}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
                 >
-                    <TextField
-                        hintText="Category name"
-                        onChange={this.handleNameChange}
-                    />
-                    <RadioButtonGroup name="shipSpeed" valueSelected={this.state.type}
-                        onChange={this.handleTypeChange}>
-                        <RadioButton
-                            value="needs"
-                            label="Needs"
-                            style={styles.radioButton}
+                    <DialogTitle id="alert-dialog-title">Add Category</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            id="name"
+                            label="Name"
+                            className={classes.textField}
+                            value={this.state.name}
+                            onChange={this.handleNameChange}
+                            margin="normal"
                         />
-                        <RadioButton
-                            value="wants"
-                            label="Wants"
-                            style={styles.radioButton}
-                        />
-                    </RadioButtonGroup>
+                        {/* <RadioGroup
+                            aria-label="Type"
+                            name="type1"
+                            className={classes.group}
+                            value={this.state.type}
+                            onChange={this.handleTypeChange}
+                        >
+                            <FormControlLabel value="needs" control={<Radio />} label="Needs" />
+                            <FormControlLabel value="wants" control={<Radio />} label="Wants" />
+                        </RadioGroup> */}
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose} color="primary">
+                            Cancel
+                        </Button>
+                        <Button onClick={this.handleSubmit} color="primary" autoFocus>
+                            Submit
+                        </Button>
+                    </DialogActions>
                 </Dialog>
             </div>
         )
@@ -113,4 +104,7 @@ class AddCategoryDialog extends React.Component {
 }
 
 
-export default AddCategoryDialog;
+AddCategoryDialog.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+export default withStyles(styles)(AddCategoryDialog);

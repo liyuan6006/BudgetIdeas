@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import {  getIncome, update } from '../actions/income';
-import TextField from 'material-ui/TextField';
+import {  getIncome, updateIncome } from '../actions/income';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
     container: {
@@ -94,6 +96,8 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
+SetPercentage.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
 
-//SetPercentage = withStyles(styles)(connect(SetPercentage)
-export default connect(mapStateToProps, mapDispatchToProps)(SetPercentage)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SetPercentage))

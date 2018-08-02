@@ -23,7 +23,7 @@ export const getIncome = () => {
             frequency: childData.frequency,
             needs:childData.needs,
             wants:childData.wants,
-            saving:childData.saving,
+            savings:childData.savings,
           }
         });
        dispatch({
@@ -38,7 +38,7 @@ export const getIncome = () => {
   }
 };
 
-export const update = (nodePath,newValue) => {
+export const updateIncome = (nodePath,newValue) => {
   return async (dispatch) =>{
     var updates = {};
     updates[nodePath] = newValue;
