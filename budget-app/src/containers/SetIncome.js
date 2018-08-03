@@ -20,10 +20,9 @@ import CardContent from '@material-ui/core/CardContent';
 
 
 const styles = theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
+    root: {
+        width: '100%',
+      },
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
@@ -93,7 +92,7 @@ class SetIncome extends React.Component {
         const { classes } = this.props;
         const { numberformat } = this.state;
         return (
-
+            <div className={classes.root}>
             <Card>
                 <CardContent >
                     <TextField
@@ -108,6 +107,7 @@ class SetIncome extends React.Component {
                         }}
                         helperText="Please type your income"
                     />
+                    <br/>
                     <TextField
                         id="select-currency-native"
                         select
@@ -131,6 +131,7 @@ class SetIncome extends React.Component {
                 </CardContent>
 
             </Card>
+            </div>
 
         );
     }

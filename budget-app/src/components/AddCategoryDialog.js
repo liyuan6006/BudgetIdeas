@@ -13,7 +13,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import blue from '@material-ui/core/colors/blue';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import AddIcon from '@material-ui/icons/Add';
 const styles = {
     avatar: {
         backgroundColor: blue[100],
@@ -61,7 +61,11 @@ class AddCategoryDialog extends React.Component {
 
         return (
             <div >
-                <Button onClick={this.handleOpen} >Add</Button>
+                <Button variant="fab" mini  color="primary" aria-label="add" className={classes.button}>
+                <AddIcon  onClick={this.handleOpen}  />
+                </Button>
+              
+
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}

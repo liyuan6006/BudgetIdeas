@@ -12,7 +12,6 @@ import AddTransaction from '../containers/AddTransaction';
 import SetIncome from '../containers/SetIncome';
 import SetUpStepper from './SetUpStepper';
 import AddCategory from '../containers/AddCategory';
-import AddIncome from '../containers/AddIncome';
 import Toolbar from '@material-ui/core/Toolbar';
 import ContentLink from 'material-ui/svg-icons/content/link';
 
@@ -148,7 +147,6 @@ class Home extends React.Component {
                 >
                     <MenuItem primaryText="Budgets" onClick={() => this.handleMenuItemClick('/budgets')} leftIcon={<ContentLink />} />
                     <MenuItem primaryText="Transactions" onClick={() => this.handleMenuItemClick('/addTransactions')} leftIcon={<ContentLink />} />
-                    <MenuItem primaryText="Incomes" onClick={() => this.handleMenuItemClick('/addIncomes')} leftIcon={<ContentLink />} />
                     <Divider />
                     <MenuItem primaryText="Settings" onClick={() => this.handleMenuItemClick('/settings')} leftIcon={<ContentLink />} />
                     <MenuItem primaryText="Reports" leftIcon={<ContentLink />} />
@@ -159,7 +157,6 @@ class Home extends React.Component {
                         <Route path='/budgets' component={BudgetList} />
                         <Route path='/addBudget' component={AddBudget} />
                         <Route path='/transactions' component={TransactionList} />
-                        <Route path='/addIncomes' component={AddIncome} />
                         <Route path='/addTransactions' component={AddTransaction} />
                         <Route path='/addCategory' component={AddCategory} />
                         <Route path='/settings' component={SetUpStepper} />

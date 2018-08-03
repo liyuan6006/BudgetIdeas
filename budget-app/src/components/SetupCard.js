@@ -17,8 +17,6 @@ import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import deepOrange from '@material-ui/core/colors/deepOrange';
-import deepPurple from '@material-ui/core/colors/deepPurple';
 import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
 import purple from '@material-ui/core/colors/purple';
@@ -27,10 +25,12 @@ import NumberFormat from 'react-number-format';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import classNames from 'classnames';
 import Divider from '@material-ui/core/Divider';
+import AddIcon from '@material-ui/icons/Add';
+
+
 const styles = theme => ({
     root: {
-        display: 'flex',
-        flexWrap: 'wrap',
+        width: '100%',
     },
     chip: {
         margin: theme.spacing.unit,
@@ -107,14 +107,14 @@ class SetupCard extends React.Component {
         this.setState({ open: false });
     }
 
-    handleChange = (type,id)=>event => {
+    handleChange = (type, id) => event => {
         console.log('1111')
-        if(type==="needs")
-        this.props.onChange(id+"/needs",event.target.value)
-        if(type==="wants")
-        this.props.onChange(id+"/wants",event.target.value)
-        if(type==="savings")
-        this.props.onChange(id+"/savings",event.target.value)
+        if (type === "needs")
+            this.props.onChange(id + "/needs", event.target.value)
+        if (type === "wants")
+            this.props.onChange(id + "/wants", event.target.value)
+        if (type === "savings")
+            this.props.onChange(id + "/savings", event.target.value)
     };
 
 
@@ -129,7 +129,7 @@ class SetupCard extends React.Component {
                             className={classNames(classes.margin, classes.withoutLabel, classes.textField)}
                             aria-describedby="weight-helper-text"
                         >
-                         <InputLabel htmlFor="adornment-amount">Percentage</InputLabel>
+                            <InputLabel htmlFor="adornment-amount">Percentage</InputLabel>
                             <Input
                                 id="adornment-weight"
                                 type="number"
@@ -138,15 +138,15 @@ class SetupCard extends React.Component {
                                     : this.props.type === "wants" ?
                                         this.props.income.wants
                                         : this.props.income.savings}
-                                onChange={this.handleChange(this.props.type,this.props.income.id)}
+                                onChange={this.handleChange(this.props.type, this.props.income.id)}
                                 endAdornment={<InputAdornment position="end">%</InputAdornment>}
                                 inputProps={{
                                     'aria-label': 'Weight',
                                 }}
                             />
-                             <FormHelperText>Please define the percentage</FormHelperText>
+                            <FormHelperText>Please define the percentage</FormHelperText>
                         </FormControl>
-
+                        =
                         <FormControl className={classes.margin} disabled>
                             <InputLabel htmlFor="adornment-amount">Amount</InputLabel>
                             <Input
@@ -158,7 +158,7 @@ class SetupCard extends React.Component {
                                         : this.props.income.amount * this.props.income.savings * 0.01}
                                 startAdornment={<InputAdornment position="start">$</InputAdornment>}
                             />
-                             <FormHelperText>This is the caculated amount </FormHelperText>
+                            <FormHelperText>This is the caculated amount </FormHelperText>
                         </FormControl>
 
                         <br />

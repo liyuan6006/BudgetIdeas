@@ -10,6 +10,7 @@
     "firebase": "^5.0.4",
     "material-design-icons": "^3.0.1",
     "material-ui": "^0.20.1",
+    "material-ui-pickers": "^1.0.0-rc.12",
     "rc-progress": "^2.2.5",
     "rc-slider": "^8.6.1",
     "react": "^16.4.0",

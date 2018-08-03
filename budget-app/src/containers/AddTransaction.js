@@ -1,105 +1,193 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { addTransaction } from '../actions/transaction';
-import { getCategories } from '../actions/category';
-import Button from '@material-ui/core/Button';
-import TextField from 'material-ui/TextField';
-import Save from '@material-ui/icons/Save';
-import CategoryDialog from '../components/CategoryDialog';
-import DatePicker from 'material-ui/DatePicker';
+import React, { Fragment, PureComponent } from 'react';
+import NumberFormat from 'react-number-format';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import CategoryDialog from '../components/CategoryDialog';
+import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux';
+import { getCategories } from '../actions/category';
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import SaveIcon from '@material-ui/icons/Save';
+
 const styles = theme => ({
     container: {
-        display: 'flex',
+        //display: 'flex',
         flexWrap: 'wrap',
     },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: 200,
+    formControl: {
+        margin: theme.spacing.unit,
+    },
+    card: {
+        minWidth: 275,
     },
 });
 
-class AddTransaction extends React.Component {
-    constructor(props) {
-        super(props);
-        var today = new Date();
 
-        this.state = {
-            name: 'New Transaction',
-            amount: 100,
-            date: today.getFullYear() + "-" + today.getMonth() + "-" + today.getDay(),
-            category: 'Bills',
-            note: ''
-        };
-    }
+
+function NumberFormatCustom(props) {
+    const { inputRef, onChange, ...other } = props;
+
+    return (
+        <NumberFormat
+            {...other}
+            ref={inputRef}
+            onValueChange={values => {
+                onChange({
+                    target: {
+                        value: values.value,
+                    },
+                });
+            }}
+            thousandSeparator
+            prefix="$"
+        />
+    );
+}
+
+NumberFormatCustom.propTypes = {
+    inputRef: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+};
+
+class AddTransaction extends React.Component {
+    state = {
+        numberformat: '1320',
+        selectedDate: new Date(),
+        name: '',
+        open: false,
+        type: 'a',
+    };
 
     componentDidMount() {
         this.props.getCategories();
     }
 
-    handleSelect = name => value => {
-        this.setState({
-            [name]: value
-        });
-    };
 
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
+
         });
     };
-    handleSave = () => {
-        var newTransaction = {
-            name: this.state.name,
-            amount: this.state.amount,
-            category: this.state.category,
-            date: this.state.date,
-            note: this.state.note
-        }
-        this.props.addTransaction(newTransaction);
-        this.props.history.push('/transactions')
+
+
+
+    handleDateChange = (date) => {
+        this.setState({ selectedDate: date });
+    }
+
+    handleClickOpen = () => {
+        this.setState({
+            open: true,
+        });
+    };
+
+    handleClose = value => {
+        this.setState({ selectedValue: value, open: false });
     };
 
     render() {
+        const { selectedDate } = this.state;
         const { classes } = this.props;
-        return (
-            <form >
-                <TextField
-                    floatingLabelText="Name"
-                    onChange={this.handleChange('name')}
-                />
-                <br />
-                <TextField
-                    floatingLabelText="Amount"
-                    type="number"
-                    onChange={this.handleChange('amount')}
-                />
-                <br />
-                <CategoryDialog categories={this.props.categories} onSelect={this.handleSelect('category')} />
-                <DatePicker floatingLabelText="Date" />
-                <br />
-                <TextField
-                    floatingLabelText="Note"
-                    onChange={this.handleChange('note')}
-                /><br />
-                <Button variant="contained" size="small" onClick={() => this.handleSave()} >
-                    <Save />
-                    Save
-                </Button>
-            </form>
-        )
-    }
-}
+        const { numberformat } = this.state;
 
-const mapDispatchToProps = dispatch => {
-    return {
-        addTransaction: newTransaction => {
-            dispatch(addTransaction(newTransaction))
-        },
-        getCategories: () => {
-            dispatch(getCategories())
-        }
+        return (
+            <div className={classes.container}>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <FormControlLabel
+                            control={
+                                <Radio
+                                    checked={this.state.type === 'a'}
+                                    onChange={this.handleChange("type")}
+                                    value="a"
+                                    color="primary"
+                                    name="radio-button-demo"
+                                    aria-label="A"
+                                />
+                            }
+                            label="Expenses"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Radio
+                                    checked={this.state.type === 'b'}
+                                    onChange={this.handleChange("type")}
+                                    value="b"
+                                    color="secondary"
+                                    label="Income"
+                                    name="radio-button-demo"
+                                    aria-label="B"
+                                />}
+                            label="savings"
+                        />
+                        <br />
+                        <TextField
+                            id="name"
+                            label="Name"
+                            className={classes.textField}
+                            value={this.state.name}
+                            onChange={this.handleChange('name')}
+                            margin="normal"
+                        />
+                        <br />
+                        <TextField
+                            className={classes.formControl}
+                            label="react-number-format"
+                            value={numberformat}
+                            onChange={this.handleChange('numberformat')}
+                            id="formatted-numberformat-input"
+                            InputProps={{
+                                inputComponent: NumberFormatCustom,
+                            }}
+                        />
+                        <br />
+                        <TextField
+                            id="date"
+                            label="Date"
+                            type="date"
+                            defaultValue={"2017-05-24"}
+                            className={classes.textField}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                        <br />
+                        <TextField
+                            id="name"
+                            label="Note"
+                            className={classes.textField}
+                            value={this.state.name}
+                            onChange={this.handleChange('name')}
+                            margin="normal"
+                        />
+                        <br />
+                        <Typography variant="subheading">Selected: {this.state.selectedValue}</Typography>
+                        <Button onClick={this.handleClickOpen}>Open simple dialog</Button>
+                        <CategoryDialog
+                            categories={this.props.categories}
+                            selectedValue={this.state.selectedValue}
+                            open={this.state.open}
+                            onClose={this.handleClose}
+                        />
+                        <br />
+                        <Button variant="contained" size="small" >
+                            <SaveIcon />
+                            Save
+                        </Button>
+                    </CardContent>
+                </Card>
+            </div>
+        );
     }
 }
 
@@ -109,5 +197,16 @@ const mapStateToProps = state => {
     }
 }
 
-AddTransaction = withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(AddTransaction))
-export default AddTransaction
+const mapDispatchToProps = dispatch => {
+    return {
+        getCategories: () => {
+            dispatch(getCategories())
+        }
+    }
+}
+
+AddTransaction.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(AddTransaction));

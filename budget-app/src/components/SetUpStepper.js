@@ -29,8 +29,7 @@ const tutorialSteps = [
 
 const styles = theme => ({
   root: {
-    maxWidth: 400,
-    flexGrow: 1,
+   width:"100%"
   },
   header: {
     display: 'flex',
@@ -39,13 +38,7 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit * 4,
     marginBottom: 20,
     backgroundColor: theme.palette.background.default,
-  },
-  img: {
-    height: 255,
-    maxWidth: 400,
-    overflow: 'hidden',
-    width: '100%',
-  },
+  }
 });
 
 class SetUpStepper extends React.Component {

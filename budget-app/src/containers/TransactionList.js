@@ -1,72 +1,112 @@
+
+
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import {getTransactions} from '../actions/transaction';
+import { getTransactions } from '../actions/transaction';
 import { connect } from 'react-redux';
-
-function TabContainer(props) {
-    return (
-        <Typography component="div" style={{ padding: 8 * 3 }}>
-
-            {props.children && ("name:"+props.children.name + " amount:" + props.children.amount+"  category:"+ props.children.category + " date:" + props.children.date + " note:" + props.children.note)}
-        </Typography>
-    );
-}
-
-
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 const styles = theme => ({
     root: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
+        width: '100%',
     },
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        flexBasis: '33.33%',
+        flexShrink: 0,
+    },
+    secondaryHeading: {
+        fontSize: theme.typography.pxToRem(15),
+        color: theme.palette.text.secondary,
+    },
+    fab: {
+        position: 'absolute',
+        bottom: theme.spacing.unit * 2,
+        right: theme.spacing.unit * 2,
+    }
 });
 
 class TransactionList extends React.Component {
-        state = {
-            value: "0",
-    }
-    componentDidMount() {
-        this.props.getTransactions();
-    }
+    state = {
+        expanded: null,
+    };
+
+    handleChange = panel => (event, expanded) => {
+        this.setState({
+            expanded: expanded ? panel : false,
+        });
+    };
 
     handleAdd = () => {
-        this.props.history.push('/addTransaction')
+        this.props.history.push('/addTransactions')
     }
-
-
-   
-
-    handleChange = (event, value) => {
-        this.setState({ value });
-    };
 
     render() {
         const { classes } = this.props;
-        const { value } = this.state;
+        const { expanded } = this.state;
 
         return (
+
             <div className={classes.root}>
-                <AppBar position="static">
-                    <Tabs value={value} onChange={this.handleChange}>
-                        <Tab label="Item One" value="0" />
-                        <Tab label="Item Two" value="1" />
-                        <Tab label="Item Three" value="2" />
-                    </Tabs>
-                </AppBar>
-                {value === "0" && <TabContainer>{this.props.transactions[0]}</TabContainer>}
-                {value === "1" && <TabContainer>{this.props.transactions[1]}</TabContainer>}
-                {value === "2" && <TabContainer>{this.props.transactions[2]}</TabContainer>}
-                <Button variant="fab" color="primary" aria-label="add" className={classes.button}>
-                <AddIcon onClick={() => this.handleAdd()} />
-                </Button>
+                <Card>
+                    <CardContent >
+                        <ExpansionPanel expanded={expanded === 'panel3'} onChange={this.handleChange('panel3')}>
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                <Typography className={classes.heading}>June 2018</Typography>
+                                <Typography className={classes.secondaryHeading}>$3000</Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                <Typography>
+                                    Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas
+                                    eros, vitae egestas augue. Duis vel est augue.
+            </Typography>
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
+
+                        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                <Typography className={classes.heading}>July 2018</Typography>
+                                <Typography className={classes.secondaryHeading}>$1,000</Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                <Typography>
+                                    Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
+                                    maximus est, id dignissim quam.
+            </Typography>
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
+
+                        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                <Typography className={classes.heading}>August 2019</Typography>
+                                <Typography className={classes.secondaryHeading}>$500</Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                <Typography>
+                                    Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar
+                                    diam eros in elit. Pellentesque convallis laoreet laoreet.
+            </Typography>
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
+                        <Button variant="fab" color="primary" aria-label="add" mini className={classes.fab}>
+                            <AddIcon onClick={() => this.handleAdd()} />
+                        </Button>
+                    </CardContent>
+
+                </Card>
             </div>
+
         );
     }
 }
@@ -85,8 +125,8 @@ const mapDispatchToProps = dispatch => {
         getTransactions: () => {
             dispatch(getTransactions())
         }
-        
+
     }
 }
 
-export default withStyles(styles)(connect(mapStateToProps,mapDispatchToProps)(TransactionList));
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(TransactionList));

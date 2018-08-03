@@ -25,12 +25,10 @@ import AddBudget from '../containers/AddBudget';
 import BudgetList from '../containers/BudgetList';
 import TransactionList from '../containers/TransactionList';
 import AddTransaction from '../containers/AddTransaction';
-
 import SetIncome from '../containers/SetIncome';
 import SetUpStepper from './SetUpStepper';
-
 import AddCategory from '../containers/AddCategory';
-import AddIncome from '../containers/AddIncome';
+
 
 const drawerWidth = 240;
 
@@ -164,18 +162,12 @@ class Home extends React.Component {
               </ListItemIcon>
               <ListItemText primary="Budgets" />
             </ListItem>
-            <ListItem button onClick={() => this.handleMenuItemClick('/addTransactions')}>
+            <ListItem button onClick={() => this.handleMenuItemClick('/transactionList')}>
               <ListItemIcon>
                 <AttachMoney />
               </ListItemIcon>
               <ListItemText primary="Transactions" />
             </ListItem >
-            <ListItem button onClick={() => this.handleMenuItemClick('/addIncomes')}>
-              <ListItemIcon>
-                <LocalGroceryStore />
-              </ListItemIcon>
-              <ListItemText primary="Incomes" />
-            </ListItem>
           </List>
           <Divider />
           <List>
@@ -196,9 +188,8 @@ class Home extends React.Component {
             <Route path='/' exact component={BudgetList} />
             <Route path='/budgets' component={BudgetList} />
             <Route path='/addBudget' component={AddBudget} />
-            <Route path='/transactions' component={TransactionList} />
-            <Route path='/addIncomes' component={AddIncome} />
             <Route path='/addTransactions' component={AddTransaction} />
+            <Route path='/transactionList' component={TransactionList} />
             <Route path='/addCategory' component={AddCategory} />
             <Route path='/settings' component={SetUpStepper} />
             <Route path='/setIncome' component={SetIncome} />

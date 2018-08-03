@@ -11,9 +11,7 @@ import SetupCard from '../components/SetupCard';
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
+    width: '100%',
   },
   chip: {
     margin: theme.spacing.unit,
@@ -52,7 +50,7 @@ class SetupSavings extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div >
+      <div className={classes.root}>
         <SetupCard type="savings" income={this.props.income} categories={this.props.categories}
           onItemDelete={this.handleItemRequestDelete}
           onItemClick={this.handleItemClick}

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -10,30 +11,46 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
+import Typography from '@material-ui/core/Typography';
+import Chip from '@material-ui/core/Chip';
+import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
-import TextField from '@material-ui/core/TextField';
-
-import categories from '../reducers/category';
+import purple from '@material-ui/core/colors/purple';
 
 
-
-const styles = {
-  avatar: {
-    backgroundColor: blue[100],
-    color: blue[600],
+const styles = theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
-};
+  chip: {
+    margin: theme.spacing.unit,
+  },
+  avatar: {
+    margin: 10,
+  },
+  redAvatar: {
 
-class SimpleDialog extends React.Component {
+    color: '#fff',
+    backgroundColor: red[500],
+  },
+  blueAvatar: {
+    color: '#fff',
+    backgroundColor: blue[500],
+  },
+  purpleAvatar: {
+    color: '#fff',
+    backgroundColor: purple[500],
+  },
 
-    state = {
-        gilad: true
-      };
+});
+
+class CategoryDialog extends React.Component {
   handleClose = () => {
     this.props.onClose(this.props.selectedValue);
   };
 
-  handleListItemClick = value => {
+  handleItemClick = value => {
     this.props.onClose(value);
   };
 
@@ -42,29 +59,26 @@ class SimpleDialog extends React.Component {
 
     return (
       <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" {...other}>
-        <DialogTitle id="simple-dialog-title">Categories</DialogTitle>
+        <DialogTitle id="simple-dialog-title">Select a category</DialogTitle>
         <div>
           <List>
-            {this.props.categories&&this.props.categories.map(category => (
-              <ListItem button onClick={() => this.handleListItemClick(category.name)} key={category}>
-                <ListItemAvatar>
-                  <Avatar className={classes.avatar}>
-                    <PersonIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={category.name} />
-            
-              </ListItem>
-              
-            ))}
-            <ListItem button onClick={() => this.handleListItemClick('addAccount')}>
-              <ListItemAvatar>
-                <Avatar>
-                  <AddIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="add Category" />
-            </ListItem>
+            {
+              this.props.categories.map(obj => {
+                if (obj.type !== "savings")
+                  return (
+                    <Chip key={obj.id} label={obj.name}
+                      avatar={obj.type == "needs" ?
+                        <Avatar className={classes.redAvatar}>N</Avatar>
+                        : obj.type == "wants" ?
+                          <Avatar className={classes.purpleAvatar}>W</Avatar>
+                          : <Avatar className={classes.blueAvatar}>S</Avatar>}
+                      className={classes.chip}
+                      onClick={() => this.handleItemClick(obj.name)}
+                    />
+                  )
+              }
+              )
+            }
           </List>
         </div>
       </Dialog>
@@ -72,56 +86,10 @@ class SimpleDialog extends React.Component {
   }
 }
 
-SimpleDialog.propTypes = {
+CategoryDialog.propTypes = {
   classes: PropTypes.object.isRequired,
   onClose: PropTypes.func,
   selectedValue: PropTypes.string,
 };
 
-const SimpleDialogWrapped = withStyles(styles)(SimpleDialog);
-
-class CategoryDialog extends React.Component {
-  state = {
-    open: false,
-    selectedValue: categories[1],
-  };
-
-  handleClickOpen = () => {
-    this.setState({
-      open: true,
-    });
-  };
-
-  handleClose = value => {
-    this.setState({ selectedValue: value, open: false });
-    this.props.onSelect(value)
-  };
-
-
-
-  render() {
-    return (
-      <div>
-           <TextField
-                    id="category"
-                    label="Categories"
-                  
-                 defaultValue="Bills"
-                    margin="normal"
-                    value={this.state.selectedValue}
-                   onClick={this.handleClickOpen}
-                />
-
-               
-        <SimpleDialogWrapped
-          categories ={this.props.categories}
-          selectedValue={this.state.selectedValue}
-          open={this.state.open}
-          onClose={this.handleClose}
-        />
-      </div>
-    );
-  }
-}
-
-export default CategoryDialog;
+export default withStyles(styles)(CategoryDialog);
