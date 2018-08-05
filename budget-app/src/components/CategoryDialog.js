@@ -63,20 +63,17 @@ class CategoryDialog extends React.Component {
         <div>
           <List>
             {
-              this.props.categories.map(obj => {
-                if (obj.type !== "savings")
-                  return (
-                    <Chip key={obj.id} label={obj.name}
-                      avatar={obj.type == "needs" ?
-                        <Avatar className={classes.redAvatar}>N</Avatar>
-                        : obj.type == "wants" ?
-                          <Avatar className={classes.purpleAvatar}>W</Avatar>
-                          : <Avatar className={classes.blueAvatar}>S</Avatar>}
-                      className={classes.chip}
-                      onClick={() => this.handleItemClick(obj.name)}
-                    />
-                  )
-              }
+              this.props.categories.map(obj => (
+                <Chip key={obj.id} label={obj.name}
+                  avatar={obj.type === "needs" ?
+                    <Avatar className={classes.redAvatar}>N</Avatar>
+                    :
+                    <Avatar className={classes.purpleAvatar}>W</Avatar>
+                  }
+                  className={classes.chip}
+                  onClick={() => this.handleItemClick(obj.name)}
+                />
+              )
               )
             }
           </List>

@@ -5,6 +5,7 @@ export const categoriesRef = databaseRef.child("categories/");
 export const budgetsRef = databaseRef.child("budgets/");
 export const transactionsRef = databaseRef.child("transactions/");
 export const incomeRef = databaseRef.child("income/");
+export const savingRef = databaseRef.child("savings/");
 
 export const getCategories = databaseRef.child("categories/");
 export const getBudgets = databaseRef.child("budgets/");

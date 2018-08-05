@@ -14,7 +14,7 @@ import CategoryDialog from '../components/CategoryDialog';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import { getCategories } from '../actions/category';
-import { addTransaction } from '../actions/transaction';
+import { addSaving } from '../actions/saving';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SaveIcon from '@material-ui/icons/Save';
@@ -66,7 +66,7 @@ NumberFormatCustom.propTypes = {
     onChange: PropTypes.func.isRequired,
 };
 
-class AddTransaction extends React.Component {
+class AddSaving extends React.Component {
     state = {
         category:'',
         amount: '',
@@ -97,13 +97,13 @@ class AddTransaction extends React.Component {
     };
 
     handleSave=()=>{
-        var transactionObj = {};
-        transactionObj.category=this.state.category;
-        transactionObj.amount=this.state.amount;
-        transactionObj.date=this.state.date;
-        transactionObj.note=this.state.note;
-        this.props.addTransaction(transactionObj);
-        this.props.history.push("/transactionList");
+        var savingObj = {};
+        savingObj.category=this.state.category;
+        savingObj.amount=this.state.amount;
+        savingObj.date=this.state.date;
+        savingObj.note=this.state.note;
+        this.props.addSaving(savingObj);
+        this.props.history.push("/savingList");
     }
     render() {
         const { selectedDate } = this.state;
@@ -167,7 +167,7 @@ class AddTransaction extends React.Component {
 
                         <br />
                         <CategoryDialog
-                            categories={this.props.categories.filter(s=>s.type!=="savings")}
+                            categories={this.props.categories.filter(s=>s.type==="savings")}
                             selectedValue={this.state.selectedValue}
                             open={this.state.open}
                             onClose={this.handleClose}
@@ -195,14 +195,14 @@ const mapDispatchToProps = dispatch => {
         getCategories: () => {
             dispatch(getCategories())
         },
-        addTransaction: (transactionObj) => {
-            dispatch(addTransaction(transactionObj))
+        addSaving: (savingObj) => {
+            dispatch(addSaving(savingObj))
         }
     }
 }
 
-AddTransaction.propTypes = {
+AddSaving.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(AddTransaction));
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(AddSaving));

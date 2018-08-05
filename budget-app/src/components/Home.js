@@ -25,6 +25,8 @@ import AddBudget from '../containers/AddBudget';
 import BudgetList from '../containers/BudgetList';
 import TransactionList from '../containers/TransactionList';
 import AddTransaction from '../containers/AddTransaction';
+import SavingList from '../containers/SavingList';
+import AddSaving from '../containers/AddSaving';
 import SetIncome from '../containers/SetIncome';
 import SetUpStepper from './SetUpStepper';
 import AddCategory from '../containers/AddCategory';
@@ -166,7 +168,13 @@ class Home extends React.Component {
               <ListItemIcon>
                 <AttachMoney />
               </ListItemIcon>
-              <ListItemText primary="Transactions" />
+              <ListItemText primary="Spendings" />
+            </ListItem >
+            <ListItem button onClick={() => this.handleMenuItemClick('/savingList')}>
+              <ListItemIcon>
+                <AttachMoney />
+              </ListItemIcon>
+              <ListItemText primary="Savings" />
             </ListItem >
           </List>
           <Divider />
@@ -190,6 +198,8 @@ class Home extends React.Component {
             <Route path='/addBudget' component={AddBudget} />
             <Route path='/addTransactions' component={AddTransaction} />
             <Route path='/transactionList' component={TransactionList} />
+            <Route path='/addSavings' component={AddSaving} />
+            <Route path='/savingList' component={SavingList} />
             <Route path='/addCategory' component={AddCategory} />
             <Route path='/settings' component={SetUpStepper} />
             <Route path='/setIncome' component={SetIncome} />

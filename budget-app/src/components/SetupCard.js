@@ -25,8 +25,6 @@ import NumberFormat from 'react-number-format';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import classNames from 'classnames';
 import Divider from '@material-ui/core/Divider';
-import AddIcon from '@material-ui/icons/Add';
-
 
 const styles = theme => ({
     root: {
