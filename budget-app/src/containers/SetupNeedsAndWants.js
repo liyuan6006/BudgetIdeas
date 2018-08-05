@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
+
 import { connect } from 'react-redux';
 import { getCategories, update, addCategory, deleteCategory } from '../actions/category';
 import { getIncome,updateIncome } from '../actions/income';
-import red100 from '@material-ui/core/colors/red';
-import blue100 from '@material-ui/core/colors/blue';
+
+
 import SetupCard from '../components/SetupCard';
 
 const styles = theme => ({
@@ -45,15 +45,14 @@ class SetupNeedsAndWants extends React.Component {
 };
 
   render() {
-    const { classes } = this.props;
     return (
       <div >
-        <SetupCard type="needs" income={this.props.income} categories={this.props.categories}
+        <SetupCard income={this.props.income} type="needs" categories={this.props.categories.filter(s=>s.type==="needs")}
           onItemDelete={this.handleItemRequestDelete}
           onItemClick={this.handleItemClick}
           onAdd={this.handleAdd} 
           onChange={this.handleChange}/>
-        <SetupCard type="wants" income={this.props.income} categories={this.props.categories}
+        <SetupCard income={this.props.income} type="wants" categories={this.props.categories.filter(s=>s.type==="wants")}
           onItemDelete={this.handleItemRequestDelete}
           onItemClick={this.handleItemClick}
           onAdd={this.handleAdd} 

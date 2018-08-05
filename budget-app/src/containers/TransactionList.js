@@ -14,7 +14,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { getTransactions } from '../actions/transaction';
 import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
+
 import CardContent from '@material-ui/core/CardContent';
 
 const styles = theme => ({

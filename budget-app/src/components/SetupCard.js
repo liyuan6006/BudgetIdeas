@@ -20,11 +20,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
 import purple from '@material-ui/core/colors/purple';
-import TextField from '@material-ui/core/TextField';
-import NumberFormat from 'react-number-format';
+
+
 import FormHelperText from '@material-ui/core/FormHelperText';
 import classNames from 'classnames';
-import Divider from '@material-ui/core/Divider';
+
 
 const styles = theme => ({
     root: {
@@ -53,25 +53,6 @@ const styles = theme => ({
 });
 
 
-function NumberFormatCustom(props) {
-    const { inputRef, onChange, ...other } = props;
-
-    return (
-        <NumberFormat
-            {...other}
-            ref={inputRef}
-            onValueChange={values => {
-                onChange({
-                    target: {
-                        value: values.value,
-                    },
-                });
-            }}
-            thousandSeparator
-            prefix="$"
-        />
-    );
-}
 
 class SetupCard extends React.Component {
     constructor(props) {
@@ -162,21 +143,20 @@ class SetupCard extends React.Component {
                         <br />
 
                         {
-                            this.props.categories.map(obj => {
-                                if (obj.type === this.props.type)
-                                    return (
+                            this.props.categories.map(obj => (
+                              
                                         <Chip key={obj.id} label={obj.name}
-                                            avatar={this.props.type == "needs" ?
+                                            avatar={this.props.type === "needs" ?
                                                 <Avatar className={classes.redAvatar}>N</Avatar>
-                                                : this.props.type == "wants" ?
+                                                : this.props.type === "wants" ?
                                                     <Avatar className={classes.purpleAvatar}>W</Avatar>
                                                     : <Avatar className={classes.blueAvatar}>S</Avatar>}
                                             className={classes.chip}
                                             onDelete={() => this.handleItemDelete(obj.id, obj.name)}
                                             onClick={() => this.handleItemClick(obj.id + '/type', obj.type)}
                                         />
-                                    )
-                            }
+                                    
+                            )
                             )
                         }
                     </CardContent>

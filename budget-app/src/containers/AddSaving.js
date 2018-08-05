@@ -1,25 +1,25 @@
-import React, { Fragment, PureComponent } from 'react';
+import React from 'react';
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+
+
 import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
+
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
+
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import CategoryDialog from '../components/CategoryDialog';
-import Typography from '@material-ui/core/Typography';
+
 import { connect } from 'react-redux';
 import { getCategories } from '../actions/category';
 import { addSaving } from '../actions/saving';
-import Radio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+
 import SaveIcon from '@material-ui/icons/Save';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Select from '@material-ui/core/Select';
+
+
 
 const styles = theme => ({
     root: {
@@ -106,7 +106,7 @@ class AddSaving extends React.Component {
         this.props.history.push("/savingList");
     }
     render() {
-        const { selectedDate } = this.state;
+
         const { classes } = this.props;
         const { amount } = this.state;
 
@@ -151,7 +151,7 @@ class AddSaving extends React.Component {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            className={classes.textField}
+
                             placeholder="Click to pick date"
                         />
                         <br />

@@ -3,17 +3,17 @@ import React from 'react';
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
+
+
+
+
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Select from '@material-ui/core/Select';
-import FormHelperText from '@material-ui/core/FormHelperText';
+
+
 import { connect } from 'react-redux';
 import { addIncome, getIncome, updateIncome } from '../actions/income';
-import NativeSelect from '@material-ui/core/NativeSelect';
+
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
@@ -90,7 +90,7 @@ class SetIncome extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { numberformat } = this.state;
+       
         return (
             <div className={classes.root}>
             <Card>
