@@ -72,7 +72,8 @@ class AddTransaction extends React.Component {
         amount: '',
         date: new Date(),
         note:'',
-        open: false
+        open: false,
+        type:''
     };
 
     componentDidMount() {
@@ -92,8 +93,8 @@ class AddTransaction extends React.Component {
         });
     };
 
-    handleClose = value => {
-        this.setState({ category: value, open: false });
+    handleClose = (categoryValue,typeValue) => {
+        this.setState({ category: categoryValue, type:typeValue,open: false });
     };
 
     handleSave=()=>{
@@ -102,8 +103,9 @@ class AddTransaction extends React.Component {
         transactionObj.amount=this.state.amount;
         transactionObj.date=this.state.date;
         transactionObj.note=this.state.note;
+        transactionObj.type=this.state.type;
         this.props.addTransaction(transactionObj);
-        this.props.history.push("/transactionList");
+        this.props.history.push(`/transactionList/${this.state.type}`);
     }
     render() {
         

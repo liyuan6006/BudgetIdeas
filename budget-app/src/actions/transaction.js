@@ -22,10 +22,10 @@ export const getTransactions = () => {
           var childData = childSnapshot.val();
           transactions.push({
             id: childSnapshot.key,
-            name: childData.name,
-            amount: childData.amount,
             category: childData.category,
-            date:childData.date,
+            amount: childData.amount,
+            date: childData.date,
+            type: childData.type,
             note: childData.note
           })
         })

@@ -50,8 +50,8 @@ class CategoryDialog extends React.Component {
     this.props.onClose(this.props.selectedValue);
   };
 
-  handleItemClick = value => {
-    this.props.onClose(value);
+  handleItemClick = (categoryValue,typeValue) => {
+    this.props.onClose(categoryValue,typeValue);
   };
 
   render() {
@@ -71,7 +71,7 @@ class CategoryDialog extends React.Component {
                     <Avatar className={classes.purpleAvatar}>W</Avatar>
                   }
                   className={classes.chip}
-                  onClick={() => this.handleItemClick(obj.name)}
+                  onClick={() => this.handleItemClick(obj.name,obj.type)}
                 />
               )
               )

@@ -30,7 +30,7 @@ import AddSaving from '../containers/AddSaving';
 import SetIncome from '../containers/SetIncome';
 import SetUpStepper from './SetUpStepper';
 import AddCategory from '../containers/AddCategory';
-
+import Overview from '../containers/Overview';
 
 const drawerWidth = 240;
 
@@ -158,17 +158,23 @@ class Home extends React.Component {
           </div>
           <Divider />
           <List>
-            <ListItem button onClick={() => this.handleMenuItemClick('/budgets')}>
+            <ListItem button onClick={() => this.handleMenuItemClick('/overview')}>
               <ListItemIcon>
                 <AttachMoney />
               </ListItemIcon>
-              <ListItemText primary="Budgets" />
+              <ListItemText primary="Overview" />
             </ListItem>
-            <ListItem button onClick={() => this.handleMenuItemClick('/transactionList')}>
+            <ListItem button onClick={() => this.handleMenuItemClick('/transactionList/needs')}>
               <ListItemIcon>
                 <AttachMoney />
               </ListItemIcon>
-              <ListItemText primary="Spendings" />
+              <ListItemText primary="Needs" />
+            </ListItem >
+            <ListItem button onClick={() => this.handleMenuItemClick('/transactionList/wants')}>
+              <ListItemIcon>
+                <AttachMoney />
+              </ListItemIcon>
+              <ListItemText primary="Wants" />
             </ListItem >
             <ListItem button onClick={() => this.handleMenuItemClick('/savingList')}>
               <ListItemIcon>
@@ -193,11 +199,11 @@ class Home extends React.Component {
 
 
           <Switch>
-            <Route path='/' exact component={BudgetList} />
-            <Route path='/budgets' component={BudgetList} />
+            <Route path='/' exact component={Overview} />
+            <Route path='/overview' component={Overview} />
             <Route path='/addBudget' component={AddBudget} />
             <Route path='/addTransactions' component={AddTransaction} />
-            <Route path='/transactionList' component={TransactionList} />
+            <Route path='/transactionList/:type' component={TransactionList} />
             <Route path='/addSavings' component={AddSaving} />
             <Route path='/savingList' component={SavingList} />
             <Route path='/addCategory' component={AddCategory} />

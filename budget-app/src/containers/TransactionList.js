@@ -14,8 +14,9 @@ import AddIcon from '@material-ui/icons/Add';
 import { getTransactions } from '../actions/transaction';
 import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
-
+import { Line } from 'rc-progress';
 import CardContent from '@material-ui/core/CardContent';
+
 
 const styles = theme => ({
     root: {
@@ -34,13 +35,20 @@ const styles = theme => ({
         position: 'absolute',
         bottom: theme.spacing.unit * 2,
         right: theme.spacing.unit * 2,
-    }
+    },
+    progress: {
+        margin: theme.spacing.unit * 2,
+      },
 });
 
 class TransactionList extends React.Component {
     state = {
         expanded: null,
     };
+
+    componentDidMount() {
+        this.props.getTransactions();
+    }
 
     handleChange = panel => (event, expanded) => {
         this.setState({
@@ -61,44 +69,26 @@ class TransactionList extends React.Component {
             <div className={classes.root}>
                 <Card>
                     <CardContent >
-                        <ExpansionPanel expanded={expanded === 'panel3'} onChange={this.handleChange('panel3')}>
-                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                <Typography className={classes.heading}>June 2018</Typography>
-                                <Typography className={classes.secondaryHeading}>$3000</Typography>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails>
-                                <Typography>
-                                    Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas
-                                    eros, vitae egestas augue. Duis vel est augue.
-            </Typography>
-                            </ExpansionPanelDetails>
-                        </ExpansionPanel>
+                        <Typography gutterBottom variant="headline" component="h2"> Spendings-{this.props.match.params.type} </Typography>
+                        <Line percent="20" className={classes.progress} strokeWidth="1" strokeColor="green" trailWidth="2" trailColor="#D9D9D9" strokeLinecap="square" />
+                        {
+                            this.props.transactions.filter(t => t.type === this.props.match.params.type).map(obj => (
+                                <ExpansionPanel expanded={expanded === obj.id} onChange={this.handleChange(obj.id)}>
+                                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                        <Typography className={classes.heading}>{obj.date}</Typography>
+                                        <Typography className={classes.heading}>{obj.category}</Typography>
+                                        <Typography className={classes.heading}>${obj.amount}</Typography>
+                                    </ExpansionPanelSummary>
+                                    <ExpansionPanelDetails>
+                                        <Typography>
+                                            {obj.note}
+                                        </Typography>
+                                    </ExpansionPanelDetails>
+                                </ExpansionPanel>
 
-                        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                <Typography className={classes.heading}>July 2018</Typography>
-                                <Typography className={classes.secondaryHeading}>$1,000</Typography>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails>
-                                <Typography>
-                                    Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-                                    maximus est, id dignissim quam.
-            </Typography>
-                            </ExpansionPanelDetails>
-                        </ExpansionPanel>
-
-                        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
-                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                <Typography className={classes.heading}>August 2019</Typography>
-                                <Typography className={classes.secondaryHeading}>$500</Typography>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails>
-                                <Typography>
-                                    Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar
-                                    diam eros in elit. Pellentesque convallis laoreet laoreet.
-            </Typography>
-                            </ExpansionPanelDetails>
-                        </ExpansionPanel>
+                            )
+                            )
+                        }
                         <Button variant="fab" color="primary" aria-label="add" mini className={classes.fab}>
                             <AddIcon onClick={() => this.handleAdd()} />
                         </Button>
