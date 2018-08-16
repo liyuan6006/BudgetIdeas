@@ -66,9 +66,8 @@ class Overview extends React.Component {
 
 
     handleClick = (data, index) => {
-        this.setState({
-            activeIndex: index,
-        });
+       console.log(data, index)
+       this.props.history.push(`/transactionList/${ data.name.toLowerCase()}`)
     };
 
 
@@ -87,10 +86,9 @@ class Overview extends React.Component {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis type="number"/>
                             <YAxis type="category" dataKey="name" />
-                            <Tooltip />
                             <Legend />
-                            <Bar dataKey="amt" stackId="a" fill={green300} maxBarSize={20}/>
-                            <Bar dataKey="unused" stackId="a" fill={grey300}  maxBarSize={20}/>
+                            <Bar dataKey="amt" stackId="a" fill={green300} maxBarSize={20} onClick={this.handleClick}/>
+                            <Bar dataKey="unused" stackId="a" fill={grey300}  maxBarSize={20} onClick={this.handleClick}/>
                         </BarChart>
                     </CardContent>
                 </Card>
@@ -102,7 +100,6 @@ class Overview extends React.Component {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis type="number"/>
                             <YAxis type="category" dataKey="name" />                           
-                            <Tooltip />
                             <Legend />
                             <Bar dataKey="amt" fill={green300} maxBarSize={20}/>
                         </BarChart>
