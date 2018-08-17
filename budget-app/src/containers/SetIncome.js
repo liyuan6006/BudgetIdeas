@@ -21,15 +21,15 @@ import CardContent from '@material-ui/core/CardContent';
 
 const styles = theme => ({
     root: {
-        width: '100%',
+        //width: '100%',
       },
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 200,
+        width: 150,
     },
     menu: {
-        width: 200,
+        width: 150,
     },
 });
 
@@ -96,7 +96,7 @@ class SetIncome extends React.Component {
             <Card>
                 <CardContent >
                     <TextField
-                        className={classes.formControl}
+                        className={classes.textField}
                         label="Amount"
                         value={this.props.income.amount}
                         onChange={this.handleAmountChange(this.props.income.id)}

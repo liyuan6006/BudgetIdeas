@@ -1,17 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
-
-
-
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-
-
-
 import Chip from '@material-ui/core/Chip';
 import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
@@ -34,14 +27,18 @@ const styles = theme => ({
     color: '#fff',
     backgroundColor: red[500],
   },
-  blueAvatar: {
+  redAvatar: {
+    color: '#fff',
+    backgroundColor: red[500],
+},
+blueAvatar: {
     color: '#fff',
     backgroundColor: blue[500],
-  },
-  purpleAvatar: {
+},
+purpleAvatar: {
     color: '#fff',
     backgroundColor: purple[500],
-  },
+},
 
 });
 
@@ -67,8 +64,9 @@ class CategoryDialog extends React.Component {
                 <Chip key={obj.id} label={obj.name}
                   avatar={obj.type === "needs" ?
                     <Avatar className={classes.redAvatar}>N</Avatar>
-                    :
+                    : obj.type === "wants" ?
                     <Avatar className={classes.purpleAvatar}>W</Avatar>
+                    :<Avatar className={classes.blueAvatar}>S</Avatar>
                   }
                   className={classes.chip}
                   onClick={() => this.handleItemClick(obj.name,obj.type)}

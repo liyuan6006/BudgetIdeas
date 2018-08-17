@@ -169,7 +169,7 @@ class AddTransaction extends React.Component {
 
                         <br />
                         <CategoryDialog
-                            categories={this.props.categories.filter(s=>s.type!=="savings")}
+                            categories={this.props.categories}
                             selectedValue={this.state.selectedValue}
                             open={this.state.open}
                             onClose={this.handleClose}

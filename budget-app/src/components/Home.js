@@ -176,7 +176,7 @@ class Home extends React.Component {
               </ListItemIcon>
               <ListItemText primary="Wants" />
             </ListItem >
-            <ListItem button onClick={() => this.handleMenuItemClick('/savingList')}>
+            <ListItem button onClick={() => this.handleMenuItemClick('/transactionList/savings')}>
               <ListItemIcon>
                 <AttachMoney />
               </ListItemIcon>

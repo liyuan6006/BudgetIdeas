@@ -16,11 +16,13 @@ import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import { Line } from 'rc-progress';
 import CardContent from '@material-ui/core/CardContent';
-
+import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
 
 const styles = theme => ({
     root: {
-        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap'
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -32,22 +34,39 @@ const styles = theme => ({
         color: theme.palette.text.secondary,
     },
     fab: {
-        position: 'absolute',
-        bottom: theme.spacing.unit * 2,
-        right: theme.spacing.unit * 2,
+        //position: 'absolute',
+        //bottom: theme.spacing.unit * 2,
+        //right: theme.spacing.unit * 2,
     },
     progress: {
         margin: theme.spacing.unit * 2,
-      },
+    },
 });
 
+
+// const data = [{ name: 'Food', value: 400 }, { name: 'Cloth', value: 300 },
+// { name: 'Morgage', value: 300 }, { name: 'Gas', value: 200 }]
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 class TransactionList extends React.Component {
     state = {
         expanded: null,
     };
 
+
+    organizeData = (data) => {
+        var filteredTransactions = this.props.transactions.filter(t => t.type === this.props.match.params.type);
+        filteredTransactions.forEach(obj => {
+            var newObj = {};
+            newObj.name = obj.category;
+            newObj.value = parseInt(obj.amount)
+            data.push(newObj)
+        }
+        )
+    }
     componentDidMount() {
         this.props.getTransactions();
+
     }
 
     handleChange = panel => (event, expanded) => {
@@ -63,14 +82,24 @@ class TransactionList extends React.Component {
     render() {
         const { classes } = this.props;
         const { expanded } = this.state;
-
+        var data = [];
+        this.organizeData(data);
         return (
 
             <div className={classes.root}>
                 <Card>
                     <CardContent >
-                        <Typography gutterBottom variant="headline" component="h2"> Spendings-{this.props.match.params.type} </Typography>
-                        <Line percent="20" className={classes.progress} strokeWidth="1" strokeColor="green" trailWidth="2" trailColor="#D9D9D9" strokeLinecap="square" />
+                        <Typography gutterBottom variant="headline" component="h2"> {this.props.match.params.type} </Typography>
+                        <PieChart width={300} height={250}>
+                            <Pie data={data} innerRadius={40} outerRadius={80} fill="#8884d8" label >
+                                {
+                                    data.map((entry, index) => <Cell fill={COLORS[index]} />)
+                                }
+                            </Pie>
+                            <Tooltip />
+                            <Legend verticalAlign="top" height={36}/>
+                        </PieChart>
+
                         {
                             this.props.transactions.filter(t => t.type === this.props.match.params.type).map(obj => (
                                 <ExpansionPanel expanded={expanded === obj.id} onChange={this.handleChange(obj.id)}>

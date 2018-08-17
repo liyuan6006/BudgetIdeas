@@ -45,8 +45,9 @@ class SetupNeedsAndWants extends React.Component {
 };
 
   render() {
+    const { classes } = this.props;
     return (
-      <div >
+      <div  className={classes.root} >
         <SetupCard income={this.props.income} type="needs" categories={this.props.categories.filter(s=>s.type==="needs")}
           onItemDelete={this.handleItemRequestDelete}
           onItemClick={this.handleItemClick}

@@ -10,34 +10,39 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SetIncome from '../containers/SetIncome';
 import SetupSavings from '../containers/SetupSavings';
 import SetupNeedsAndWants from '../containers/SetupNeedsAndWants';
+import Card from '@material-ui/core/Card';
 
+import CardContent from '@material-ui/core/CardContent';
 const tutorialSteps = [
   {
     label: '1. Set Income',
-    content:<SetIncome/>
+    content: <SetIncome />
   },
   {
     label: '2. Set savings',
-    content:<SetupSavings/>
+    content: <SetupSavings />
   },
   {
     label: '3. Set Categories',
-    content:<SetupNeedsAndWants/>
+    content: <SetupNeedsAndWants />
   }
 
 ];
 
 const styles = theme => ({
   root: {
-   width:"100%"
-  },
-  header: {
     display: 'flex',
-    alignItems: 'center',
-    height: 50,
-    paddingLeft: theme.spacing.unit * 4,
-    marginBottom: 20,
-    backgroundColor: theme.palette.background.default,
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    
+},
+  header: {
+    //display: 'flex',
+    // alignItems: 'center',
+    // height: 50,
+    //paddingLeft: theme.spacing.unit * 4,
+    //marginBottom: 20,
+    //backgroundColor: theme.palette.background.default,
   }
 });
 
@@ -66,28 +71,32 @@ class SetUpStepper extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Paper square elevation={0} className={classes.header}>
-          <Typography>{tutorialSteps[activeStep].label}</Typography>
-        </Paper>
-       {tutorialSteps[activeStep].content}
-        <MobileStepper
-          steps={maxSteps}
-          position="static"
-          activeStep={activeStep}
-          className={classes.mobileStepper}
-          nextButton={
-            <Button size="small" onClick={this.handleNext} disabled={activeStep === maxSteps - 1}>
-              Next
+        <Card>
+          <CardContent>
+            <Paper square elevation={0} className={classes.header}>
+              <Typography>{tutorialSteps[activeStep].label}</Typography>
+            </Paper>
+            {tutorialSteps[activeStep].content}
+            <MobileStepper
+              steps={maxSteps}
+              position="static"
+              activeStep={activeStep}
+              className={classes.mobileStepper}
+              nextButton={
+                <Button size="small" onClick={this.handleNext} disabled={activeStep === maxSteps - 1}>
+                  Next
               {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                </Button>
+              }
+              backButton={
+                <Button size="small" onClick={this.handleBack} disabled={activeStep === 0}>
+                  {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                  Back
             </Button>
-          }
-          backButton={
-            <Button size="small" onClick={this.handleBack} disabled={activeStep === 0}>
-              {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-              Back
-            </Button>
-          }
-        />
+              }
+            />
+          </CardContent>
+        </Card>
       </div>
     );
   }

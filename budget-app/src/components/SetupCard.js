@@ -28,7 +28,14 @@ import classNames from 'classnames';
 
 const styles = theme => ({
     root: {
-        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap'
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 150,
     },
     chip: {
         margin: theme.spacing.unit,
@@ -125,8 +132,8 @@ class SetupCard extends React.Component {
                             />
                             <FormHelperText>Please define the percentage</FormHelperText>
                         </FormControl>
-                        =
-                        <FormControl className={classes.margin} disabled>
+                        <br/>
+                        <FormControl className={classes.textField} disabled>
                             <InputLabel htmlFor="adornment-amount">Amount</InputLabel>
                             <Input
                                 id="adornment-amount"
@@ -144,7 +151,7 @@ class SetupCard extends React.Component {
 
                         {
                             this.props.categories.map(obj => (
-                              
+                              <div>
                                         <Chip key={obj.id} label={obj.name}
                                             avatar={this.props.type === "needs" ?
                                                 <Avatar className={classes.redAvatar}>N</Avatar>
@@ -154,15 +161,15 @@ class SetupCard extends React.Component {
                                             className={classes.chip}
                                             onDelete={() => this.handleItemDelete(obj.id, obj.name)}
                                             onClick={() => this.handleItemClick(obj.id + '/type', obj.type)}
-                                        />
-                                    
+                                        /><br/>
+                                    </div>
                             )
                             )
                         }
                     </CardContent>
-                    <CardActions>
+                    
                         <AddCategoryDialog type={this.props.type} onSubmit={this.handleAddSubmit} />
-                    </CardActions>
+                   
                 </Card>
 
                 <Dialog

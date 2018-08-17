@@ -4,14 +4,14 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { connect } from 'react-redux';
 import { getCategories, update, addCategory, deleteCategory } from '../actions/category';
-import { getIncome,updateIncome } from '../actions/income';
+import { getIncome, updateIncome } from '../actions/income';
 
 
 import SetupCard from '../components/SetupCard';
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    //width: '100%',
   },
   chip: {
     margin: theme.spacing.unit,
@@ -44,20 +44,18 @@ class SetupSavings extends React.Component {
   }
 
   handleChange = (path, value) => {
-    this.props.updateIncome(path,value);
-};
+    this.props.updateIncome(path, value);
+  };
 
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <SetupCard income={this.props.income} type="savings" categories={this.props.categories.filter(s=>s.type==="savings")}
-          onItemDelete={this.handleItemRequestDelete}
-          onItemClick={this.handleItemClick}
-          onAdd={this.handleAdd} 
-          onChange={this.handleChange}
-          />
-      </div>
+      <SetupCard income={this.props.income} type="savings" categories={this.props.categories.filter(s => s.type === "savings")}
+        onItemDelete={this.handleItemRequestDelete}
+        onItemClick={this.handleItemClick}
+        onAdd={this.handleAdd}
+        onChange={this.handleChange}
+      />
     )
   }
 }

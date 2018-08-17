@@ -21,6 +21,8 @@ import { ProgressBar } from 'react-bootstrap';
 import { grey500 } from 'material-ui/styles/colors';
 import { grey300 } from 'material-ui/styles/colors';
 import { green100 } from 'material-ui/styles/colors';
+import { getTransactions } from '../actions/transaction';
+import { connect } from 'react-redux';
 
 const styles = {
     root: {
@@ -42,17 +44,18 @@ const renderCustomizedLabel = ({ percent }) => {
         `${(percent * 100).toFixed(0)}%`
     );
 }
-const dataNeedsWants = [
-    { name: 'Needs', unused: 400, amt: 240 },
-    { name: 'Wants', unused: 300, amt: 120 }
-];
 
-const dataSavings = [
-    { name: 'Retire', amt: 1000 },
-    { name: 'Kids', amt: 300 },
-    { name: 'Vacation', amt: 100 },
-    { name: 'Other', amt: 50 }
-];
+// const needsWantsData = [
+//     { name: 'Needs', unused: 400, value: 240 },
+//     { name: 'Wants', unused: 300, value: 120 }
+// ];
+
+// const savingData = [
+//     { name: 'Retire', value: 1000 },
+//     { name: 'Kids', value: 300 },
+//     { name: 'Vacation', value: 100 },
+//     { name: 'Other', value: 50 }
+// ];
 
 
 class Overview extends React.Component {
@@ -64,10 +67,39 @@ class Overview extends React.Component {
         };
     }
 
+    componentDidMount() {
+        this.props.getTransactions();
+    }
+    organizeData = (needsWantsData,savingData) => {
+        //var filteredTransactions = this.props.transactions.filter(t => t.type === type);
+        var needs={name:"needs",type:"needs",value:0};
+        var wants={name:"wants",type:"wants", value:0};
+       
+        this.props.transactions.forEach(obj => {
+            if(obj.type==="needs"){
+                needs.value += parseInt(obj.amount)  
 
+            }
+            if(obj.type==="wants"){
+                wants.value += parseInt(obj.amount)
+            }
+            if(obj.type==="savings"){
+                var savings={};
+                savings.name=obj.category;
+                savings.type = obj.type;
+                savings.value = parseInt(obj.amount)
+                savingData.push(savings);
+            }
+        }
+        )
+        needsWantsData.push(needs);
+        needsWantsData.push(wants);
+       
+
+    }
     handleClick = (data, index) => {
        console.log(data, index)
-       this.props.history.push(`/transactionList/${ data.name.toLowerCase()}`)
+       this.props.history.push(`/transactionList/${ data.type.toLowerCase()}`)
     };
 
 
@@ -76,18 +108,22 @@ class Overview extends React.Component {
     }
     render() {
         const { classes } = this.props;
+        var needsWantsData=[];
+        var savingData=[];
+        this.organizeData(needsWantsData,savingData);
         return (
             <div className={classes.root}>
                 <Card className={classes.card}>
                     <CardContent>
                         <Typography variant="headline">Nedds and Wants</Typography>
-                        <BarChart width={300} height={200} data={dataNeedsWants} layout="vertical" 
+                        <BarChart width={300} height={200} data={needsWantsData} layout="vertical" 
                             margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis type="number"/>
                             <YAxis type="category" dataKey="name" />
-                            <Legend />
-                            <Bar dataKey="amt" stackId="a" fill={green300} maxBarSize={20} onClick={this.handleClick}/>
+                            <Tooltip   active={true} viewBox= {{x: 0, y: 0, width: 10, height: 10 }}/>            
+                            <Legend/>
+                            <Bar dataKey="value" stackId="a" fill={green300} maxBarSize={20} onClick={this.handleClick}/>
                             <Bar dataKey="unused" stackId="a" fill={grey300}  maxBarSize={20} onClick={this.handleClick}/>
                         </BarChart>
                     </CardContent>
@@ -95,13 +131,14 @@ class Overview extends React.Component {
                 <Card className={classes.card}>
                     <CardContent>
                     <Typography variant="headline">Savings</Typography>
-                        <BarChart width={300} height={200} data={dataSavings} layout="vertical"   
+                        <BarChart width={300} height={200} data={savingData} layout="vertical"   
                             margin={{ top: 5, right: 30, left: 10, bottom: 5 }}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis type="number"/>
-                            <YAxis type="category" dataKey="name" />                           
-                            <Legend />
-                            <Bar dataKey="amt" fill={green300} maxBarSize={20}/>
+                            <YAxis type="category" dataKey="name" />      
+                            <Tooltip  />                     
+                            <Legend/>
+                            <Bar dataKey="value" fill={green300} maxBarSize={20}  maxBarSize={20} onClick={this.handleClick}/>
                         </BarChart>
                     </CardContent>
                 </Card>
@@ -110,8 +147,21 @@ class Overview extends React.Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        transactions: state.transactions
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        getTransactions: () => {
+            dispatch(getTransactions())
+        }
+    }
+}
+
 Overview.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Overview);
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Overview));
