@@ -35,7 +35,7 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 150,
+        width: 100,
     },
     chip: {
         margin: theme.spacing.unit,

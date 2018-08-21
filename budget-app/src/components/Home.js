@@ -18,7 +18,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AttachMoney from '@material-ui/icons/AttachMoney';
-
+import Button from '@material-ui/core/Button';
 
 import Settings from '@material-ui/icons/Settings';
 import AddBudget from '../containers/AddBudget';
@@ -31,7 +31,10 @@ import SetIncome from '../containers/SetIncome';
 import SetUpStepper from './SetUpStepper';
 import AddCategory from '../containers/AddCategory';
 import Overview from '../containers/Overview';
-
+import SignUp from './Authetication/SignUp'
+import SignIn from './Authetication/SignIn';
+import {auth} from '../firebase/index';
+import PasswordForget from './Authetication/PasswordForget';
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -59,8 +62,8 @@ const styles = theme => ({
     }),
   },
   menuButton: {
-    marginLeft: 12,
-    marginRight: 36,
+    marginLeft: -12,
+    marginRight: 20,
   },
   hide: {
     display: 'none',
@@ -98,6 +101,9 @@ const styles = theme => ({
     padding: `0 ${theme.spacing.unit * 1}px`,
 
   },
+  flex: {
+    flexGrow: 1,
+  },
 });
 
 class Home extends React.Component {
@@ -119,6 +125,14 @@ class Home extends React.Component {
 
   };
 
+  handleLoginClick = () => {
+    this.props.history.push('/signIn');
+  };
+  handleLogoutClick = () => {
+    auth.doSignOut();
+    this.props.history.push('/signIn');
+  };
+
   render() {
     const { classes, theme } = this.props;
 
@@ -137,9 +151,13 @@ class Home extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" noWrap>
+            <Typography variant="title" color="inherit" className={classes.flex}>
               Budget Ideas
             </Typography>
+            {this.props.authUser?
+            <Button color="inherit" onClick={this.handleLogoutClick}>Logout</Button>
+            :
+            <Button color="inherit" onClick={this.handleLoginClick}>Login</Button>}
           </Toolbar>
         </AppBar>
         <SwipeableDrawer
@@ -209,7 +227,10 @@ class Home extends React.Component {
             <Route path='/addCategory' component={AddCategory} />
             <Route path='/settings' component={SetUpStepper} />
             <Route path='/setIncome' component={SetIncome} />
-
+            <Route path='/signUp' component={SignUp} />
+            <Route path='/signIn' component={SignIn} />
+            <Route path='/passwordForget' component={PasswordForget} />
+            
           </Switch>
 
         </main>

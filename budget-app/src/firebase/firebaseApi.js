@@ -1,4 +1,6 @@
-import firebase from './firebaseConfig'
+//import firebaseConfig from './firebaseConfig'
+
+import {firebase} from './firebase'
 
 const databaseRef = firebase.database().ref();
 export const categoriesRef = databaseRef.child("categories/");
