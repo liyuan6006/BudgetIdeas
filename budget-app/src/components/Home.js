@@ -217,7 +217,7 @@ class Home extends React.Component {
 
 
           <Switch>
-            <Route path='/' exact component={Overview} />
+            <Route path='/' exact component={SignIn} />
             <Route path='/overview' component={Overview} />
             <Route path='/addBudget' component={AddBudget} />
             <Route path='/addTransactions' component={AddTransaction} />
