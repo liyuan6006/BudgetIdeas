@@ -28,18 +28,23 @@ import classNames from 'classnames';
 
 const styles = theme => ({
     root: {
-        display: 'flex',
-        justifyContent: 'center',
-        flexWrap: 'wrap'
+         //display: 'flex',
+         //justifyContent: 'center',
+        // flexWrap: 'wrap'
+        width: '100%'
     },
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 100,
+        width: '80%',
     },
     chip: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing.unit*0.1,
     },
+    // chipWrap: {
+    //     display: 'flex',
+    //     flexWrap: 'wrap'
+    // },
     avatar: {
         margin: 10,
     },
@@ -109,68 +114,68 @@ class SetupCard extends React.Component {
         const { classes } = this.props;
         return (
             <div className={classes.root} >
-                <Card>
-                    <CardContent >
-                        <FormControl
-                            className={classNames(classes.margin, classes.withoutLabel, classes.textField)}
-                            aria-describedby="weight-helper-text"
-                        >
-                            <InputLabel htmlFor="adornment-amount">Percentage</InputLabel>
-                            <Input
-                                id="adornment-weight"
-                                type="number"
-                                value={this.props.type === "needs" ?
-                                    this.props.income.needs
-                                    : this.props.type === "wants" ?
-                                        this.props.income.wants
-                                        : this.props.income.savings}
-                                onChange={this.handleChange(this.props.type, this.props.income.id)}
-                                endAdornment={<InputAdornment position="end">%</InputAdornment>}
-                                inputProps={{
-                                    'aria-label': 'Weight',
-                                }}
-                            />
-                            <FormHelperText>Please define the percentage</FormHelperText>
-                        </FormControl>
-                        <br/>
-                        <FormControl className={classes.textField} disabled>
-                            <InputLabel htmlFor="adornment-amount">Amount</InputLabel>
-                            <Input
-                                id="adornment-amount"
-                                value={this.props.type === "needs" ?
-                                    this.props.income.amount * this.props.income.needs * 0.01
-                                    : this.props.type === "wants" ?
-                                        this.props.income.amount * this.props.income.wants * 0.01
-                                        : this.props.income.amount * this.props.income.savings * 0.01}
-                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                            />
-                            <FormHelperText>This is the caculated amount </FormHelperText>
-                        </FormControl>
+                {/* <Card>
+                    <CardContent > */}
+                <FormControl
+                    className={classNames(classes.margin, classes.withoutLabel, classes.textField)}
+                    aria-describedby="weight-helper-text"
+                >
+                    <InputLabel htmlFor="adornment-amount">Percentage</InputLabel>
+                    <Input
+                        id="adornment-weight"
+                        type="number"
+                        value={this.props.type === "needs" ?
+                            this.props.income.needs
+                            : this.props.type === "wants" ?
+                                this.props.income.wants
+                                : this.props.income.savings}
+                        onChange={this.handleChange(this.props.type, this.props.income.id)}
+                        endAdornment={<InputAdornment position="end">%</InputAdornment>}
+                        inputProps={{
+                            'aria-label': 'Weight',
+                        }}
+                    />
+                    <FormHelperText>Please define the percentage</FormHelperText>
+                </FormControl>
+                <br />
+                <FormControl className={classes.textField} disabled>
+                    <InputLabel htmlFor="adornment-amount">Amount</InputLabel>
+                    <Input
+                        id="adornment-amount"
+                        value={this.props.type === "needs" ?
+                            this.props.income.amount * this.props.income.needs * 0.01
+                            : this.props.type === "wants" ?
+                                this.props.income.amount * this.props.income.wants * 0.01
+                                : this.props.income.amount * this.props.income.savings * 0.01}
+                        startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                    />
+                    <FormHelperText>This is the caculated amount </FormHelperText>
+                </FormControl>
 
-                        <br />
+                <br />
 
-                        {
-                            this.props.categories.map(obj => (
-                              <div>
-                                        <Chip key={obj.id} label={obj.name}
-                                            avatar={this.props.type === "needs" ?
-                                                <Avatar className={classes.redAvatar}>N</Avatar>
-                                                : this.props.type === "wants" ?
-                                                    <Avatar className={classes.purpleAvatar}>W</Avatar>
-                                                    : <Avatar className={classes.blueAvatar}>S</Avatar>}
-                                            className={classes.chip}
-                                            onDelete={() => this.handleItemDelete(obj.id, obj.name)}
-                                            onClick={() => this.handleItemClick(obj.id + '/type', obj.type)}
-                                        /><br/>
-                                    </div>
-                            )
-                            )
-                        }
-                    </CardContent>
-                    
-                        <AddCategoryDialog type={this.props.type} onSubmit={this.handleAddSubmit} />
-                   
-                </Card>
+                {
+                    this.props.categories.map(obj => (
+
+                        <Chip key={obj.id} label={obj.name}
+                            avatar={this.props.type === "needs" ?
+                                <Avatar className={classes.redAvatar}>N</Avatar>
+                                : this.props.type === "wants" ?
+                                    <Avatar className={classes.purpleAvatar}>W</Avatar>
+                                    : <Avatar className={classes.blueAvatar}>S</Avatar>}
+                            className={classes.chip}
+                            onDelete={() => this.handleItemDelete(obj.id, obj.name)}
+                            onClick={() => this.handleItemClick(obj.id + '/type', obj.type)}
+                        />
+
+                    )
+                    )
+                }
+                {/* </CardContent> */}
+
+                <AddCategoryDialog type={this.props.type} onSubmit={this.handleAddSubmit} />
+
+                {/* </Card> */}
 
                 <Dialog
                     open={this.state.open}

@@ -31,9 +31,12 @@ const tutorialSteps = [
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
+    //display: 'flex',
+    //justifyContent: 'center',
+    //flexWrap: 'wrap',
+    margin: 'auto',
+    width:'25%',
+    //maxWidth:500
     
 },
   header: {
@@ -71,8 +74,8 @@ class SetUpStepper extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Card>
-          <CardContent>
+        {/* <Card>
+          <CardContent> */}
             <Paper square elevation={0} className={classes.header}>
               <Typography>{tutorialSteps[activeStep].label}</Typography>
             </Paper>
@@ -95,8 +98,8 @@ class SetUpStepper extends React.Component {
             </Button>
               }
             />
-          </CardContent>
-        </Card>
+          {/* </CardContent>
+        </Card> */}
       </div>
     );
   }

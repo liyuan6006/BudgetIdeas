@@ -1,8 +1,8 @@
 //import firebaseConfig from './firebaseConfig'
 
-import {firebase} from './firebase'
+import {db} from './firebase'
 
-const databaseRef = firebase.database().ref();
+const databaseRef = db.ref();
 export const categoriesRef = databaseRef.child("categories/");
 export const budgetsRef = databaseRef.child("budgets/");
 export const transactionsRef = databaseRef.child("transactions/");
@@ -14,5 +14,5 @@ export const getBudgets = databaseRef.child("budgets/");
 export const getTransactions = databaseRef.child("transactions/");
 export const getIncome = databaseRef.child("income/");
 
-export const updateIncome = (id,object)=> firebase.database().ref('income/'+id).set(object);
+export const updateIncome = (id,object)=> db.ref('income/'+id).set(object);
  

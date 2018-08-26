@@ -34,9 +34,9 @@ const INITIAL_STATE = {
 
 const styles = theme => ({
     root: {
-        display: 'flex',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
+        //display: 'flex',
+        //justifyContent: 'center',
+        //flexWrap: 'wrap',
     },
     margin: {
         margin: theme.spacing.unit,
@@ -109,8 +109,8 @@ class SignIn extends Component {
                         <h1>SignIn</h1>
 
                         <TextField
-                            id="name"
-                            label="Name"
+                            id="email"
+                            label="Email"
                             className={classes.textField}
                             value={email}
                             onChange={event => this.handleChange('email', event.target.value)}

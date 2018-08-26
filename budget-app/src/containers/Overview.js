@@ -12,10 +12,10 @@ import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
 import purple from '@material-ui/core/colors/purple';
 import RenderToLayer from 'material-ui/internal/RenderToLayer';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
-import { red100, grey100,green300 } from 'material-ui/styles/colors';
+import { red100, grey100, green300 } from 'material-ui/styles/colors';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { ProgressBar } from 'react-bootstrap';
 import { grey500 } from 'material-ui/styles/colors';
@@ -28,9 +28,14 @@ const styles = {
     root: {
         display: 'flex',
         justifyContent: 'center',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        width: '100%',
+        height: '100%'
+
     },
-    card: {
+    chartContent: {
+        width: '30%',
+        height: '70%'
     },
     title: {
         marginBottom: 16,
@@ -70,22 +75,22 @@ class Overview extends React.Component {
     componentDidMount() {
         this.props.getTransactions();
     }
-    organizeData = (needsWantsData,savingData) => {
+    organizeData = (needsWantsData, savingData) => {
         //var filteredTransactions = this.props.transactions.filter(t => t.type === type);
-        var needs={name:"needs",type:"needs",value:0};
-        var wants={name:"wants",type:"wants", value:0};
-       
+        var needs = { name: "needs", type: "needs", value: 0 };
+        var wants = { name: "wants", type: "wants", value: 0 };
+
         this.props.transactions.forEach(obj => {
-            if(obj.type==="needs"){
-                needs.value += parseInt(obj.amount)  
+            if (obj.type === "needs") {
+                needs.value += parseInt(obj.amount)
 
             }
-            if(obj.type==="wants"){
+            if (obj.type === "wants") {
                 wants.value += parseInt(obj.amount)
             }
-            if(obj.type==="savings"){
-                var savings={};
-                savings.name=obj.category;
+            if (obj.type === "savings") {
+                var savings = {};
+                savings.name = obj.category;
                 savings.type = obj.type;
                 savings.value = parseInt(obj.amount)
                 savingData.push(savings);
@@ -94,12 +99,12 @@ class Overview extends React.Component {
         )
         needsWantsData.push(needs);
         needsWantsData.push(wants);
-       
+
 
     }
     handleClick = (data, index) => {
-       console.log(data, index)
-       this.props.history.push(`/transactionList/${ data.type.toLowerCase()}`)
+        console.log(data, index)
+        this.props.history.push(`/transactionList/${data.type.toLowerCase()}`)
     };
 
 
@@ -108,40 +113,51 @@ class Overview extends React.Component {
     }
     render() {
         const { classes } = this.props;
-        var needsWantsData=[];
-        var savingData=[];
-        this.organizeData(needsWantsData,savingData);
+        var needsWantsData = [];
+        var savingData = [];
+        this.organizeData(needsWantsData, savingData);
         return (
             <div className={classes.root}>
-                <Card className={classes.card}>
-                    <CardContent>
-                        <Typography variant="headline">Nedds and Wants</Typography>
-                        <BarChart width={300} height={200} data={needsWantsData} layout="vertical" 
-                            margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
+                {/* <Card>
+                    <CardContent className={classes.cardContent}> */}
+                <div className={classes.chartContent}>
+                    <Typography variant="headline">Nedds and Wants</Typography>
+                    <ResponsiveContainer height='100%' width='100%'>
+                        <BarChart
+                            data={needsWantsData} layout="vertical"
+                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                        >
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis type="number"/>
+                            <XAxis type="number" />
                             <YAxis type="category" dataKey="name" />
-                            <Tooltip   active={true} viewBox= {{x: 0, y: 0, width: 10, height: 10 }}/>            
-                            <Legend/>
-                            <Bar dataKey="value" stackId="a" fill={green300} maxBarSize={20} onClick={this.handleClick}/>
-                            <Bar dataKey="unused" stackId="a" fill={grey300}  maxBarSize={20} onClick={this.handleClick}/>
+                            <Tooltip active={true} viewBox={{ x: 0, y: 0, width: 10, height: 10 }} />
+                            <Legend />
+                            <Bar dataKey="value" stackId="a" fill={green300} onClick={this.handleClick} />
+                            <Bar dataKey="unused" stackId="a" fill={grey300} onClick={this.handleClick} />
                         </BarChart>
-                    </CardContent>
-                </Card>
-                <Card className={classes.card}>
-                    <CardContent>
+                    </ResponsiveContainer>
+                </div>
+                {/* </CardContent>
+                </Card> */}
+                {/* <Card>
+                    <CardContent  className={classes.cardContent}> */}
+                <div className={classes.chartContent}>
                     <Typography variant="headline">Savings</Typography>
-                        <BarChart width={300} height={200} data={savingData} layout="vertical"   
-                            margin={{ top: 5, right: 30, left: 10, bottom: 5 }}>
+                    <ResponsiveContainer height='100%' width='100%'>
+                        <BarChart data={savingData} layout="vertical"
+                            margin={{ top: 5, right: 30, left: 10, bottom: 5 }}
+                        >
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis type="number"/>
-                            <YAxis type="category" dataKey="name" />      
-                            <Tooltip  />                     
-                            <Legend/>
-                            <Bar dataKey="value" fill={green300} maxBarSize={20}  maxBarSize={20} onClick={this.handleClick}/>
+                            <XAxis type="number" />
+                            <YAxis type="category" dataKey="name" />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="value" fill={green300} onClick={this.handleClick} />
                         </BarChart>
-                    </CardContent>
-                </Card>
+                    </ResponsiveContainer>
+                </div>
+                {/* </CardContent>
+                </Card> */}
             </div>
         );
     }

@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { connect } from 'react-redux';
 import { getCategories, update, addCategory, deleteCategory } from '../actions/category';
-import { getIncome,updateIncome } from '../actions/income';
+import { getIncome, updateIncome } from '../actions/income';
 
 
 import SetupCard from '../components/SetupCard';
@@ -14,6 +14,9 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
+  },
+  content: {
+  width:'45%'
   },
   chip: {
     margin: theme.spacing.unit,
@@ -41,23 +44,28 @@ class SetupNeedsAndWants extends React.Component {
     this.props.addCategory(value);
   }
   handleChange = (path, value) => {
-    this.props.updateIncome(path,value);
-};
+    this.props.updateIncome(path, value);
+  };
 
   render() {
     const { classes } = this.props;
     return (
-      <div  className={classes.root} >
-        <SetupCard income={this.props.income} type="needs" categories={this.props.categories.filter(s=>s.type==="needs")}
-          onItemDelete={this.handleItemRequestDelete}
-          onItemClick={this.handleItemClick}
-          onAdd={this.handleAdd} 
-          onChange={this.handleChange}/>
-        <SetupCard income={this.props.income} type="wants" categories={this.props.categories.filter(s=>s.type==="wants")}
-          onItemDelete={this.handleItemRequestDelete}
-          onItemClick={this.handleItemClick}
-          onAdd={this.handleAdd} 
-          onChange={this.handleChange}/>
+      <div className={classes.root} >
+        <div className={classes.content} >
+          <SetupCard income={this.props.income} type="needs" categories={this.props.categories.filter(s => s.type === "needs")}
+            onItemDelete={this.handleItemRequestDelete}
+            onItemClick={this.handleItemClick}
+            onAdd={this.handleAdd}
+            onChange={this.handleChange} />
+        </div>
+        <hr/>
+        <div className={classes.content} >
+          <SetupCard income={this.props.income} type="wants" categories={this.props.categories.filter(s => s.type === "wants")}
+            onItemDelete={this.handleItemRequestDelete}
+            onItemClick={this.handleItemClick}
+            onAdd={this.handleAdd}
+            onChange={this.handleChange} />
+        </div>
       </div>
     )
   }
@@ -66,7 +74,7 @@ class SetupNeedsAndWants extends React.Component {
 const mapStateToProps = state => {
   return {
     categories: state.categories,
-    income:state.income
+    income: state.income
   }
 }
 

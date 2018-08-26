@@ -27,7 +27,7 @@ const INITIAL_STATE = {
 
 const styles = theme => ({
     root: {
-        display: 'flex',
+        //display: 'flex',
         justifyContent: 'center',
         flexWrap: 'wrap',
     },
