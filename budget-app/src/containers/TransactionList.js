@@ -16,13 +16,19 @@ import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import { Line } from 'rc-progress';
 import CardContent from '@material-ui/core/CardContent';
-import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
+import { PieChart, Pie, Legend, Tooltip, Cell, ResponsiveContainer } from 'recharts';
 
 const styles = theme => ({
     root: {
-        display: 'flex',
-        justifyContent: 'center',
-        flexWrap: 'wrap'
+        //display: 'flex',
+        //justifyContent: 'center',
+        //flexWrap: 'wrap',
+        width: '100%',
+        height: '100%'
+    },
+    chartContent: {
+        width: '100%',
+        height: '60%'
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -87,43 +93,48 @@ class TransactionList extends React.Component {
         return (
 
             <div className={classes.root}>
-                <Card>
-                    <CardContent >
-                        <Typography gutterBottom variant="headline" component="h2"> {this.props.match.params.type} </Typography>
-                        <PieChart width={300} height={250}>
+                {/* <Card>
+                    <CardContent > */}
+                <div className={classes.chartContent}>
+                    <Typography gutterBottom variant="headline" component="h2"> {this.props.match.params.type} </Typography>
+
+                    <ResponsiveContainer height='100%' width='100%'>
+                        <PieChart>
                             <Pie data={data} innerRadius={40} outerRadius={80} fill="#8884d8" label >
                                 {
                                     data.map((entry, index) => <Cell fill={COLORS[index]} />)
                                 }
                             </Pie>
                             <Tooltip />
-                            <Legend verticalAlign="top" height={36}/>
+                            <Legend verticalAlign="top" />
                         </PieChart>
+                    </ResponsiveContainer>
+                </div>
 
-                        {
-                            this.props.transactions.filter(t => t.type === this.props.match.params.type).map(obj => (
-                                <ExpansionPanel expanded={expanded === obj.id} onChange={this.handleChange(obj.id)}>
-                                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                        <Typography className={classes.heading}>{obj.date}</Typography>
-                                        <Typography className={classes.heading}>{obj.category}</Typography>
-                                        <Typography className={classes.heading}>${obj.amount}</Typography>
-                                    </ExpansionPanelSummary>
-                                    <ExpansionPanelDetails>
-                                        <Typography>
-                                            {obj.note}
-                                        </Typography>
-                                    </ExpansionPanelDetails>
-                                </ExpansionPanel>
+                {
+                    this.props.transactions.filter(t => t.type === this.props.match.params.type).map(obj => (
+                        <ExpansionPanel expanded={expanded === obj.id} onChange={this.handleChange(obj.id)}>
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                <Typography className={classes.heading}>{obj.date}</Typography>
+                                <Typography className={classes.heading}>{obj.category}</Typography>
+                                <Typography className={classes.heading}>${obj.amount}</Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                <Typography>
+                                    {obj.note}
+                                </Typography>
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
 
-                            )
-                            )
-                        }
-                        <Button variant="fab" color="primary" aria-label="add" mini className={classes.fab}>
-                            <AddIcon onClick={() => this.handleAdd()} />
-                        </Button>
-                    </CardContent>
+                    )
+                    )
+                }
+                <Button variant="fab" color="primary" aria-label="add" mini className={classes.fab}>
+                    <AddIcon onClick={() => this.handleAdd()} />
+                </Button>
+                {/* </CardContent>
 
-                </Card>
+                </Card> */}
             </div>
 
         );

@@ -114,8 +114,8 @@ class AddTransaction extends React.Component {
 
         return (
             <div className={classes.root}>
-                <Card className={classes.card}>
-                    <CardContent>
+                {/* <Card className={classes.card}>
+                    <CardContent> */}
                         <TextField
                             id="number"
                             label="Category"
@@ -179,8 +179,8 @@ class AddTransaction extends React.Component {
                             <SaveIcon />
                             Save
                         </Button>
-                    </CardContent>
-                </Card>
+                    {/* </CardContent>
+                </Card> */}
             </div>
         );
     }

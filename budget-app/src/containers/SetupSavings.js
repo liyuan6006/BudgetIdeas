@@ -11,7 +11,7 @@ import SetupCard from '../components/SetupCard';
 
 const styles = theme => ({
   root: {
-    //width: '100%',
+    width: '100%',
   },
   chip: {
     margin: theme.spacing.unit,
