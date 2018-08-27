@@ -35,7 +35,7 @@ const styles = theme => ({
     //justifyContent: 'center',
     //flexWrap: 'wrap',
     margin: 'auto',
-    width:'25%',
+    //width:'25%',
     //maxWidth:500
     
 },

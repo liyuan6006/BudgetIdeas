@@ -33,77 +33,83 @@ import AddCategory from '../containers/AddCategory';
 import Overview from '../containers/Overview';
 import SignUp from './Authetication/SignUp'
 import SignIn from './Authetication/SignIn';
-import {auth} from '../firebase/index';
+import { auth } from '../firebase/index';
 import PasswordForget from './Authetication/PasswordForget';
 const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    //height: 430,
-    zIndex: 1,
-    overflow: 'hidden',
-    position: 'relative',
-    display: 'flex',
+    // //height: 430,
+    // zIndex: 1,
+    // overflow: 'hidden',
+    // position: 'relative',
+    // display: 'flex',
+    // flexWrap:'wrap'
   },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+  flex: {
+    flexGrow: 1,
   },
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
   },
-  hide: {
-    display: 'none',
-  },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing.unit * 7,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing.unit * 9,
-    },
-  },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
+  // appBar: {
+  //   zIndex: theme.zIndex.drawer + 1,
+  //   transition: theme.transitions.create(['width', 'margin'], {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.leavingScreen,
+  //   }),
+  // },
+  // appBarShift: {
+  //   marginLeft: drawerWidth,
+  //   width: `calc(100% - ${drawerWidth}px)`,
+  //   transition: theme.transitions.create(['width', 'margin'], {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.enteringScreen,
+  //   }),
+  // },
+  // menuButton: {
+  //   marginLeft: -12,
+  //   marginRight: 20,
+  // },
+  // hide: {
+  //   display: 'none',
+  // },
+  // drawerPaper: {
+  //   position: 'relative',
+  //   whiteSpace: 'nowrap',
+  //   width: drawerWidth,
+  //   transition: theme.transitions.create('width', {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.enteringScreen,
+  //   }),
+  // },
+  // drawerPaperClose: {
+  //   overflowX: 'hidden',
+  //   transition: theme.transitions.create('width', {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.leavingScreen,
+  //   }),
+  //   width: theme.spacing.unit * 7,
+  //   [theme.breakpoints.up('sm')]: {
+  //     width: theme.spacing.unit * 9,
+  //   },
+  // },
+  // toolbar: {
+  //   display: 'flex',
+  //   alignItems: 'center',
+  //   justifyContent: 'flex-end',
+  //   padding: '0 8px',
+  //   ...theme.mixins.toolbar,
+  // },
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: `0 ${theme.spacing.unit * 1}px`,
 
   },
-  flex: {
-    flexGrow: 1,
-  },
+
 });
 
 class Home extends React.Component {
@@ -137,8 +143,28 @@ class Home extends React.Component {
     const { classes, theme } = this.props;
 
     return (
-      <div className={classes.root}>
-        <AppBar
+      <div  className={classes.root} >
+      
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"
+           onClick={this.handleDrawerOpen}>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="title" color="inherit" className={classes.flex}>
+          Budget Ideas
+          </Typography>
+          <div>
+              {this.props.authUser ?
+                <Button color="inherit" onClick={this.handleLogoutClick}>Logout</Button>
+                :
+                <Button color="inherit" onClick={this.handleLoginClick}>Login</Button>}
+            </div>
+        </Toolbar>
+      </AppBar>
+    
+
+        {/* <AppBar
           position="absolute"
           className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
         >
@@ -151,20 +177,22 @@ class Home extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography variant="title" color="inherit" >
               Budget Ideas
             </Typography>
-            {this.props.authUser?
-            <Button color="inherit" onClick={this.handleLogoutClick}>Logout</Button>
-            :
-            <Button color="inherit" onClick={this.handleLoginClick}>Login</Button>}
+            <div className={classes.loginStatus}>
+              {this.props.authUser ?
+                <Button color="inherit" onClick={this.handleLogoutClick}>Logout</Button>
+                :
+                <Button color="inherit" onClick={this.handleLoginClick}>Login</Button>}
+            </div>
           </Toolbar>
-        </AppBar>
+        </AppBar> */}
         <SwipeableDrawer
 
-          classes={{
-            paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
-          }}
+          // classes={{
+          //   paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+          // }}
           open={this.state.open}
           onClose={this.handleDrawerClose}
           onOpen={this.handleDrawerOpen}
@@ -213,7 +241,7 @@ class Home extends React.Component {
         </SwipeableDrawer>
 
         <main className={classes.content}>
-          <div className={classes.toolbar} />
+         
 
 
           <Switch>
@@ -230,7 +258,7 @@ class Home extends React.Component {
             <Route path='/signUp' component={SignUp} />
             <Route path='/signIn' component={SignIn} />
             <Route path='/passwordForget' component={PasswordForget} />
-            
+
           </Switch>
 
         </main>
