@@ -96,13 +96,13 @@ const styles = theme => ({
   //     width: theme.spacing.unit * 9,
   //   },
   // },
-  // toolbar: {
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   justifyContent: 'flex-end',
-  //   padding: '0 8px',
-  //   ...theme.mixins.toolbar,
-  // },
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+  },
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,

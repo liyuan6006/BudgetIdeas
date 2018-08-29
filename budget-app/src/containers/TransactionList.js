@@ -8,27 +8,72 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import { getTransactions } from '../actions/transaction';
 import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import { Line } from 'rc-progress';
+import classnames from 'classnames';
 import CardContent from '@material-ui/core/CardContent';
-import { PieChart, Pie, Legend, Tooltip, Cell, ResponsiveContainer } from 'recharts';
+
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+
+import red from '@material-ui/core/colors/red';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import {NeedsAvatar,WantsAvatar,SavingsAvatar} from '../components/CommonControls/Controls'
+import '../../node_modules/react-vis/dist/style.css';
+import {
+    FlexibleXYPlot,
+    FlexibleWidthXYPlot,
+    FlexibleHeightXYPlot, VerticalBarSeries,
+    RadialChart,
+    Hint
+} from 'react-vis';
 
 const styles = theme => ({
     root: {
-        //display: 'flex',
-        //justifyContent: 'center',
-        //flexWrap: 'wrap',
-        width: '100%',
-        height: '100%'
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        // width: '100%',
+        // height: '100%'
     },
-    chartContent: {
-        width: '100%',
-        height: '60%'
+    card: {
+        maxWidth: 400,
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+    },
+    actions: {
+        display: 'flex',
+    },
+    expand: {
+        transform: 'rotate(0deg)',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+        marginLeft: 'auto',
+        [theme.breakpoints.up('sm')]: {
+            marginRight: -8,
+        },
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
+    avatar: {
+        backgroundColor: red[500],
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -53,23 +98,24 @@ const styles = theme => ({
 // const data = [{ name: 'Food', value: 400 }, { name: 'Cloth', value: 300 },
 // { name: 'Morgage', value: 300 }, { name: 'Gas', value: 200 }]
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+//const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 class TransactionList extends React.Component {
     state = {
         expanded: null,
+        value: false
     };
 
 
-    organizeData = (data) => {
-        var filteredTransactions = this.props.transactions.filter(t => t.type === this.props.match.params.type);
-        filteredTransactions.forEach(obj => {
-            var newObj = {};
-            newObj.name = obj.category;
-            newObj.value = parseInt(obj.amount)
-            data.push(newObj)
-        }
-        )
-    }
+    // organizeData = (data) => {
+    //     var filteredTransactions = this.props.transactions.filter(t => t.type === this.props.match.params.type);
+    //     filteredTransactions.forEach(obj => {
+    //         var newObj = {};
+    //         newObj.name = obj.category;
+    //         newObj.value = parseInt(obj.amount)
+    //         data.push(newObj)
+    //     }
+    //     )
+    // }
     componentDidMount() {
         this.props.getTransactions();
 
@@ -84,33 +130,108 @@ class TransactionList extends React.Component {
     handleAdd = () => {
         this.props.history.push('/addTransactions')
     }
-
+    handleExpandClick = () => {
+        this.setState(state => ({ expanded: !state.expanded }));
+    };
     render() {
         const { classes } = this.props;
-        const { expanded } = this.state;
-        var data = [];
-        this.organizeData(data);
+        const { expanded, value } = this.state;
+        // var data = [];
+        // this.organizeData(data);
         return (
 
             <div className={classes.root}>
-                {/* <Card>
-                    <CardContent > */}
-                <div className={classes.chartContent}>
-                    <Typography gutterBottom variant="headline" component="h2"> {this.props.match.params.type} </Typography>
-
-                    <ResponsiveContainer height='100%' width='100%'>
-                        <PieChart>
-                            <Pie data={data} innerRadius={40} outerRadius={80} fill="#8884d8" label >
-                                {
-                                    data.map((entry, index) => <Cell fill={COLORS[index]} />)
-                                }
-                            </Pie>
-                            <Tooltip />
-                            <Legend verticalAlign="top" />
-                        </PieChart>
-                    </ResponsiveContainer>
-                </div>
-
+                <Card className={classes.card}>
+                    <CardHeader
+                        avatar={
+                            this.props.match.params.type==="needs"?
+                            <NeedsAvatar/>
+                            : this.props.match.params.type==="wants"?
+                            <WantsAvatar/>
+                            :<SavingsAvatar/>
+                        }
+                        title={`Here is your ${this.props.match.params.type} transactions`}
+                        subheader="Sep 01,2016 - Sep 14,2016"
+                    />
+                    <CardMedia>
+                        <RadialChart
+                            className={'donut-chart-example'}
+                            innerRadius={100}
+                            radius={140}
+                            getAngle={d => d.theta}
+                            data={[
+                                { theta: 2, className: 'custom-class' },
+                                { theta: 6 },
+                                { theta: 2 },
+                                { theta: 3 },
+                                { theta: 1 }
+                            ]}
+                            onValueMouseOver={v => this.setState({ value: v })}
+                            onSeriesMouseOut={v => this.setState({ value: false })}
+                            width={400}
+                            height={300}
+                            padAngle={0.04} >
+                            {value && <Hint value={value} />}
+                        </RadialChart>
+                    </CardMedia>
+                    <CardContent>
+                        <Typography component="p">
+                            You can expend to see all transactions or add a new transaction 
+          </Typography>
+                    </CardContent>
+                    <CardActions className={classes.actions} disableActionSpacing>
+                    <Button size="small" color="primary" onClick={() => this.handleAdd()}>
+         Add transaction
+        </Button>
+                       
+                        <IconButton
+                            className={classnames(classes.expand, {
+                                [classes.expandOpen]: this.state.expanded,
+                            })}
+                            onClick={this.handleExpandClick}
+                            aria-expanded={this.state.expanded}
+                            aria-label="Show more"
+                        >
+                            <ExpandMoreIcon />
+                        </IconButton>
+                    </CardActions>
+                    <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+                        <CardContent>
+                            <Typography paragraph variant="body2">
+                                Transactions:
+            </Typography>
+            {
+                 this.props.transactions.filter(t => t.type === this.props.match.params.type).map(obj => (
+                            <Typography paragraph>
+                                {obj.date}-{obj.category}-${obj.amount}
+                                
+            </Typography>
+            
+                 ))
+            }
+                            
+                        </CardContent>
+                    </Collapse>
+                </Card>
+                {/* <RadialChart
+                    className={'donut-chart-example'}
+                    innerRadius={100}
+                    radius={140}
+                    getAngle={d => d.theta}
+                    data={[
+                        { theta: 2, className: 'custom-class' },
+                        { theta: 6 },
+                        { theta: 2 },
+                        { theta: 3 },
+                        { theta: 1 }
+                    ]}
+                    onValueMouseOver={v => this.setState({ value: v })}
+                    onSeriesMouseOut={v => this.setState({ value: false })}
+                    width={300}
+                    height={300}
+                    padAngle={0.04} >
+                    {value && <Hint value={value} />}
+                </RadialChart>
                 {
                     this.props.transactions.filter(t => t.type === this.props.match.params.type).map(obj => (
                         <ExpansionPanel expanded={expanded === obj.id} onChange={this.handleChange(obj.id)}>
@@ -128,10 +249,10 @@ class TransactionList extends React.Component {
 
                     )
                     )
-                }
-                <Button variant="fab" color="primary" aria-label="add" mini className={classes.fab}>
+                } */}
+                {/* <Button variant="fab" color="primary" aria-label="add" mini className={classes.fab}>
                     <AddIcon onClick={() => this.handleAdd()} />
-                </Button>
+                </Button> */}
                 {/* </CardContent>
 
                 </Card> */}
