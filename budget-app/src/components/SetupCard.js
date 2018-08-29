@@ -17,9 +17,8 @@ import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import red from '@material-ui/core/colors/red';
-import blue from '@material-ui/core/colors/blue';
-import purple from '@material-ui/core/colors/purple';
+import deepOrange from '@material-ui/core/colors/deepOrange';
+import deepPurple from '@material-ui/core/colors/deepPurple';
 
 
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -46,21 +45,18 @@ const styles = theme => ({
     //     flexWrap: 'wrap'
     // },
     avatar: {
-        margin: 10,
-    },
-    redAvatar: {
-
+        //margin: 10,
+      },
+      orangeAvatar: {
+        //margin: 10,
         color: '#fff',
-        backgroundColor: red[500],
-    },
-    blueAvatar: {
+        backgroundColor: deepOrange[500],
+      },
+      purpleAvatar: {
+        //margin: 10,
         color: '#fff',
-        backgroundColor: blue[500],
-    },
-    purpleAvatar: {
-        color: '#fff',
-        backgroundColor: purple[500],
-    },
+        backgroundColor: deepPurple[500],
+      }
 
 });
 
@@ -159,10 +155,10 @@ class SetupCard extends React.Component {
 
                         <Chip key={obj.id} label={obj.name}
                             avatar={this.props.type === "needs" ?
-                                <Avatar className={classes.redAvatar}>N</Avatar>
+                                <Avatar className={classes.orangeAvatar}>N</Avatar>
                                 : this.props.type === "wants" ?
                                     <Avatar className={classes.purpleAvatar}>W</Avatar>
-                                    : <Avatar className={classes.blueAvatar}>S</Avatar>}
+                                    : <Avatar>S</Avatar>}
                             className={classes.chip}
                             onDelete={() => this.handleItemDelete(obj.id, obj.name)}
                             onClick={() => this.handleItemClick(obj.id + '/type', obj.type)}

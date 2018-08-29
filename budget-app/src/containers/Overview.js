@@ -26,6 +26,8 @@ import { getTransactions } from '../actions/transaction';
 import { getIncome } from '../actions/income';
 import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
+import {NeedsAvatar,WantsAvatar,SavingsAvatar} from '../components/CommonControls/Controls';
+
 const styles = {
     root: {
         display: 'flex',
@@ -156,7 +158,7 @@ class Overview extends React.Component {
                 <Card className={classes.card}>
                     <CardHeader
                         avatar={
-                            <Avatar aria-label="Recipe" className={classes.avatar}>N</Avatar>
+                            <NeedsAvatar/>
                         }
                         title={`You have spent ${needsPercentage}% on your needs`}
                         subheader="Sep 01,2016 - Sep 14,2016"
@@ -181,7 +183,7 @@ class Overview extends React.Component {
                 <Card className={classes.card}>
                     <CardHeader
                         avatar={
-                            <Avatar aria-label="Recipe" className={classes.avatar}>W</Avatar>
+                            <WantsAvatar/>
                         }
                         title={`You have spent ${wantsPercentage}% on your wants`}
                         subheader="Sep 01,2016 - Sep 14,2016"
@@ -206,7 +208,7 @@ class Overview extends React.Component {
                 <Card className={classes.card}>
                     <CardHeader
                         avatar={
-                            <Avatar aria-label="Recipe" className={classes.avatar}>S</Avatar>
+                            <SavingsAvatar/>
                         }
                         title={`You have saved ${savingsPercentage}% on your savings`}
                         subheader="Sep 01,2016 - Sep 14,2016"
