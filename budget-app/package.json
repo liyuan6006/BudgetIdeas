@@ -26,7 +26,7 @@
     "react-svg-piechart": "^2.1.1",
     "react-swipeable-views": "^0.12.14",
     "react-vis": "^1.10.7",
-    "recharts": "^1.1.0",
+    "recharts": "^1.2.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
   },
