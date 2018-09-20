@@ -25,7 +25,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-
+import Divider from '@material-ui/core/Divider';
 import red from '@material-ui/core/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
@@ -203,8 +203,8 @@ class TransactionList extends React.Component {
             {
                  this.props.transactions.filter(t => t.type === this.props.match.params.type).map(obj => (
                             <Typography paragraph>
-                                {obj.date}-{obj.category}-${obj.amount}
-                                
+                               You have spent ${obj.amount} on {obj.category} at {obj.date} 
+                                <Divider/>
             </Typography>
             
                  ))

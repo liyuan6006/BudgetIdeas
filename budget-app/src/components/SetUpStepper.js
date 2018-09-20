@@ -31,13 +31,19 @@ const tutorialSteps = [
 
 const styles = theme => ({
   root: {
-    //display: 'flex',
-    //justifyContent: 'center',
-    //flexWrap: 'wrap',
-    margin: 'auto',
-    //width:'25%',
-    //maxWidth:500
-    
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    // width: '100%',
+    // height: '100%'
+    maxWidth:500,
+    margin:'auto'
+},
+card: {
+    minWidth: 400,
+},
+mobileStepper: {
+  margin:'auto'
 },
   header: {
     //display: 'flex',
@@ -74,7 +80,7 @@ class SetUpStepper extends React.Component {
 
     return (
       <div className={classes.root}>
-        {/* <Card>
+        {/* <Card  className={classes.card}>
           <CardContent> */}
             <Paper square elevation={0} className={classes.header}>
               <Typography>{tutorialSteps[activeStep].label}</Typography>
@@ -86,13 +92,13 @@ class SetUpStepper extends React.Component {
               activeStep={activeStep}
               className={classes.mobileStepper}
               nextButton={
-                <Button size="small" onClick={this.handleNext} disabled={activeStep === maxSteps - 1}>
+                <Button  size="small" onClick={this.handleNext} disabled={activeStep === maxSteps - 1}>
                   Next
               {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
                 </Button>
               }
               backButton={
-                <Button size="small" onClick={this.handleBack} disabled={activeStep === 0}>
+                <Button   size="small" onClick={this.handleBack} disabled={activeStep === 0}>
                   {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
                   Back
             </Button>

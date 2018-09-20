@@ -23,6 +23,9 @@ const styles = theme => ({
     root: {
         width: '100%',
       },
+      card: {
+        margin:'auto'
+      },
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
@@ -93,8 +96,8 @@ class SetIncome extends React.Component {
        
         return (
             <div className={classes.root}>
-            {/* <Card>
-                <CardContent > */}
+            <Card className={classes.card}>
+                <CardContent >
                     <TextField
                         className={classes.textField}
                         label="Amount"
@@ -128,9 +131,9 @@ class SetIncome extends React.Component {
                         <option key="weekly" value={"weekly"}> Weekly</option>
                         <option key="yearly" value={"yearly"}>Yearly</option>
                     </TextField>
-                {/* </CardContent>
+                </CardContent>
 
-            </Card> */}
+            </Card>
             </div>
 
         );

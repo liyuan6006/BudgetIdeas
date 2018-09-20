@@ -110,8 +110,8 @@ class SetupCard extends React.Component {
         const { classes } = this.props;
         return (
             <div className={classes.root} >
-                {/* <Card>
-                    <CardContent > */}
+                <Card>
+                    <CardContent >
                 <FormControl
                     className={classNames(classes.margin, classes.withoutLabel, classes.textField)}
                     aria-describedby="weight-helper-text"
@@ -167,11 +167,17 @@ class SetupCard extends React.Component {
                     )
                     )
                 }
-                {/* </CardContent> */}
-
+                </CardContent>
+                <CardActions>
                 <AddCategoryDialog type={this.props.type} onSubmit={this.handleAddSubmit} />
+{/* <Button size="small" color="primary" onClick={()=>this.handleClick('wants')}>
+    Add 
+    
+    </Button> */}
+</CardActions>
+               
 
-                {/* </Card> */}
+                </Card>
 
                 <Dialog
                     open={this.state.open}
