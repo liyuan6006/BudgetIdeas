@@ -31,15 +31,10 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import {NeedsAvatar,WantsAvatar,SavingsAvatar} from '../components/CommonControls/Controls'
+import { NeedsAvatar, WantsAvatar, SavingsAvatar } from '../components/CommonControls/Controls'
 import '../../node_modules/react-vis/dist/style.css';
-import {
-    FlexibleXYPlot,
-    FlexibleWidthXYPlot,
-    FlexibleHeightXYPlot, VerticalBarSeries,
-    RadialChart,
-    Hint
-} from 'react-vis';
+
+import { PieChart, Pie, Legend, Tooltip } from 'recharts'
 
 const styles = theme => ({
     root: {
@@ -53,8 +48,9 @@ const styles = theme => ({
         maxWidth: 400,
     },
     media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
     },
     actions: {
         display: 'flex',
@@ -85,9 +81,6 @@ const styles = theme => ({
         color: theme.palette.text.secondary,
     },
     fab: {
-        //position: 'absolute',
-        //bottom: theme.spacing.unit * 2,
-        //right: theme.spacing.unit * 2,
     },
     progress: {
         margin: theme.spacing.unit * 2,
@@ -95,10 +88,6 @@ const styles = theme => ({
 });
 
 
-// const data = [{ name: 'Food', value: 400 }, { name: 'Cloth', value: 300 },
-// { name: 'Morgage', value: 300 }, { name: 'Gas', value: 200 }]
-
-//const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 class TransactionList extends React.Component {
     state = {
         expanded: null,
@@ -106,16 +95,7 @@ class TransactionList extends React.Component {
     };
 
 
-    // organizeData = (data) => {
-    //     var filteredTransactions = this.props.transactions.filter(t => t.type === this.props.match.params.type);
-    //     filteredTransactions.forEach(obj => {
-    //         var newObj = {};
-    //         newObj.name = obj.category;
-    //         newObj.value = parseInt(obj.amount)
-    //         data.push(newObj)
-    //     }
-    //     )
-    // }
+
     componentDidMount() {
         this.props.getTransactions();
 
@@ -136,54 +116,59 @@ class TransactionList extends React.Component {
     render() {
         const { classes } = this.props;
         const { expanded, value } = this.state;
-        // var data = [];
-        // this.organizeData(data);
+
+        if(this.props.transactions.length>0){
+            var data01 = this.props.transactions.filter(s=>s.type===this.props.match.params.type).map(obj=>
+                {var rObj={};
+                rObj.name = obj.category;
+                rObj.value = parseInt(obj.amount);
+                return rObj;
+            })
+        }
         return (
 
             <div className={classes.root}>
                 <Card className={classes.card}>
                     <CardHeader
                         avatar={
-                            this.props.match.params.type==="needs"?
-                            <NeedsAvatar/>
-                            : this.props.match.params.type==="wants"?
-                            <WantsAvatar/>
-                            :<SavingsAvatar/>
+                            this.props.match.params.type === "needs" ?
+                                <NeedsAvatar />
+                                : this.props.match.params.type === "wants" ?
+                                    <WantsAvatar />
+                                    : <SavingsAvatar />
                         }
-                        title={`Here is your ${this.props.match.params.type} transactions`}
+                        title={<Typography variant="headline">{this.props.match.params.type.toUpperCase()}</Typography>}
+                        
                         subheader="Sep 01,2016 - Sep 14,2016"
                     />
-                    <CardMedia>
-                        <RadialChart
-                            className={'donut-chart-example'}
-                            innerRadius={100}
-                            radius={140}
-                            getAngle={d => d.theta}
-                            data={[
-                                { theta: 2, className: 'custom-class' },
-                                { theta: 6 },
-                                { theta: 2 },
-                                { theta: 3 },
-                                { theta: 1 }
-                            ]}
-                            onValueMouseOver={v => this.setState({ value: v })}
-                            onSeriesMouseOut={v => this.setState({ value: false })}
-                            width={400}
-                            height={300}
-                            padAngle={0.04} >
-                            {value && <Hint value={value} />}
-                        </RadialChart>
+                     
+                    {  this.props.transactions.length>0&& 
+                    <CardMedia className={classes.media}>
+                         
+                   
+                       <PieChart width={300} height={300}>
+                            <Pie isAnimationActive={true} data={data01}
+                             outerRadius={80} fill="#8884d8" label />
+
+                             <Tooltip />
+                             <Legend  layout='horizontal' align='center'/>
+                         </PieChart>
+                   
+                       
+                       
+                    
                     </CardMedia>
+                    }
                     <CardContent>
                         <Typography component="p">
-                            You can expend to see all transactions or add a new transaction 
+                            You can expend to see all transactions or add a new transaction
           </Typography>
                     </CardContent>
                     <CardActions className={classes.actions} disableActionSpacing>
-                    <Button size="small" color="primary" onClick={() => this.handleAdd()}>
-         Add transaction
+                        <Button size="small" color="primary" onClick={() => this.handleAdd()}>
+                            Add transaction
         </Button>
-                       
+
                         <IconButton
                             className={classnames(classes.expand, {
                                 [classes.expandOpen]: this.state.expanded,
@@ -200,62 +185,19 @@ class TransactionList extends React.Component {
                             <Typography paragraph variant="body2">
                                 Transactions:
             </Typography>
-            {
-                 this.props.transactions.filter(t => t.type === this.props.match.params.type).map(obj => (
-                            <Typography paragraph>
-                               You have spent ${obj.amount} on {obj.category} at {obj.date} 
-                                <Divider/>
-            </Typography>
-            
-                 ))
-            }
-                            
+                            {
+                                this.props.transactions.filter(t => t.type === this.props.match.params.type).map(obj => (
+                                    <Typography paragraph>
+                                        You have spent ${obj.amount} on {obj.category} at {obj.date}
+                                        <Divider />
+                                    </Typography>
+
+                                ))
+                            }
+
                         </CardContent>
                     </Collapse>
                 </Card>
-                {/* <RadialChart
-                    className={'donut-chart-example'}
-                    innerRadius={100}
-                    radius={140}
-                    getAngle={d => d.theta}
-                    data={[
-                        { theta: 2, className: 'custom-class' },
-                        { theta: 6 },
-                        { theta: 2 },
-                        { theta: 3 },
-                        { theta: 1 }
-                    ]}
-                    onValueMouseOver={v => this.setState({ value: v })}
-                    onSeriesMouseOut={v => this.setState({ value: false })}
-                    width={300}
-                    height={300}
-                    padAngle={0.04} >
-                    {value && <Hint value={value} />}
-                </RadialChart>
-                {
-                    this.props.transactions.filter(t => t.type === this.props.match.params.type).map(obj => (
-                        <ExpansionPanel expanded={expanded === obj.id} onChange={this.handleChange(obj.id)}>
-                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                <Typography className={classes.heading}>{obj.date}</Typography>
-                                <Typography className={classes.heading}>{obj.category}</Typography>
-                                <Typography className={classes.heading}>${obj.amount}</Typography>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails>
-                                <Typography>
-                                    {obj.note}
-                                </Typography>
-                            </ExpansionPanelDetails>
-                        </ExpansionPanel>
-
-                    )
-                    )
-                } */}
-                {/* <Button variant="fab" color="primary" aria-label="add" mini className={classes.fab}>
-                    <AddIcon onClick={() => this.handleAdd()} />
-                </Button> */}
-                {/* </CardContent>
-
-                </Card> */}
             </div>
 
         );
