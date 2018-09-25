@@ -165,9 +165,12 @@ class TransactionList extends React.Component {
           </Typography>
                     </CardContent>
                     <CardActions className={classes.actions} disableActionSpacing>
-                        <Button size="small" color="primary" onClick={() => this.handleAdd()}>
+                        {/* <Button size="small" color="primary" onClick={() => this.handleAdd()}>
                             Add transaction
-        </Button>
+        </Button> */}
+               <Button variant="fab" mini  color="primary" aria-label="add" className={classes.button}>
+                <AddIcon   onClick={() => this.handleAdd()}  />
+                </Button>
 
                         <IconButton
                             className={classnames(classes.expand, {
